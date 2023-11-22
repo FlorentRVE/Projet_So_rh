@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+<div class="flex flex-col bg-sky-200 font-semibold lg:bg-sky-500">
+
+    <div class="flex flex-col bg-sky-500 flex relative">
+    
+        <div class="flex p-4 h-[25vh] w-[90%] mx-auto justify-between">
+
+            <p class="text-white text-2xl ">Bonjour,</p>
+            <p class="text-white text-5xl ">Utilisateur</p>
+
+        </div>
+
+        <div class="flex flex-col gap-2 bg-slate-50 w-[90%] mx-auto h-[20vh] rounded-xl p-2 text-center shadow-lg justify-center absolute -bottom-[40%] left-1/2 -translate-x-1/2">
+            <h2 class="text-2xl font-bold">Bienvenue sur SO RH</h2>
+            <div class="w-[10%] mx-auto h-[3px] bg-slate-800 rounded-xl"></div>
+            <p class="w-[60%] mx-auto text-slate-800">Transmettez vos demandes au bureau RH de manière simple et rapide</p>
+        
+        </div>
+    </div>
+
+
+    <div class="bg-sky-200 h-[70vh] mt-[7rem] flex flex-col gap-4 w-[90%] mx-auto lg:p-4 lg:mb-5 rounded-2xl">
+
+        <h3 class="text-2xl lg:text-center">Choisir une catégorie</h3>
+        
+        <div class="flex flex-col gap-4 h-full text-4xl text-slate-50 lg:flex-row lg:p-4">
+
+            <div class="bg-sky-500 flex-1 rounded-xl flex items-center justify-between px-4 shadow-lg hover:cursor-pointer hover:scale-105 lg:flex-col lg:justify-center lg:gap-10">
+                <h4 class="lg:order-2">Formulaires</h4>
+                <p class="text-5xl mr-2 lg:order-1 lg:text-[25vh]"><i class="fa-regular fa-rectangle-list"></i></p>
+
+            </div>
+
+            <div class="bg-sky-700 flex-1 rounded-xl flex items-center justify-between px-4 shadow-lg hover:cursor-pointer hover:scale-105 lg:flex-col lg:justify-center lg:gap-10">
+                <h4 class="lg:order-2">Question RH</h4>
+                <p class="text-5xl mr-2 lg:order-1 lg:text-[25vh]"><i class="fa-regular fa-circle-question"></i></p>
+
+            </div>
+
+            <div class="bg-sky-800 flex-1 rounded-xl flex items-center justify-between px-4 shadow-lg hover:cursor-pointer hover:scale-105 lg:flex-col lg:justify-center lg:gap-10">
+                <h4 class="lg:order-2">Rendez-vous</h4>
+                <p class="text-5xl mr-2 lg:order-1 lg:text-[25vh]"><i class="fa-regular fa-calendar"></i></p>
+
+            </div>
+        </div>
+    
+    </div>
+
+</div>
+{% endblock %}

@@ -3,18 +3,37 @@
 namespace App\Form;
 
 use App\Entity\Champs;
+use App\Repository\FormulaireRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Formulaire;
+
 
 class ChampsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {  
-
+        
         $builder
-        ->add('formulaire')
+        ->add('formulaire', EntityType::class, [
+            'class' => Formulaire::class,
+            'choice_label' => 'label',
+            'required' => true,
+            'label' => 'Formulaire',
+            'query_builder' => function (FormulaireRepository $fr) {
+            
+             if(isset($_GET['form_id'])){
+                return $fr->createQueryBuilder('f')
+                ->where('f.id = :id')
+                ->setParameter('id', $_GET['form_id']);
+             }
+
+            }
+        ])
         ->add('code', ChoiceType::class, [
             'label' => 'Type de champ',
             'choices' => [

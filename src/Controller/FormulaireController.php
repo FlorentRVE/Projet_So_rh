@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Champs;
 use App\Entity\Formulaire;
 use App\Form\FormulaireType;
 use App\Repository\FormulaireRepository;
@@ -26,10 +27,17 @@ class FormulaireController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $formulaire = new Formulaire();
+
+        $defaut_champ = new Champs();
+        $defaut_champ->setLabel('Champ par défaut');
+        $defaut_champ->setCode('<p class="text-slate-50">Champ par défaut</p>');
+        $formulaire->addChamp($defaut_champ);
+
         $form = $this->createForm(FormulaireType::class, $formulaire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($defaut_champ);
             $entityManager->persist($formulaire);
             $entityManager->flush();
 

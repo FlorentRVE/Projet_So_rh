@@ -1,13 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Champs{% endblock %}
+{% block title %}Modifier Champs{% endblock %}
 
 {% block body %}
-    <h1>Edit Champs</h1>
+{% set id = app.request.get('form_id') %}
+    <div class="bg-sky-200 min-h-screen">
+        <div class="flex flex-col p-4 justify-center items-center bg-slate-50">
 
-    {{ include('champs/_form.html.twig', {'button_label': 'Update'}) }}
+            <h1 class="text-3xl font-semibold text-center">Modifier champs</h1>
 
-    <a href="{{ path('app_champs_index') }}">back to list</a>
+        </div>
 
-    {{ include('champs/_delete_form.html.twig') }}
+        {{ include('champs/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+        <div class="flex justify-between px-4 w-[90%] mx-auto">
+            <a href="{{ path('app_champs_index', {'id': id}) }}" class="bg-sky-500 text-white p-2 rounded-lg">Retour</a>
+
+            {{ include('champs/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

@@ -1,4 +1,24 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+
+<div class="bg-slate-800 p-7 mx-auto my-6 rounded-xl w-[90%] shadow-xl">
+    {{ form_errors(form) }}
+
+    {{ form_start(form) }}
+        <div class="w-11/12 mx-auto flex flex-col">
+
+            <div class="mb-8 flex flex-col">
+                {{ form_label(form.formulaire, 'Formulaire', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                {{ form_widget(form.formulaire, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+            </div>
+            <div class="mb-8 flex flex-col">
+                {{ form_label(form.code, 'Type de champs', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                {{ form_widget(form.code, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+            </div>
+            <div class="mb-8 flex flex-col">
+                {{ form_label(form.label, 'Nom du champs', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                {{ form_widget(form.label, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+            </div>
+
+            <button class="bg-sky-500 text-white p-2 rounded-lg mt-10">{{ button_label|default('Créer le champs') }}</button>
+        </div>
+    {{ form_end(form) }}
+</div>

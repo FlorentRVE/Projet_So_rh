@@ -37,7 +37,9 @@ class ChampsController extends AbstractController
             $entityManager->persist($champ);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_champs_index', [], Response::HTTP_SEE_OTHER);
+            $id = $champ->getFormulaire()->getId();
+
+            return $this->redirectToRoute('app_champs_index', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('champs/new.html.twig', [
@@ -63,7 +65,9 @@ class ChampsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_champs_index', [], Response::HTTP_SEE_OTHER);
+            $id = $champ->getFormulaire()->getId();
+
+            return $this->redirectToRoute('app_champs_index', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('champs/edit.html.twig', [
@@ -79,7 +83,8 @@ class ChampsController extends AbstractController
             $entityManager->remove($champ);
             $entityManager->flush();
         }
+        $id = $champ->getFormulaire()->getId();
 
-        return $this->redirectToRoute('app_champs_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_champs_index', ['id' => $id], Response::HTTP_SEE_OTHER);
     }
 }

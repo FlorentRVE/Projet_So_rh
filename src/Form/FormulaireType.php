@@ -7,6 +7,7 @@ use App\Entity\Champs;
 use App\Repository\FormulaireRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,6 +15,10 @@ class FormulaireType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $defaultChamps = new Champs();
+        $defaultChamps->setLabel('defaut');
+        $defaultChamps->setCode('<p>test</p>');
+
         $builder
             ->add('label')
         ;

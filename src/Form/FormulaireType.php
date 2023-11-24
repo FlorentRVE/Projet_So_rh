@@ -15,10 +15,6 @@ class FormulaireType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $defaultChamps = new Champs();
-        $defaultChamps->setLabel('defaut');
-        $defaultChamps->setCode('<p>test</p>');
-
         $builder
             ->add('label')
         ;

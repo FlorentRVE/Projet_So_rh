@@ -31,7 +31,7 @@ class AccueilController extends AbstractController
     {
         $champs = $formulaire->getChamps();
 
-        return $this->render('formulaire/show.html.twig', [
+        return $this->render('accueil/show.html.twig', [
             'formulaire' => $formulaire,
             'champs' => $champs
         ]);

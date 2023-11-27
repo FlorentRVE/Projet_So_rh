@@ -8,7 +8,7 @@
 
     <div class="flex flex-col p-4 justify-center items-center bg-sky-500 gap-6">
 
-        <p class="text-white text-4xl ">{{ formulaire.label }}</p>
+        <p class="text-white text-4xl text-center">{{ formulaire.label }}</p>
         <div class="w-[10%] mx-auto h-[4px] bg-slate-50 rounded-xl"></div>
 
     </div>
@@ -20,6 +20,7 @@
             {% for champ in champs %}
                 <div>{{ champ.code | raw }}</div>
             {% endfor %}
+
 
         </form>
 

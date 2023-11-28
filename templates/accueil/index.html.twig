@@ -18,7 +18,12 @@
         <div class="flex flex-col gap-2 bg-slate-50 w-[90%] mx-auto h-[20vh] rounded-xl p-2 text-center shadow-lg justify-center absolute -bottom-[40%] left-1/2 -translate-x-1/2">
             <h2 class="text-[3vh] font-bold">Bienvenue sur SO RH</h2>
             <div class="w-[10%] mx-auto h-[3px] bg-slate-800 rounded-xl"></div>
-            <p class="w-[60%] mx-auto text-slate-800">Transmettez vos demandes au bureau RH de manière simple et rapide</p>
+            
+            {% if message %}
+                <p class="text-green-400 text-[3vh] w-[60%] mx-auto ">{{ message }}</p>
+            {% else %}
+                <p class="w-[60%] mx-auto text-slate-800">Transmettez vos demandes au bureau RH de manière simple et rapide</p>
+            {% endif %}
         
         </div>
     </div>

@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Données reçues{% endblock %}
+
+{% block body %}
+
+ <style>
+
+   h1 {
+     color: white;
+     text-align: center;
+     font-size: 30px;
+     font-weight: bold;
+     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   }
+
+   ul {
+     list-style-type: none;
+   }
+
+   li {
+     margin-bottom: 10px;
+   }
+
+   span {
+     font-weight: bold;
+     text-decoration: underline;
+     text-transform: capitalize;
+   }
+
+   #container {
+     width: 70%;
+     margin: 0 auto;
+     padding: 10px;
+     border-radius: 10px;
+     box-shadow: 0 0 10px gray;
+     font-size: 1.5rem;
+   }
+
+   #content {
+     background-color: #BAE6FD;
+     height: 100vh;
+   }
+
+   #title {
+     margin-bottom: 30px;
+     background-color: #0EA5E9;
+     height: 100px;
+     width: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+   }
+
+ </style>
+
+  <div id="content">
+
+    <div id="title">
+      <h1>{{ formTitle }}</h1>
+    </div>
+
+    <div id="container">
+
+      <ul>
+
+      {% for form in formData %}
+      
+        {% for key, value in form %}
+
+          <li><span>{{ key }}</span>: {{ value }}</li>
+
+        {% endfor %}
+
+      {% endfor %}
+        
+      </ul>
+    </div>
+  </div>
+
+{% endblock %}

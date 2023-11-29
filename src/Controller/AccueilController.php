@@ -42,7 +42,6 @@ class AccueilController extends AbstractController
         $formData = $request->request->all();
         $errors = [];
         
-        
         if ($formData) {
             // dd($formData);
 
@@ -61,6 +60,7 @@ class AccueilController extends AbstractController
                             $errors['file'] = ['Le fichier doit être au format PDF'];
                             
                         } else {
+
                             $directory = 'fichier'; 
                             $filename = uniqid().'.'.$file->getClientOriginalExtension();
                             $file->move($directory, $filename);
@@ -92,9 +92,12 @@ class AccueilController extends AbstractController
                         ]);
                         break;
 
-                    case 'date':
+                    case 'adresse':
                         $violations = $validator->validate($value, [
                             new Assert\NotBlank(),
+                            new Assert\Regex([
+                                'pattern' => '/^\d+ [\w\s]+ \d{5} [\w\s-]+$/',
+                            ]),
                         ]);
                         break;
 
@@ -123,12 +126,11 @@ class AccueilController extends AbstractController
             }
 
             if (count($errors) > 0) {
-
-                $this->addFlash('danger', 'Veuillez corriger les erreurs suivantes :');
+                
+                $this->addFlash('danger', $errors);
                 return $this->render('accueil/show.html.twig', [
                     'formulaire' => $formulaire,
                     'champs' => $champs,
-                    'errors' => $errors
                 ]);
 
             }

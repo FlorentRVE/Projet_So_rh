@@ -20,7 +20,6 @@ class ChampsController extends AbstractController
     {
         $data = $formulaireRepository->getChampsByFormulaire();
 
-        // dd($data);
         return $this->render('champs/index.html.twig', [
             'data' => $data,
         ]);

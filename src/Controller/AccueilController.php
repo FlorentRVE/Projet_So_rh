@@ -2,20 +2,22 @@
 
 namespace App\Controller;
 
+use App\Entity\Formulaire;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Formulaire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Constraints as Assert;
+use Webmozart\Assert\Assert as AssertAssert;
 
 class AccueilController extends AbstractController
 {
     #[Route('/accueil', name: 'app_accueil')]
     public function index(Request $request): Response
-    {
+    {        
         return $this->render('accueil/index.html.twig', [
             'controller_name' => 'AccueilController',
             'message' => $request->query->get('message'),
@@ -30,38 +32,109 @@ class AccueilController extends AbstractController
         ]);
     }
 
-    // #[Route('/form/{id}', name: 'app_form_show', methods: ['GET'])]
-    // public function show(Formulaire $formulaire): Response
-    // {
-    //     $champs = $formulaire->getChamps();
-
-    //     return $this->render('accueil/show.html.twig', [
-    //         'formulaire' => $formulaire,
-    //         'champs' => $champs
-    //     ]);
-    // }
-
     #[Route('/form/{id}', name: 'app_form_show', methods: ['GET', 'POST'])]
     public function show(Formulaire $formulaire, Request $request, MailerInterface $mailer): Response
     {
         $champs = $formulaire->getChamps();
         $formTitle = $formulaire->getLabel();
-
-        $file = $request->files->get('justificatif');
+        
+        $files = $request->files->all();
         $formData = $request->request->all();
-
+        $errors = [];
+        
+        
         if ($formData) {
+            // dd($formData);
 
-            if ($file) {
-                $directory = 'fichier'; 
-                $filename = uniqid().'.'.$file->getClientOriginalExtension();
-                $file->move($directory, $filename);
-                $filePath = $directory.'/'.$filename;
+            // ================== Gestion fichier ================
+            if ($files) {
+
+                $filesList= [];
+
+                foreach ($files as $file) {
+
+                    if ($file !== null) {
+
+                        $fileExtension = $file->getClientOriginalExtension();
+
+                        if ($fileExtension !== 'pdf') {
+                            $errors['file'] = ['Le fichier doit être au format PDF'];
+                            
+                        } else {
+                            $directory = 'fichier'; 
+                            $filename = uniqid().'.'.$file->getClientOriginalExtension();
+                            $file->move($directory, $filename);
+                            $filePath = $directory.'/'.$filename;
+
+                            $filesList[] = $filePath;
+                        }
+
+                    } else {
+
+                        $errors['file'] = ['Le fichier est obligatoire'];
+                    }
+                }
             }
+
+            // ============= Validation =============
+
+            $validator = Validation::createValidator();
             
-            // dd($filePath);
+            foreach ($formData as $field => $value) {
+
+                switch ($field) {
+                    case 'telephone':
+                        $violations = $validator->validate($value, [
+                            new Assert\NotBlank(),
+                            new Assert\Regex([
+                                'pattern' => '/^0[1-9]([-. ]?[0-9]{2}){4}$/',
+                            ]),
+                        ]);
+                        break;
+
+                    case 'date':
+                        $violations = $validator->validate($value, [
+                            new Assert\NotBlank(),
+                        ]);
+                        break;
+
+                    case 'email':
+                        $violations = $validator->validate($value, [
+                            new Assert\NotBlank(),
+                            new Assert\Email(),
+                        ]);
+                        break;
+
+                    default:
+                        $violations = $validator->validate($value, [
+                            new Assert\NotBlank(),
+                        ]);
+                        break;
+                }
+                
+                if (count($violations) > 0) {
+
+                    $errors[$field] = [];
+
+                    foreach ($violations as $violation) {
+                        $errors[$field][] = $violation->getMessage();
+                    }
+                }
+            }
+
+            if (count($errors) > 0) {
+
+                $this->addFlash('danger', 'Veuillez corriger les erreurs suivantes :');
+                return $this->render('accueil/show.html.twig', [
+                    'formulaire' => $formulaire,
+                    'champs' => $champs,
+                    'errors' => $errors
+                ]);
+
+            }
+
+            // ================= Envoyer les données à l'adresse mail =================
             
-            // Envoyer les données à l'adresse mail
             $email = (new Email())
             ->from('expediteur@test.com')
             ->to('froulemmeyini-6535@yopmail.com')
@@ -71,15 +144,24 @@ class AccueilController extends AbstractController
                 'formTitle' => $formTitle
             ]));
 
-            if (isset($filePath)) {
-                $email->attachFromPath($filePath);
+            if (isset($filesList)) {
+
+                foreach ($filesList as $filePath) {
+                    $email->attachFromPath($filePath);
+                }
             }
             
             $mailer->send($email);
-            
-            unlink($filePath);
+
+            if (isset($filesList)) {
+
+                foreach ($filesList as $filePath) {
+                    unlink($filePath);
+                }
+            }
     
-            return $this->redirectToRoute('app_accueil', ['message' => 'Votre formulaire a bien été envoyé !'], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Votre formulaire a bien été envoyé !');
+            return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('accueil/show.html.twig', [

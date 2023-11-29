@@ -38,7 +38,6 @@ class ChampsType extends AbstractType
             'label' => 'Type de champ',
             'choices' => [
                     'Identité' => [
-                        
                         'Nom Prénom' => '<div class="flex flex-wrap font-semibold gap-4"><div class="flex flex-col gap-2 flex-1"><label for="nom" class="text-slate-50">Nom:</label><input type="text" id="nom" name="nom" placeholder="Nom" class="rounded-lg p-4"></div><div class="flex flex-col gap-2 flex-1"><label for="prenom" class="text-slate-50">Prénom:</label><input type="text" id="prenom" name="prenom" placeholder="Prénom" class="rounded-lg p-4"></div></div>',
                         'Email' => '<div class="flex flex-col gap-2 flex-1"><label for="email" class="text-slate-50">Email:</label><input type="email" id="email" name="email" placeholder="Email" class="rounded-lg p-4"></div>',
                         'Service' => '<div class="flex flex-col gap-2 flex-1"><label for="service" class="text-slate-50">Service:</label><input type="text" id="service" name="service" placeholder="Service" class="rounded-lg p-4"></div>',

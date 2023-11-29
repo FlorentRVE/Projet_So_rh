@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Formulaire;
+use App\Repository\FormulaireRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,7 +12,6 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Constraints as Assert;
-use Webmozart\Assert\Assert as AssertAssert;
 
 class AccueilController extends AbstractController
 {
@@ -20,30 +20,32 @@ class AccueilController extends AbstractController
     {        
         return $this->render('accueil/index.html.twig', [
             'controller_name' => 'AccueilController',
-            'message' => $request->query->get('message'),
         ]);
     }
 
     #[Route('/form', name: 'app_accueil_form')]
-    public function form(): Response
+    public function form(FormulaireRepository $formulaireRepository): Response
     {
+
+        $formulaire = $formulaireRepository->findAll();
+
         return $this->render('accueil/form.html.twig', [
             'controller_name' => 'AccueilController',
+            'formulaire' => $formulaire
         ]);
     }
 
     #[Route('/form/{id}', name: 'app_form_show', methods: ['GET', 'POST'])]
     public function show(Formulaire $formulaire, Request $request, MailerInterface $mailer): Response
     {
-        $champs = $formulaire->getChamps();
         $formTitle = $formulaire->getLabel();
+        $champs = $formulaire->getChamps();
         
-        $files = $request->files->all();
         $formData = $request->request->all();
+        $files = $request->files->all();
         $errors = [];
         
         if ($formData) {
-            // dd($formData);
 
             // ================== Gestion fichier ================
             if ($files) {

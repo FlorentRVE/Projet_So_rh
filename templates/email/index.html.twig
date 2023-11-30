@@ -7,44 +7,41 @@
  <style>
 
    h1 {
-     color: white;
      text-align: center;
-     font-size: 30px;
+     font-size: 2.5rem;
      font-weight: bold;
-     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+     font-family: 'calibri', sans-serif;
+     border-bottom: 2px solid black;
    }
 
-   ul {
-     list-style-type: none;
-   }
-
-   li {
-     margin-bottom: 10px;
-   }
-
-   span {
-     font-weight: bold;
-     text-decoration: underline;
-     text-transform: capitalize;
+   .li {
+     display: flex;
+     align-items: start;
    }
 
    #container {
-     width: 70%;
-     margin: 0 auto;
-     padding: 10px;
-     border-radius: 10px;
-     box-shadow: 0 0 10px gray;
      font-size: 1.5rem;
    }
 
-   #content {
-     background-color: #BAE6FD;
-     height: 100vh;
+   #entete {
+     display: flex;
+     flex-direction: column;
+     align-items: start;
+     gap: 1rem;
    }
 
-   #title {
-     margin-bottom: 30px;
-     background-color: #0EA5E9;
+   #infos {
+     font-weight: 600;
+     line-height: 1.2rem;
+   }
+
+   img {
+     width: 25rem;
+     height: auto;
+   }
+
+  #title {
+     margin-bottom: 1rem;
      height: 100px;
      width: 100%;
      display: flex;
@@ -52,25 +49,76 @@
      align-items: center;
    }
 
+    #content {
+     display: flex;
+     flex-direction: column;
+     gap: 1rem;
+     font-family: 'calibri', sans-serif;
+     width: 90%;
+     margin: 0 auto;
+   }
+
+   #key {
+     font-weight: 600;
+     text-transform: uppercase;
+     margin-right: 2rem;
+   }
+
+   #value {
+     border-bottom: 1px dotted black;
+     flex: 1;
+   }
+
+   #signature {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    font-size: 1.5vh;
+    text-transform: uppercase;
+    gap: 1rem;
+   }
+
+   #web {
+     font-weight: 600;
+     color: #002E5F;
+   }
+
  </style>
 
   <div id="content">
+
+    <div id="entete">
+
+      <img src="https://www.sodiparc.re/wp-content/uploads/2021/11/SODIPARCRVB_BLEU-SIGN.png" alt="logo">
+
+      <div id="infos">
+        <p>14 rue Gabriel de Kerveguen</p>
+        <p>ZEC du chaudron</p>
+        <p>97490 Sainte-Clotilde</p>
+        <p>T.0262 925 925</p>
+        <p>sodiparc@sodiparc.fr</p>
+      </div>
+    </div>
 
     <div id="title">
       <h1>{{ formTitle }}</h1>
     </div>
 
     <div id="container">
+      
+      {% for key, value in formData %}
 
-      <ul>
+        <p class="li"><span id="key">{{ key }}:</span><span id="value">{{ value }}</span></p>
 
-        {% for key, value in formData %}
-
-          <li><span>{{ key }}</span>: {{ value }}</li>
-
-        {% endfor %}
+      {% endfor %}
         
-      </ul>
+    </div>
+
+    <div id="signature">
+      <p id="web">www.sodiparc.re</p>
+      <p>Société d'économie mixte au capital de 9 000 000 € - RCS de Saint-denis B 379 994 734 SIRET 379 994 734 00042 - APE 4931Z</p>
     </div>
   </div>
 

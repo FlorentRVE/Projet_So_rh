@@ -42,7 +42,7 @@ class QuestionrhController extends AbstractController
             ->from('expediteur@test.com')
             ->to('froulemmeyini-6535@yopmail.com')
             ->subject($formTitle)
-            ->html($this->renderView('email/static.html.twig', [
+            ->html($this->renderView('email/index.html.twig', [
                 'formData' => $formDataSansToken,
                 'formTitle' => $formTitle
             ]));

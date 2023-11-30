@@ -17,7 +17,7 @@
 
                 <a href="{{ path('app_formulaire_index') }}" class="text-slate-50 text-center hover:bg-sky-800 mb-5 px-2 py-1 rounded-lg w-full">Gestion formulaire</a>
                 <a href="{{ path('app_user_index') }}" class="text-slate-50 text-center hover:bg-sky-800 mb-5 px-2 py-1 rounded-lg w-full h-auto">Gestion utilisateurs</a>
-                
+
                 <a href="{{ path('app_logout') }}"  class="flex flex-col text-center transition-all hover:scale-105 p-6 text-slate-50">
                     <p class="font-semibold">Se déconnecter</p>
                     <i class="fa-solid fa-right-to-bracket text-slate-50 text-2xl text-center font-semibold"></i>
@@ -38,23 +38,23 @@
 
             <div class="flex flex-col p-4 mt-4 justify-center items-center">
 
-                <a href="{{ path('app_formulaire_new') }}" class="text-slate-50 text-xl text-center bg-sky-800 mb-5 px-4 py-3 font-bold rounded-lg w-[90%]">Nouveau formulaire</a>
+                <a href="{{ path('app_register') }}" class="text-slate-50 text-xl text-center bg-sky-800 mb-5 px-4 py-3 font-bold rounded-lg w-[90%]">Nouvel utilisateur</a>
 
                 <table class="w-full">
                     <tbody>
-                    {% for formulaire in formulaires %}
+                    {% for user in users %}
                         <tr class="border-2 border-slate-900">
-                            <td class="border-2 border-slate-900 w-[70%] bg-slate-50 text-center font-semibold text-2xl">{{ formulaire.label }}</td>
+                            <td class="border-2 border-slate-900 w-[5%] text-center font-semibold text-2xl {{user.roles|join(', ') is same as 'ROLE_ADMIN, ROLE_USER' ? 'bg-green-600' : 'bg-yellow-200'}}"></td>
+                            <td class="border-2 border-slate-900 w-[65%] bg-slate-50 text-center font-semibold text-2xl">{{ user.username }}</td>
                             <td class="border-2 border-slate-900 w-[30%] bg-slate-950">
-                                <div class="flex flex-col items-center p-2 font-semibold">
-                                    <a href="{{ path('app_champs_index', {'id': formulaire.id}) }}" class="text-slate-50 text-center bg-sky-800 mt-5 px-4 py-1 rounded-lg">Modifier champs du formulaire</a>
-                                    <a href="{{ path('app_formulaire_edit', {'id': formulaire.id}) }}" class="text-slate-50 text-center bg-sky-800 mt-5 px-4 py-1 rounded-lg">Gérer le formulaire</a>
+                                <div class="flex flex-col items-center justify-center p-2 font-semibold">
+                                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="text-slate-50 text-center bg-sky-800 px-4 py-1 rounded-lg">Gérer l'utilisateur</a>
                                 </div>
                             </td>
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="3">Pas de formulaire</td>
+                            <td colspan="3">Pas d'utilisateur</td>
                         </tr>
                     {% endfor %}
                     </tbody>

@@ -8,11 +8,30 @@
 
     <div class="flex flex-col bg-sky-500 flex relative">
     
-        <div class="flex p-4 h-[21vh] w-[90%] mx-auto justify-between">
+        <div class="flex h-[21vh] w-[90%] mx-auto justify-between">
+            
+            {% if is_granted('ROLE_ADMIN') %}
+            <div class="flex flex-col pt-2">
+                <p class="text-white text-[3vh] ">Bonjour,</p>
+                <p class="text-white text-[3vh] capitalize">{{ app.user.username }}</p>
+            </div>
 
-            <p class="text-white text-[3vh] ">Bonjour,</p>
-            <p class="text-white text-[4vh] ">Utilisateur</p>
-            <a href="{{ path('app_formulaire_index') }}" class="text-white text-[4vh] ">Admin</a>
+            <a href="{{ path('app_formulaire_index') }}"  class="flex flex-col ml-6 p-4 text-center transition-all hover:scale-105">
+                <p class="font-semibold text-slate-100">Panneau d'administration</p>
+                <i class="fa-solid fa-gears text-slate-50 text-xl text-center py-1 font-semibold"></i>
+            </a>
+            {% else %}
+            <div class="flex flex-col pt-2">
+                <p class="text-white text-[3vh] ">Bonjour,</p>
+                <p class="text-white text-[3vh] capitalize">{{ app.user.username }}</p>
+            </div>
+
+            <a href="{{ path('app_logout') }}" class="flex flex-col text-center transition-all hover:scale-105 py-4">
+                <p class="font-semibold text-slate-50">Se déconnecter</p>
+                <i class="fa-solid fa-right-to-bracket text-slate-50 text-2xl text-center font-semibold"></i>
+            </a>
+
+            {% endif %}
  
         </div>
 

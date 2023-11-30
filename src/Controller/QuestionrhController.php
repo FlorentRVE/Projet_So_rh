@@ -70,4 +70,21 @@ class QuestionrhController extends AbstractController
             'form' => $form
         ]);
     }
+
+    // #[Route('/email', name: 'app_questionrh')]
+    // public function email(): Response
+    // {
+    //     $form = [
+    //         'nom' => 'nom',
+    //         'email' => 'email',
+    //         'message' => 'message message message message message message message message message message message message message message message message message message message message message message message message message message message message message message ',
+    //     ];
+
+    //     $formTitle = 'Test Email';
+
+    //     return $this->render('email/index.html.twig', [
+    //         'formData' => $form,
+    //         'formTitle' => $formTitle
+    //     ]);
+    // }
 }

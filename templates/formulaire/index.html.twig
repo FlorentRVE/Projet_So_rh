@@ -10,13 +10,15 @@
             {# ===== LOGO ====== #}
             <a href="{{ path('app_accueil') }}">
 
-                <img src="{{ asset('img/logo_clair.png') }}" alt="logo" class="w-[10vw] mt-8">
+                <img src="{{ asset('img/logo_clair.png') }}" alt="logo" class="w-[15vw] mt-8">
             <a>
 
-            <div class="flex flex-col items-center gap-3 mt-10 border-t border-slate-600 pt-4 font-semibold text-lg">
+            <div class="flex flex-col items-center gap-3 mt-10 border-t border-slate-600 pt-4 font-semibold text-[1.5vh]">
 
-                <a href="{{ path('app_accueil') }}" class="text-slate-50 text-center hover:bg-sky-800 mb-5 px-4 py-1 rounded-lg w-full">Gestion formulaire</a>
-                <a href="{{ path('app_accueil') }}" class="text-slate-50 text-center hover:bg-sky-800 mb-5 px-4 py-1 rounded-lg w-full h-auto">Gestion utilisateurs</a>
+                <a href="{{ path('app_accueil') }}" class="text-slate-50 text-center hover:bg-sky-800 mb-5 px-2 py-1 rounded-lg w-full">Gestion formulaire</a>
+                <a href="{{ path('app_accueil') }}" class="text-slate-50 text-center hover:bg-sky-800 mb-5 px-2 py-1 rounded-lg w-full h-auto">Gestion utilisateurs</a>
+
+                <a href="{{ path('app_accueil') }}" class="text-slate-50 text-center hover:bg-sky-800 my-5 px-2 py-1 rounded-lg w-full">Se déconnecter</a>
             </div>
         </div>
     </sidebar>
@@ -53,13 +55,8 @@
                         </tr>
                     {% endfor %}
                     </tbody>
-                </table>
-
-                
+                </table>                
             </div>
-
-
-
         </div>
     </content>
 {% endblock %}

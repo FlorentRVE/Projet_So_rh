@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class AccueilController extends AbstractController
 {
-    #[Route('/accueil', name: 'app_accueil')]
+    #[Route('/', name: 'app_accueil')]
     public function index(Request $request): Response
     {        
         return $this->render('accueil/index.html.twig', [

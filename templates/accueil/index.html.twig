@@ -4,18 +4,19 @@
 
 {% block body %}
 
-<div class="flex flex-col bg-sky-200 font-semibold lg:bg-sky-500">
+<div class="flex flex-col bg-sky-200 font-semibold lg:bg-sky-500 min-h-screen">
 
     <div class="flex flex-col bg-sky-500 flex relative">
     
-        <div class="flex p-4 h-[25vh] w-[90%] mx-auto justify-between">
+        <div class="flex p-4 h-[21vh] w-[90%] mx-auto justify-between">
 
             <p class="text-white text-[3vh] ">Bonjour,</p>
-            <p class="text-white text-[5vh] ">Utilisateur</p>
-
+            <p class="text-white text-[4vh] ">Utilisateur</p>
+            <a href="{{ path('app_formulaire_index') }}" class="text-white text-[4vh] ">Admin</a>
+ 
         </div>
 
-        <div class="flex flex-col gap-2 bg-slate-50 w-[90%] mx-auto h-[20vh] rounded-xl p-2 text-center shadow-lg justify-center absolute -bottom-[40%] left-1/2 -translate-x-1/2">
+        <div class="flex flex-col gap-2 bg-slate-50 w-[90%] mx-auto h-[17vh] rounded-xl p-2 text-center shadow-lg justify-center absolute -bottom-[40%] left-1/2 -translate-x-1/2">
             <h2 class="text-[3vh] font-bold">Bienvenue sur SO RH</h2>
             <div class="w-[10%] mx-auto h-[3px] bg-slate-800 rounded-xl"></div>            
             <p class="w-[60%] mx-auto text-slate-800">Transmettez vos demandes au bureau RH de manière simple et rapide</p>
@@ -24,9 +25,9 @@
     </div>
 
 
-    <div class="bg-sky-200 h-[70vh] mt-[7rem] flex flex-col gap-4 w-[90%] mx-auto p-4 lg:mb-5 rounded-2xl">
+    <div class="bg-sky-200 mt-[7rem] flex flex-col gap-4 w-[90%] mx-auto p-4 lg:mb-5 rounded-2xl h-[62vh]">
 
-        <h3 class="text-2xl lg:text-center">Choisir une catégorie</h3>
+        <h3 class="text-3xl text-center">Choisir une catégorie</h3>
         
         <div class="flex flex-col gap-4 h-full text-4xl text-slate-50 lg:flex-row lg:p-4 lg:gap-10 lg:justify-center">
 

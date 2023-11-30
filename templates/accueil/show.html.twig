@@ -10,7 +10,7 @@
         <ul class="p-2">
             {% for key, field in message %}
                 {% for error in field %}
-                    <li class="list-disc">{{ key }}: {{ error }}</li>
+                    <li class="list-disc"><span class="font-bold uppercase">{{ key }}</span>: <span>{{ error }}</span></li>
                 {% endfor %}
             {% endfor %}    
         <ul>

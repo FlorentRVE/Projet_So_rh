@@ -44,7 +44,7 @@ class QuestionrhType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('message', TextareaType::class)
+            ->add('question', TextareaType::class)
         ;
     }
 

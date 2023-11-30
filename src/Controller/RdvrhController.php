@@ -22,6 +22,20 @@ class RdvrhController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $formDataSansToken = [];
+            
+            foreach ($formData as $formData) {
+
+                foreach ($formData as $key => $value) {
+
+                    if($key !== '_token') {
+
+                        $formDataSansToken[$key] = $value;
+                    }
+
+                }
+            }
+
             // ================= Envoyer les données à l'adresse mail =================
 
             $email = (new Email())
@@ -29,7 +43,7 @@ class RdvrhController extends AbstractController
             ->to('froulemmeyini-6535@yopmail.com')
             ->subject($formTitle)
             ->html($this->renderView('email/static.html.twig', [
-                'formData' => $formData,
+                'formData' => $formDataSansToken,
                 'formTitle' => $formTitle
             ]));
 
@@ -37,6 +51,18 @@ class RdvrhController extends AbstractController
         
             $this->addFlash('success', 'Formulaire soumis avec succès !');
             return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
+
+        } else {
+
+            $formErrors = [];
+            foreach ($form->getErrors(true) as $error) {
+                $formErrors[] = $error->getMessage();
+            }
+
+            $this->addFlash('danger', $formErrors);
+            return $this->render('rdvrh/index.html.twig', [
+                'form' => $form
+            ]);
 
         }
 

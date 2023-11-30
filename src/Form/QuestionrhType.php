@@ -4,8 +4,13 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 class QuestionrhType extends AbstractType
 {
@@ -24,9 +29,22 @@ class QuestionrhType extends AbstractType
             ->add('nom')
             ->add('prenom')
             ->add('service')
-            ->add('telephone')
-            ->add('email')
-            ->add('message')
+            ->add('telephone', TextType::class, [
+                'constraints' => [
+                    new Assert\Regex([
+                        'pattern' => '/^\d{10}$/',
+                        'message' => 'Le numéro de téléphone doit être au format valide.',
+                    ]),
+                ],
+            ])
+            ->add('email', EmailType::class, [
+                'constraints' => [
+                    new Assert\Email([
+                        'message' => 'L\'adresse email doit être au format valide.',
+                    ]),
+                ],
+            ])
+            ->add('message', TextareaType::class)
         ;
     }
 

@@ -12,7 +12,7 @@ use Symfony\Component\Mime\Email;
 
 class QuestionrhController extends AbstractController
 {
-    #[Route('/questionrh', name: 'app_questionrh')]
+    #[Route('/question', name: 'app_questionrh')]
     public function index(Request $request, MailerInterface $mailer): Response
     {
         $form = $this->createForm(QuestionrhType::class);

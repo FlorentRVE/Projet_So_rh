@@ -12,7 +12,7 @@ use Symfony\Component\Mime\Email;
 
 class RdvrhController extends AbstractController
 {
-    #[Route('/rdvrh', name: 'app_rdvrh')]
+    #[Route('/rendez_vous', name: 'app_rdvrh')]
     public function index(Request $request, MailerInterface $mailer): Response
     {
         $form = $this->createForm(RdvrhType::class);

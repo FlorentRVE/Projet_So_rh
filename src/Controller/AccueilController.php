@@ -62,37 +62,6 @@ class AccueilController extends AbstractController
         
         if ($formData) {
 
-            // ================== Gestion fichier ================
-            if ($files) {
-
-                $filesList= [];
-
-                foreach ($files as $file) {
-
-                    if ($file !== null) {
-
-                        $fileExtension = $file->getClientOriginalExtension();
-
-                        if ($fileExtension !== 'pdf') {
-                            $errors['file'] = ['Le fichier doit être au format PDF'];
-                            
-                        } else {
-
-                            $directory = 'fichier'; 
-                            $filename = uniqid().'.'.$file->getClientOriginalExtension();
-                            $file->move($directory, $filename);
-                            $filePath = $directory.'/'.$filename;
-
-                            $filesList[] = $filePath;
-                        }
-
-                    } else {
-
-                        $errors['file'] = ['Le fichier est obligatoire'];
-                    }
-                }
-            }
-
             // ============= Validation =============
 
             $validator = Validation::createValidator();
@@ -150,6 +119,37 @@ class AccueilController extends AbstractController
                     'champs' => $champs,
                 ]);
 
+            }
+
+            // ================== Gestion fichier ================
+            if ($files) {
+
+                $filesList= [];
+
+                foreach ($files as $file) {
+
+                    if ($file !== null) {
+
+                        $fileExtension = $file->getClientOriginalExtension();
+
+                        if ($fileExtension !== 'pdf') {
+                            $errors['file'] = ['Le fichier doit être au format PDF'];
+                            
+                        } else {
+
+                            $directory = 'fichier'; 
+                            $filename = uniqid().'.'.$file->getClientOriginalExtension();
+                            $file->move($directory, $filename);
+                            $filePath = $directory.'/'.$filename;
+
+                            $filesList[] = $filePath;
+                        }
+
+                    } else {
+
+                        $errors['file'] = ['Le fichier est obligatoire'];
+                    }
+                }
             }
 
             // ================= Envoyer les données à l'adresse mail =================

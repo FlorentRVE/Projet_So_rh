@@ -39,8 +39,8 @@ security:
         - { path: ^/champs, roles: ROLE_ADMIN }
         - { path: ^/utilisateur, roles: ROLE_ADMIN }
         - { path: ^/nouvel_utilisateur, roles: ROLE_ADMIN }
-        - { path: ^/accueil, roles: ROLE_USER }
-        - { path: ^/form, roles: ROLE_USER }
+        - { path: ^/accueil, roles: ROLE_ACTIF }
+        - { path: ^/form, roles: ROLE_ACTIF }
 
 when@test:
     security:

@@ -20,11 +20,13 @@ class UserType extends AbstractType
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Admin' => 'ROLE_ADMIN',
+                    'Actif' => 'ROLE_ACTIF',
                 ],
                 'multiple' => true,
                 'expanded' => true,
             ])
             ->add('plainPassword', PasswordType::class, [
+                'data' => $options['data']->getPassword(),
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -40,6 +42,7 @@ class UserType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+
             ])
         ;
     }

@@ -20,6 +20,18 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
+    public function getUsersFromSearch($searchTerm) {
+
+        return $this->createQueryBuilder('u')
+
+        ->select('u')
+        ->where(':searchTerm = \'\' OR 
+                u.username LIKE :searchTerm')
+        ->setParameter('searchTerm', '%'.$searchTerm.'%')
+        ->getQuery()
+        ->getResult();
+    }
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);

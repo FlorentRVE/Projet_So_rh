@@ -23,11 +23,23 @@
      font-size: 1.5rem;
    }
 
+   #header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     gap: 1rem;
+   }
+
    #entete {
      display: flex;
      flex-direction: column;
      align-items: start;
      gap: 1rem;
+   }
+
+   #user {
+     font-weight: bold;
+     text-transform: capitalize;
    }
 
    #infos {
@@ -89,17 +101,24 @@
 
   <div id="content">
 
-    <div id="entete">
+    <div id="header">
+      <div id="entete">
 
-      <img src="https://www.sodiparc.re/wp-content/uploads/2021/11/SODIPARCRVB_BLEU-SIGN.png" alt="logo">
+        <img src="https://www.sodiparc.re/wp-content/uploads/2021/11/SODIPARCRVB_BLEU-SIGN.png" alt="logo">
 
-      <div id="infos">
-        <p>14 rue Gabriel de Kerveguen</p>
-        <p>ZEC du chaudron</p>
-        <p>97490 Sainte-Clotilde</p>
-        <p>T.0262 925 925</p>
-        <p>sodiparc@sodiparc.fr</p>
+        <div id="infos">
+          <p>14 rue Gabriel de Kerveguen</p>
+          <p>ZEC du chaudron</p>
+          <p>97490 Sainte-Clotilde</p>
+          <p>T.0262 925 925</p>
+          <p>sodiparc@sodiparc.fr</p>
+        </div>
       </div>
+
+      <div id="by">
+        <p>Envoyé par <span id="user">{{ user }}</span></p>
+      </div>
+
     </div>
 
     <div id="title">
@@ -115,6 +134,8 @@
       {% endfor %}
         
     </div>
+
+
 
     <div id="signature">
       <p id="web">www.sodiparc.re</p>

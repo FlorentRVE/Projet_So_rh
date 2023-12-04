@@ -9,9 +9,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class RdvrhController extends AbstractController
-{
+{    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     #[Route('/rendez_vous', name: 'app_rdvrh')]
     public function index(Request $request, MailerInterface $mailer): Response
     {
@@ -19,6 +26,8 @@ class RdvrhController extends AbstractController
         $form->handleRequest($request);
         $formData = $request->request->all();
         $formTitle = 'Rendez-vous RH';
+        $user = $this->security->getUser()->getUserIdentifier();
+
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -44,7 +53,8 @@ class RdvrhController extends AbstractController
             ->subject($formTitle)
             ->html($this->renderView('email/index.html.twig', [
                 'formData' => $formDataSansToken,
-                'formTitle' => $formTitle
+                'formTitle' => $formTitle,
+                'user' => $user
             ]));
 
             $mailer->send($email);

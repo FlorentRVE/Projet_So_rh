@@ -12,9 +12,17 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class AccueilController extends AbstractController
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     #[Route('/', name: 'app_home')]
     public function home()
     {
@@ -50,6 +58,7 @@ class AccueilController extends AbstractController
         $formData = $request->request->all();
         $files = $request->files->all();
         $errors = [];
+        $user = $this->security->getUser()->getUserIdentifier();
         
         if ($formData) {
 
@@ -151,7 +160,9 @@ class AccueilController extends AbstractController
             ->subject($formTitle)
             ->html($this->renderView('email/index.html.twig', [
                 'formData' => $formData,
-                'formTitle' => $formTitle
+                'formTitle' => $formTitle,
+                'user' => $user
+
             ]));
 
             if (isset($filesList)) {

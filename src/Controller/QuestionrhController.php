@@ -9,9 +9,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\QuestionrhType;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class QuestionrhController extends AbstractController
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     #[Route('/question', name: 'app_questionrh')]
     public function index(Request $request, MailerInterface $mailer): Response
     {
@@ -19,6 +27,8 @@ class QuestionrhController extends AbstractController
         $form->handleRequest($request);
         $formData = $request->request->all();
         $formTitle = 'Question RH';
+        $user = $this->security->getUser()->getUserIdentifier();
+
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -44,7 +54,8 @@ class QuestionrhController extends AbstractController
             ->subject($formTitle)
             ->html($this->renderView('email/index.html.twig', [
                 'formData' => $formDataSansToken,
-                'formTitle' => $formTitle
+                'formTitle' => $formTitle,
+                'user' => $user
             ]));
 
             $mailer->send($email);
@@ -82,9 +93,12 @@ class QuestionrhController extends AbstractController
 
     //     $formTitle = 'Test Email';
 
+    //     $user = $this->security->getUser()->getUserIdentifier();
+
     //     return $this->render('email/index.html.twig', [
     //         'formData' => $form,
-    //         'formTitle' => $formTitle
+    //         'formTitle' => $formTitle,
+    //         'user' => $user
     //     ]);
     // }
 }

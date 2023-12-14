@@ -17,7 +17,7 @@
 
             <div class="flex flex-col items-center gap-3 pt-4 font-semibold text-[1.5vh] lg:text-[2vh]">
 
-                <a href="{{ path('app_formulaire_index') }}" class="text-slate-50 text-center hover:bg-sky-800 mb-5 px-2 py-1 rounded-lg w-full">Gestion formulaire</a>
+                <a href="{{ path('app_accueil_admin') }}" class="text-slate-50 text-center hover:bg-sky-800 mb-5 px-2 py-1 rounded-lg w-full">Gestion formulaire</a>
                 <a href="{{ path('app_user_index') }}" class="text-slate-50 text-center hover:bg-sky-800 mb-5 px-2 py-1 rounded-lg w-full h-auto">Gestion utilisateurs</a>
                 
                 <a href="{{ path('app_logout') }}"  class="flex flex-col text-center transition-all hover:scale-105 p-6 text-slate-50">
@@ -40,25 +40,22 @@
 
             <div class="flex flex-col p-4 mt-4 justify-center items-center">
 
-                <a href="{{ path('app_formulaire_new') }}" class="text-slate-50 text-xl text-center bg-sky-800 mb-5 px-4 py-3 font-bold rounded-lg w-[90%]">Nouveau formulaire</a>
-
                 <table class="w-full">
                     <tbody>
-                    {% for formulaire in formulaires %}
+                    {# {% for formulaire in formulaires %} #}
                         <tr class="border-2 border-slate-900">
-                            <td class="border-2 border-slate-900 w-[70%] bg-slate-50 text-center font-semibold text-2xl">{{ formulaire.label }}</td>
+                            <td class="border-2 border-slate-900 w-[70%] bg-slate-50 text-center font-semibold text-2xl">Exemple</td>
                             <td class="border-2 border-slate-900 w-[30%] bg-slate-950">
                                 <div class="flex flex-col items-center p-2 font-semibold">
-                                    <a href="{{ path('app_champs_index', {'id': formulaire.id}) }}" class="text-slate-50 text-center bg-sky-800 mt-5 px-4 py-1 rounded-lg">Modifier champs du formulaire</a>
-                                    <a href="{{ path('app_formulaire_edit', {'id': formulaire.id}) }}" class="text-slate-50 text-center bg-sky-800 mt-5 px-4 py-1 rounded-lg">Gérer le formulaire</a>
+                                    <a href="" class="text-slate-50 text-center bg-sky-800 px-4 py-1 rounded-lg">Voir le formulaire</a>
                                 </div>
                             </td>
                         </tr>
-                    {% else %}
+                    {# {% else %}
                         <tr>
                             <td colspan="3">Pas de formulaire</td>
                         </tr>
-                    {% endfor %}
+                    {% endfor %} #}
                     </tbody>
                 </table>                
             </div>

@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Changement d'adresse{% endblock %}
+
+{% block body %}
+
+    {% for message in app.flashes('danger') %}
+        {% if message %}
+
+            <div class="alert bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <ul class="p-2">
+                    {% for error in message %}
+                        <li class="list-disc">{{ error }}</li>
+                    {% endfor %}    
+                </ul>
+                <span class="close absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                </span>
+            </div>
+
+        {% endif %}
+    {% endfor %}
+
+    <div class="flex flex-col bg-sky-200 font-semibold min-h-screen">
+
+        <div class="flex flex-col p-4 justify-center items-center bg-sky-500 gap-6">
+
+            <p class="text-white text-4xl text-center">Changement d'adresse</p>
+            <div class="w-[10%] mx-auto h-[4px] bg-slate-50 rounded-xl"></div>
+
+        </div>
+
+        <div class="bg-slate-800 p-7 mx-auto my-6 rounded-xl w-[90%] shadow-xl md:w-[70%] lg:w-[50%]">
+            {{ form_errors(form) }}
+
+            {{ form_start(form) }}
+                {# <div class="w-11/12 mx-auto flex flex-col">
+
+                    <div class="mb-8 flex flex-col">
+                        {{ form_label(form.pour, 'Ma question concerne', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                        {{ form_widget(form.pour, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                    </div>
+
+                    <div class="mb-8 flex flex-col">
+                        {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                        {{ form_widget(form.nom, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                    </div>
+
+                    <div class="mb-8 flex flex-col">
+                        {{ form_label(form.prenom, 'Prénom', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                        {{ form_widget(form.prenom, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                    </div>
+
+                    <div class="mb-8 flex flex-col">
+                        {{ form_label(form.service, 'Service', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                        {{ form_widget(form.service, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                    </div>
+
+                    <div class="mb-8 flex flex-col">
+                        {{ form_label(form.email, 'Email', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                        {{ form_widget(form.email, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                    </div>
+
+                    <div class="mb-8 flex flex-col">
+                        {{ form_label(form.telephone, 'Téléphone', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                        {{ form_widget(form.telephone, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                    </div>
+
+
+                    <div class="mb-8 flex flex-col">
+                        {{ form_label(form.question, 'Votre question', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                        {{ form_widget(form.question, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                    </div>
+
+                    <button class="bg-sky-500 text-white p-2 rounded-lg mt-10 font-semibold text-lg">{{ button_label|default('Envoyer') }}</button>
+                </div> #}
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <div class="flex flex-col bg-sky-200 font-semibold text-2xl">
+
+        <a href="{{ path('app_accueil_form') }}" class="bg-sky-500 text-white p-2 rounded-lg my-2 text-center w-[90%] mx-auto lg:w-[70%] xl:w-[50%]">Retour</a>
+
+    </div>
+
+
+{% endblock %}

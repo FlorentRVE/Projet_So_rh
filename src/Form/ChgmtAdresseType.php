@@ -20,7 +20,7 @@ class ChgmtAdresseType extends AbstractType
         $builder
             ->add('nom')
             ->add('prenom')
-            ->add('Service', ChoiceType::class, [
+            ->add('service', ChoiceType::class, [
                 'choices' => [
                     'Formation' => 'Formation',
                     'Paie' => 'Paie',
@@ -31,6 +31,7 @@ class ChgmtAdresseType extends AbstractType
             ])
             ->add('fonction')
             ->add('adresse', TextareaType::class)
+            ->add('cp', TextType::class)
             ->add('commune', ChoiceType::class, [
                 'choices' => [
                     'Saint-Paul' => 'Saint-Paul',
@@ -38,8 +39,12 @@ class ChgmtAdresseType extends AbstractType
                     'Saint-Louis' => 'Saint-Louis',                    
                 ]
             ])
-            ->add('fait', TextType::class, [
-                'label' => 'Fait à',
+            ->add('fait', ChoiceType::class, [
+                'choices' => [
+                    'Saint-Paul' => 'Saint-Paul',
+                    'Saint-Denis' => 'Saint-Denis',
+                    'Saint-Louis' => 'Saint-Louis',                    
+                ]
             ])
             ->add('le', DateType::class, [
                 'label' => 'le',

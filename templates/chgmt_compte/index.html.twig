@@ -25,7 +25,7 @@
 
         <div class="flex flex-col p-4 justify-center items-center bg-sky-500 gap-6">
 
-            <p class="text-white text-4xl text-center">Changement d'adresse</p>
+            <p class="text-white text-4xl text-center">Changement de compte bancaire</p>
             <div class="w-[10%] mx-auto h-[4px] bg-slate-50 rounded-xl"></div>
 
         </div>
@@ -35,11 +35,6 @@
 
             {{ form_start(form) }}
                 <div class="w-11/12 mx-auto flex flex-col">
-
-                    <div class="mb-8 flex flex-col">
-                        {{ form_label(form.pour, 'Ma question concerne', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
-                        {{ form_widget(form.pour, {'attr': {'class': 'p-2 rounded-lg'}}) }}
-                    </div>
 
                     <div class="mb-8 flex flex-col">
                         {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
@@ -57,24 +52,41 @@
                     </div>
 
                     <div class="mb-8 flex flex-col">
-                        {{ form_label(form.email, 'Email', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
-                        {{ form_widget(form.email, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                        {{ form_label(form.fonction, 'Fonction', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                        {{ form_widget(form.fonction, {'attr': {'class': 'p-2 rounded-lg'}}) }}
                     </div>
 
                     <div class="mb-8 flex flex-col">
-                        {{ form_label(form.telephone, 'Téléphone', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
-                        {{ form_widget(form.telephone, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                        {{ form_label(form.rib, 'Joindre mon RIB', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                        {{ form_widget(form.rib, {'attr': {'class': 'p-2 rounded-lg text-sky-400'}}) }}
                     </div>
 
+                    <div class="mb-8 flex gap-4">
 
-                    <div class="mb-8 flex flex-col">
-                        {{ form_label(form.question, 'Votre question', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
-                        {{ form_widget(form.question, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                        <div class="flex flex-col w-1/2">
+                            {{ form_label(form.fait, 'Fait à', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                            {{ form_widget(form.fait, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                        </div>
+
+                        <div class="flex flex-col w-1/2">
+                            {{ form_label(form.le, 'Le', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                            {{ form_widget(form.le, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                        </div>
+                    
                     </div>
 
                     <button class="bg-sky-500 text-white p-2 rounded-lg mt-10 font-semibold text-lg">{{ button_label|default('Envoyer') }}</button>
                 </div>
             {{ form_end(form) }}
+
+            <div class="border-2 border-sky-500 p-2 text-center bg-slate-200 mt-8 rounded-lg">
+                <p>
+                    Pour un dépôt de la demande au service RH entre le 1er et le 20 du mois, le changement sera 
+                    opéré sur le mois en cours. 
+                    Pour un dépôt de la demande au service RH entre le 21 et 30 ou 31 du mois, le changement 
+                    sera opéré sur le mois suivant
+                </p>
+            </div>
         </div>
     </div>
 

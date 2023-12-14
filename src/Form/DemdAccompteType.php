@@ -4,7 +4,9 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,7 +19,9 @@ class DemdAccompteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('pour', ChoiceType::class, [
+            ->add('nom')
+            ->add('prenom')
+            ->add('service', ChoiceType::class, [
                 'choices' => [
                     'Formation' => 'Formation',
                     'Paie' => 'Paie',
@@ -26,25 +30,23 @@ class DemdAccompteType extends AbstractType
                     'Autre' => 'Autre',
                 ],
             ])
-            ->add('nom')
-            ->add('prenom')
-            ->add('service')
-            ->add('telephone', TextType::class, [
-                'constraints' => [
-                    new Assert\Regex([
-                        'pattern' => '/^\d{10}$/',
-                        'message' => 'Le numéro de téléphone doit être au format valide.',
-                    ]),
-                ],
+            ->add('fonction')
+            ->add('accompte', NumberType::class)
+            ->add('lettre', TextType::class)
+            ->add('motif', TextareaType::class)
+            ->add('fait', ChoiceType::class, [
+                'choices' => [
+                    'Saint-Paul' => 'Saint-Paul',
+                    'Saint-Denis' => 'Saint-Denis',
+                    'Saint-Louis' => 'Saint-Louis',                    
+                ]
             ])
-            ->add('email', EmailType::class, [
-                'constraints' => [
-                    new Assert\Email([
-                        'message' => 'L\'adresse email doit être au format valide.',
-                    ]),
-                ],
+            ->add('le', DateType::class, [
+                'label' => 'le',
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                
             ])
-            ->add('question', TextareaType::class)
         ;
     }
 

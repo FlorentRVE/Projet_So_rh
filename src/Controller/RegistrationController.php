@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -34,20 +33,18 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_formulaire_index');
-
+            return $this->redirectToRoute('app_user_index');
         } else {
-
             $formErrors = [];
             foreach ($form->getErrors(true) as $error) {
                 $formErrors[] = $error->getMessage();
             }
 
             $this->addFlash('danger', $formErrors);
-            return $this->render('registration/register.html.twig', [
-                'registrationForm' => $form
-            ]);
 
+            return $this->render('registration/register.html.twig', [
+                'registrationForm' => $form,
+            ]);
         }
 
         return $this->render('registration/register.html.twig', [

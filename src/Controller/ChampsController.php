@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Champs;
 use App\Form\ChampsType;
-use App\Repository\ChampsRepository;
 use App\Repository\FormulaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

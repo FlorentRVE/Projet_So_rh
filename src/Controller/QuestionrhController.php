@@ -2,14 +2,14 @@
 
 namespace App\Controller;
 
+use App\Form\QuestionrhType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use App\Form\QuestionrhType;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Routing\Annotation\Route;
 
 class QuestionrhController extends AbstractController
 {
@@ -29,23 +29,17 @@ class QuestionrhController extends AbstractController
         $formTitle = 'Question RH';
         $user = $this->security->getUser()->getUserIdentifier();
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-
             $formDataSansToken = [];
-            
+
             foreach ($formData as $formData) {
-
                 foreach ($formData as $key => $value) {
-
-                    if($key !== '_token') {
-
+                    if ('_token' !== $key) {
                         $formDataSansToken[$key] = $value;
                     }
-
                 }
             }
-            
+
             // ================= Envoyer les données à l'adresse mail =================
 
             $email = (new Email())
@@ -55,30 +49,29 @@ class QuestionrhController extends AbstractController
             ->html($this->renderView('email/index.html.twig', [
                 'formData' => $formDataSansToken,
                 'formTitle' => $formTitle,
-                'user' => $user
+                'user' => $user,
             ]));
 
             $mailer->send($email);
-        
+
             $this->addFlash('success', 'Formulaire soumis avec succès !');
+
             return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
-
         } else {
-
             $formErrors = [];
             foreach ($form->getErrors(true) as $error) {
                 $formErrors[] = $error->getMessage();
             }
 
             $this->addFlash('danger', $formErrors);
-            return $this->render('questionrh/index.html.twig', [
-                'form' => $form
-            ]);
 
+            return $this->render('questionrh/index.html.twig', [
+                'form' => $form,
+            ]);
         }
 
         return $this->render('questionrh/index.html.twig', [
-            'form' => $form
+            'form' => $form,
         ]);
     }
 

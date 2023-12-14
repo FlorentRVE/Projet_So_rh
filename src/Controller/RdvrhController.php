@@ -4,15 +4,16 @@ namespace App\Controller;
 
 use App\Form\RdvrhType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Routing\Annotation\Route;
 
 class RdvrhController extends AbstractController
-{    private $security;
+{
+    private $security;
 
     public function __construct(Security $security)
     {
@@ -28,20 +29,14 @@ class RdvrhController extends AbstractController
         $formTitle = 'Rendez-vous RH';
         $user = $this->security->getUser()->getUserIdentifier();
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-
             $formDataSansToken = [];
-            
+
             foreach ($formData as $formData) {
-
                 foreach ($formData as $key => $value) {
-
-                    if($key !== '_token') {
-
+                    if ('_token' !== $key) {
                         $formDataSansToken[$key] = $value;
                     }
-
                 }
             }
 
@@ -54,30 +49,29 @@ class RdvrhController extends AbstractController
             ->html($this->renderView('email/index.html.twig', [
                 'formData' => $formDataSansToken,
                 'formTitle' => $formTitle,
-                'user' => $user
+                'user' => $user,
             ]));
 
             $mailer->send($email);
-        
+
             $this->addFlash('success', 'Formulaire soumis avec succès !');
+
             return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
-
         } else {
-
             $formErrors = [];
             foreach ($form->getErrors(true) as $error) {
                 $formErrors[] = $error->getMessage();
             }
 
             $this->addFlash('danger', $formErrors);
-            return $this->render('rdvrh/index.html.twig', [
-                'form' => $form
-            ]);
 
+            return $this->render('rdvrh/index.html.twig', [
+                'form' => $form,
+            ]);
         }
 
         return $this->render('rdvrh/index.html.twig', [
-            'form' => $form
+            'form' => $form,
         ]);
     }
 }

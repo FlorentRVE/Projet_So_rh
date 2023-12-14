@@ -57,7 +57,7 @@ class FormulaireController extends AbstractController
 
         return $this->render('formulaire/show.html.twig', [
             'formulaire' => $formulaire,
-            'champs' => $champs
+            'champs' => $champs,
         ]);
     }
 

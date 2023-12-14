@@ -42,7 +42,6 @@ class UserType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-
             ])
         ;
     }

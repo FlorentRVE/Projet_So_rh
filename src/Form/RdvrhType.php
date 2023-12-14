@@ -3,12 +3,12 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class RdvrhType extends AbstractType
@@ -24,7 +24,6 @@ class RdvrhType extends AbstractType
                 'Service Formation' => 'Service Formation',
                 'Service Administratif' => 'Service Administratif',
                 'Service Santé et Conditions de Travail' => 'Service Santé et Conditions de Travail',
-
             ],
         ])
         ->add('nom')
@@ -46,7 +45,6 @@ class RdvrhType extends AbstractType
             ],
         ])
         ->add('message', TextareaType::class)
-    ;
         ;
     }
 

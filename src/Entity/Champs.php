@@ -68,5 +68,4 @@ class Champs
 
         return $this;
     }
-
 }

@@ -11,29 +11,18 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class QuestionrhType extends AbstractType
+class AttEmployeurType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('pour', ChoiceType::class, [
-                'choices' => [
-                    'Formation' => 'Formation',
-                    'Paie' => 'Paie',
-                    'Dossier administratif' => 'Dossier administratif',
-                    'Santé et conditions de travail' => 'Santé et conditions de travail',
-                    'Autre' => 'Autre',
-                ],
-            ])
+        $builder            
             ->add('nom')
             ->add('prenom')
-            ->add('service', ChoiceType::class, [
-                'choices' => [
-                    'Formation' => 'Formation',
-                    'Paie' => 'Paie',
-                    'Dossier administratif' => 'Dossier administratif',
-                    'Santé et conditions de travail' => 'Santé et conditions de travail',
-                    'Autre' => 'Autre',
+            ->add('email', EmailType::class, [
+                'constraints' => [
+                    new Assert\Email([
+                        'message' => 'L\'adresse email doit être au format valide.',
+                    ]),
                 ],
             ])
             ->add('telephone', NumberType::class, [
@@ -44,14 +33,28 @@ class QuestionrhType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('email', EmailType::class, [
-                'constraints' => [
-                    new Assert\Email([
-                        'message' => 'L\'adresse email doit être au format valide.',
-                    ]),
+            ->add('service', ChoiceType::class, [
+                'choices' => [
+                    'Formation' => 'Formation',
+                    'Paie' => 'Paie',
+                    'Dossier administratif' => 'Dossier administratif',
+                    'Santé et conditions de travail' => 'Santé et conditions de travail',
+                    'Autre' => 'Autre',
                 ],
             ])
-            ->add('question', TextareaType::class)
+            ->add('fonction')
+            ->add('precision', TextareaType::class, [
+                'required' => false
+            ])
+            ->add('recuperation', ChoiceType::class, [
+                'choices' => [
+                    'Sur place' => 'Sur place',
+                    'Me l\'envoyer par email' => 'Me l\'envoyer par email',
+
+                ],
+                'placeholder' => 'Choisir une option',
+                'multiple' => false,
+            ])
         ;
     }
 

@@ -19,7 +19,6 @@ class RdvrhType extends AbstractType
         ->add('pour', ChoiceType::class, [
             'choices' => [
                 'DRH' => 'DRH',
-                'RH' => 'RH',
                 'Service Paie' => 'Service Paie',
                 'Service Formation' => 'Service Formation',
                 'Service Administratif' => 'Service Administratif',
@@ -28,7 +27,15 @@ class RdvrhType extends AbstractType
         ])
         ->add('nom')
         ->add('prenom')
-        ->add('service')
+        ->add('service', ChoiceType::class, [
+            'choices' => [
+                'Formation' => 'Formation',
+                'Paie' => 'Paie',
+                'Dossier administratif' => 'Dossier administratif',
+                'Santé et conditions de travail' => 'Santé et conditions de travail',
+                'Autre' => 'Autre',
+            ],
+        ])
         ->add('telephone', TextType::class, [
             'constraints' => [
                 new Assert\Regex([

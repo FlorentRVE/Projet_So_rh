@@ -45,7 +45,7 @@ class DemdBullSalaireController extends AbstractController
             ->to('froulemmeyini-6535@yopmail.com')
             ->cc($demandeBulletinSalaire->getService()->getEmailSecretariat())
             ->subject($formTitle)
-            ->html($this->renderView('email/index.html.twig', [
+            ->html($this->renderView('email/demandeBulletinSalaire.html.twig', [
                 'formData' => $demandeBulletinSalaire,
                 'formTitle' => $formTitle,
                 'user' => $user,

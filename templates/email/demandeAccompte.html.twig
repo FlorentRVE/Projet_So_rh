@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Données reçues{% endblock %}
+
+{% block body %}
+
+ <style>
+
+   h1 {
+     text-align: center;
+     font-size: 2.5rem;
+     font-weight: bold;
+     font-family: 'calibri', sans-serif;
+     border-bottom: 2px solid black;
+   }
+
+   .li {
+     display: flex;
+     align-items: start;
+   }
+
+   #container {
+     font-size: 1.5rem;
+   }
+
+   #header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     gap: 1rem;
+   }
+
+   #entete {
+     display: flex;
+     flex-direction: column;
+     align-items: start;
+     gap: 1rem;
+   }
+
+   #user {
+     font-weight: bold;
+     text-transform: capitalize;
+   }
+
+   #infos {
+     font-weight: 600;
+     line-height: 1.2rem;
+   }
+
+   img {
+     width: 25rem;
+     height: auto;
+   }
+
+  #title {
+     margin-bottom: 1rem;
+     height: 100px;
+     width: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+   }
+
+    #content {
+     display: flex;
+     flex-direction: column;
+     gap: 1rem;
+     font-family: 'calibri', sans-serif;
+     width: 90%;
+     margin: 0 auto;
+   }
+
+   .key {
+     font-weight: 600;
+     text-transform: uppercase;
+     margin-right: 2rem;
+   }
+
+   .value {
+     border-bottom: 1px dotted black;
+     flex: 1;
+   }
+
+   #signature {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    font-size: 1.5vh;
+    text-transform: uppercase;
+    gap: 1rem;
+   }
+
+   #web {
+     font-weight: 600;
+     color: #002E5F;
+   }
+
+ </style>
+
+  <div id="content">
+
+    <div id="header">
+      <div id="entete">
+
+        <img src="https://www.sodiparc.re/wp-content/uploads/2021/11/SODIPARCRVB_BLEU-SIGN.png" alt="logo">
+
+        <div id="infos">
+          <p>14 rue Gabriel de Kerveguen</p>
+          <p>ZEC du chaudron</p>
+          <p>97490 Sainte-Clotilde</p>
+          <p>T.0262 925 925</p>
+          <p>sodiparc@sodiparc.fr</p>
+        </div>
+      </div>
+
+      <div id="by">
+        <p>Envoyé par <span id="user">{{ user }}</span></p>
+      </div>
+
+    </div>
+
+    <div id="title">
+      <h1>{{ formTitle }}</h1>
+    </div>
+
+    <div id="container">
+      
+      <p class="li"><span class="key">Nom:</span><span class="value">{{ formData.nom }}</span></p>
+      <p class="li"><span class="key">Prenom:</span><span class="value">{{ formData.prenom }}</span></p>
+      <p class="li"><span class="key">Service:</span><span class="value">{{ formData.service }}</span></p>
+      <p class="li"><span class="key">Fonction:</span><span class="value">{{ formData.fonction }}</span></p>
+      <p class="li"><span class="key">Montant en chiffres:</span><span class="value">{{ formData.accompteChiffre }}</span></p>
+      <p class="li"><span class="key">Montant en lettres:</span><span class="value">{{ formData.accompteLettre }}</span></p>
+      <p class="li"><span class="key">Motif:</span><span class="value">{{ formData.motif }}</span></p>
+      <p class="li"><span class="key">Fait à:</span><span class="value">{{ formData.faitA }}</span></p>     
+      <p class="li"><span class="key">le:</span><span class="value">{{ formData.faitLe.format('d/m/Y') }}</span></p>  
+
+        
+    </div>
+
+
+
+    <div id="signature">
+      <p id="web">www.sodiparc.re</p>
+      <p>Société d'économie mixte au capital de 9 000 000 € - RCS de Saint-denis B 379 994 734 SIRET 379 994 734 00042 - APE 4931Z</p>
+    </div>
+  </div>
+
+{% endblock %}

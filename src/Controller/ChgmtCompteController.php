@@ -78,7 +78,7 @@ class ChgmtCompteController extends AbstractController
             ->to('froulemmeyini-6535@yopmail.com')
             ->cc($changementCompte->getService()->getEmailSecretariat())
             ->subject($formTitle)
-            ->html($this->renderView('email/index.html.twig', [
+            ->html($this->renderView('email/changementCompte.html.twig', [
                 'formData' => $changementCompte,
                 'formTitle' => $formTitle,
                 'user' => $user,

@@ -34,6 +34,14 @@ class RdvrhController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            return $this->render('email/rendezVousRh.html.twig', [  // A FAIRE
+                'formData' => $rendezVousRh,
+                'formTitle' => $formTitle,
+                'user' => $user
+            ]);
+
+            die();
+
             $em->persist($rendezVousRh);
             $em->flush();
 
@@ -44,7 +52,7 @@ class RdvrhController extends AbstractController
             ->to('froulemmeyini-6535@yopmail.com')
             ->cc($rendezVousRh->getService()->getEmailSecretariat())
             ->subject($formTitle)
-            ->html($this->renderView('email/index.html.twig', [
+            ->html($this->renderView('email/rendezVousRh.html.twig', [
                 'formData' => $rendezVousRh,
                 'formTitle' => $formTitle,
                 'user' => $user,

@@ -32,10 +32,7 @@ class ChgmtAdresseController extends AbstractController
         $formTitle = 'Changement adresse';
         $user = $this->security->getUser()->getUserIdentifier();
 
-        // dd($changementAdresse->getFaitLe()->format('d/m/Y'));        
-
         if ($form->isSubmitted() && $form->isValid()) {
-
 
             $em->persist($changementAdresse);
             $em->flush();
@@ -47,7 +44,7 @@ class ChgmtAdresseController extends AbstractController
             ->to('froulemmeyini-6535@yopmail.com')
             ->cc($changementAdresse->getService()->getEmailSecretariat())
             ->subject($formTitle)
-            ->html($this->renderView('email/index.html.twig', [
+            ->html($this->renderView('email/changementAdresse.html.twig', [
                 'formData' => $changementAdresse,
                 'formTitle' => $formTitle,
                 'user' => $user,

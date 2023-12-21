@@ -44,7 +44,7 @@ class QuestionrhController extends AbstractController
             ->to('froulemmeyini-6535@yopmail.com')
             ->cc($questionRh->getService()->getEmailSecretariat())
             ->subject($formTitle)
-            ->html($this->renderView('email/index.html.twig', [
+            ->html($this->renderView('email/questionRh.html.twig', [
                 'formData' => $questionRh,
                 'formTitle' => $formTitle,
                 'user' => $user,
@@ -73,23 +73,4 @@ class QuestionrhController extends AbstractController
         ]);
     }
 
-    // #[Route('/email', name: 'app_questionrh')]
-    // public function email(): Response
-    // {
-    //     $form = [
-    //         'nom' => 'nom',
-    //         'email' => 'email',
-    //         'message' => 'message message message message message message message message message message message message message message message message message message message message message message message message message message message message message message ',
-    //     ];
-
-    //     $formTitle = 'Test Email';
-
-    //     $user = $this->security->getUser()->getUserIdentifier();
-
-    //     return $this->render('email/index.html.twig', [
-    //         'formData' => $form,
-    //         'formTitle' => $formTitle,
-    //         'user' => $user
-    //     ]);
-    // }
 }

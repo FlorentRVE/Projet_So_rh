@@ -51,4 +51,39 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+
+    #[Route('/massuser', name: 'app_massuser')]
+    public function massuser(UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    {
+        $user_array = [
+            [
+                'username' => 'testmass',
+                'matricule' => '123456789',
+            ],
+            [
+                'username' => 'testmassdeux',
+                'matricule' => '987654321',
+            ]
+        ];
+
+        foreach( $user_array as $usera ) {
+
+            $user = new User();
+            $user->setUsername($usera['username']);
+            $user->setRoles(['ROLE_ACTIF']);
+
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $usera['matricule']
+                )
+            );
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+        }
+
+        return new Response('Utilisateurs crées avec succes');
+    }
 }

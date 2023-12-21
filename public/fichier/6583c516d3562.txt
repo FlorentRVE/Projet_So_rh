@@ -1,6 +1,0 @@
-mdp mysql : admsodiparc
-
-Mettre en place des menus déroulants pour les champs SERVICE, FONCTION, COMMUNE et CODE POSTAL afin de simplifier les formulaires.
-Rajouter la possibilité d’envoyer un mail au secrétariat du service concerné en plus du RH.
-Stocker les données des formulaires envoyées à des fins statistiques.
-Rajouter le numéro de téléphone et l'adresse mail pour la récupération du document (Sur place ou par e-mail).

@@ -10,13 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: QuestionPourRepository::class)]
 class QuestionPour
 {
+    use HasLabelTrait;
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $label = null;
 
     #[ORM\OneToMany(mappedBy: 'questionPour', targetEntity: QuestionRH::class)]
     private Collection $questionRHs;
@@ -25,26 +24,10 @@ class QuestionPour
     {
         $this->questionRHs = new ArrayCollection();
     }
-    public function __toString()
-    {
-        return $this->label;
-    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getLabel(): ?string
-    {
-        return $this->label;
-    }
-
-    public function setLabel(string $label): static
-    {
-        $this->label = $label;
-
-        return $this;
     }
 
     /**

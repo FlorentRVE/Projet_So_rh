@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: QuestionRHRepository::class)]
 class QuestionRH
 {
+    use HasNomTrait;
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -17,12 +19,6 @@ class QuestionRH
     #[ORM\ManyToOne(inversedBy: 'questionRHs')]
     #[ORM\JoinColumn(nullable: false)]
     private ?QuestionPour $questionPour = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $nom = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $prenom = null;
 
     #[ORM\ManyToOne(inversedBy: 'questionRHs')]
     #[ORM\JoinColumn(nullable: false)]

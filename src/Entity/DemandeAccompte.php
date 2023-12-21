@@ -5,20 +5,17 @@ namespace App\Entity;
 use App\Repository\DemandeAccompteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Routing\Loader\Configurator\Traits\HostTrait;
 
 #[ORM\Entity(repositoryClass: DemandeAccompteRepository::class)]
 class DemandeAccompte
 {
+    use HasNomTrait;
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $nom = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $prenom = null;
 
     #[ORM\ManyToOne(inversedBy: 'demandeAccomptes')]
     #[ORM\JoinColumn(nullable: false)]

@@ -9,16 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: AttestationEmployeurRepository::class)]
 class AttestationEmployeur
 {
+    use HasNomTrait;
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $nom = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;

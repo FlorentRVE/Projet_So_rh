@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: RendezVousRHRepository::class)]
 class RendezVousRH
 {
+    use HasNomTrait;
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -17,12 +19,6 @@ class RendezVousRH
     #[ORM\ManyToOne(inversedBy: 'rendezVousRHs')]
     #[ORM\JoinColumn(nullable: false)]
     private ?RdvAvec $rdvAvec = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $nom = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $prenom = null;
 
     #[ORM\ManyToOne(inversedBy: 'rendezVousRHs')]
     #[ORM\JoinColumn(nullable: false)]

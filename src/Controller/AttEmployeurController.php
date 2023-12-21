@@ -42,6 +42,7 @@ class AttEmployeurController extends AbstractController
             $email = (new Email())
             ->from('expediteur@test.com')
             ->to('froulemmeyini-6535@yopmail.com')
+            ->cc($attestationEmployeur->getService()->getEmailSecretariat())
             ->subject($formTitle)
             ->html($this->renderView('email/index.html.twig', [
                 'formData' => $attestationEmployeur,

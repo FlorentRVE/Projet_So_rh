@@ -36,7 +36,6 @@ class ChgmtAdresseController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // dd($changementAdresse);
 
             $em->persist($changementAdresse);
             $em->flush();
@@ -46,6 +45,7 @@ class ChgmtAdresseController extends AbstractController
             $email = (new Email())
             ->from('expediteur@test.com')
             ->to('froulemmeyini-6535@yopmail.com')
+            ->cc($changementAdresse->getService()->getEmailSecretariat())
             ->subject($formTitle)
             ->html($this->renderView('email/index.html.twig', [
                 'formData' => $changementAdresse,

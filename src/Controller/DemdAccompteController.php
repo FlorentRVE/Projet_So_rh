@@ -43,6 +43,7 @@ class DemdAccompteController extends AbstractController
             $email = (new Email())
             ->from('expediteur@test.com')
             ->to('froulemmeyini-6535@yopmail.com')
+            ->cc($demandeAccompte->getService()->getEmailSecretariat())
             ->subject($formTitle)
             ->html($this->renderView('email/index.html.twig', [
                 'formData' => $demandeAccompte,

@@ -38,6 +38,9 @@ class Service
     #[ORM\OneToMany(mappedBy: 'service', targetEntity: ChangementCompte::class)]
     private Collection $changementComptes;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $emailSecretariat = null;
+
     public function __construct()
     {
         $this->changementAdresses = new ArrayCollection();
@@ -260,6 +263,18 @@ class Service
                 $changementCompte->setService(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmailSecretariat(): ?string
+    {
+        return $this->emailSecretariat;
+    }
+
+    public function setEmailSecretariat(?string $emailSecretariat): static
+    {
+        $this->emailSecretariat = $emailSecretariat;
 
         return $this;
     }

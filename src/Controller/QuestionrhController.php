@@ -42,6 +42,7 @@ class QuestionrhController extends AbstractController
             $email = (new Email())
             ->from('expediteur@test.com')
             ->to('froulemmeyini-6535@yopmail.com')
+            ->cc($questionRh->getService()->getEmailSecretariat())
             ->subject($formTitle)
             ->html($this->renderView('email/index.html.twig', [
                 'formData' => $questionRh,

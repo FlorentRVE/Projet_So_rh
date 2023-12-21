@@ -34,7 +34,7 @@ class DemdBullSalaireController extends AbstractController
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            
             $em->persist($demandeBulletinSalaire);
             $em->flush();
 
@@ -43,6 +43,7 @@ class DemdBullSalaireController extends AbstractController
             $email = (new Email())
             ->from('expediteur@test.com')
             ->to('froulemmeyini-6535@yopmail.com')
+            ->cc($demandeBulletinSalaire->getService()->getEmailSecretariat())
             ->subject($formTitle)
             ->html($this->renderView('email/index.html.twig', [
                 'formData' => $demandeBulletinSalaire,

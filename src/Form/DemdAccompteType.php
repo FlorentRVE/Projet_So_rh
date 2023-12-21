@@ -2,16 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\DemandeAccompte;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 
 class DemdAccompteType extends AbstractType
@@ -21,30 +19,15 @@ class DemdAccompteType extends AbstractType
         $builder
             ->add('nom')
             ->add('prenom')
-            ->add('service', ChoiceType::class, [
-                'choices' => [
-                    'Formation' => 'Formation',
-                    'Paie' => 'Paie',
-                    'Dossier administratif' => 'Dossier administratif',
-                    'Santé et conditions de travail' => 'Santé et conditions de travail',
-                    'Autre' => 'Autre',
-                ],
-            ])
+            ->add('service')
             ->add('fonction')
-            ->add('accompte', NumberType::class)
-            ->add('lettre', TextType::class)
+            ->add('accompteChiffre', NumberType::class)
+            ->add('accompteLettre', TextType::class)
             ->add('motif', TextareaType::class)
-            ->add('fait', ChoiceType::class, [
-                'choices' => [
-                    'Saint-Paul' => 'Saint-Paul',
-                    'Saint-Denis' => 'Saint-Denis',
-                    'Saint-Louis' => 'Saint-Louis',                    
-                ]
-            ])
-            ->add('le', DateType::class, [
-                'label' => 'le',
+            ->add('faitA')
+            ->add('faitLe', DateType::class, [
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
+                'input'  => 'datetime_immutable'
                 
             ])
         ;
@@ -54,6 +37,7 @@ class DemdAccompteType extends AbstractType
     {
         $resolver->setDefaults([
             // Configure your form options here
+            'class' => DemandeAccompte::class,
         ]);
     }
 }

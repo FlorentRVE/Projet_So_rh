@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\ChangementCompte;
 use App\Form\ChgmtCompteType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,25 +23,53 @@ class ChgmtCompteController extends AbstractController
     }
 
     #[Route('/changement_compte', name: 'app_chgmtcompte')]
-    public function index(Request $request, MailerInterface $mailer): Response
+    public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {
-        
-        $form = $this->createForm(ChgmtCompteType::class);
+        $changementCompte = new ChangementCompte();      
+        $form = $this->createForm(ChgmtCompteType::class, $changementCompte);
+
+        $files = $request->files->all();
+
         $form->handleRequest($request);
-        $formData = $request->request->all();
         $formTitle = 'Changement de compte bancaire';
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $formDataSansToken = [];
 
-            foreach ($formData as $formData) {
-                foreach ($formData as $key => $value) {
-                    if ('_token' !== $key) {
-                        $formDataSansToken[$key] = $value;
+            // ================== Gestion fichier ================
+
+            if ($files) {
+
+                $filesList= [];
+
+                foreach ($files as $file) {
+
+                    if ($file !== null) {
+
+                        // $fileExtension = $file['rib']->getClientOriginalExtension();
+
+                        // if ($fileExtension !== 'pdf') {
+                        //     $errors['file'] = ['Le fichier doit être au format PDF'];
+                            
+                        // } else {
+
+                            $directory = 'fichier'; 
+                            $filename = uniqid().'.'.$file['rib']->getClientOriginalExtension();
+                            $file['rib']->move($directory, $filename);
+                            $filePath = $directory.'/'.$filename;
+
+                            $filesList[] = $filePath;
+                        // }
+
+                    } else {
+
+                        $errors['file'] = ['Le fichier est obligatoire'];
                     }
                 }
             }
+
+            $em->persist($changementCompte);
+            $em->flush();
 
             // ================= Envoyer les données à l'adresse mail =================
 
@@ -48,12 +78,26 @@ class ChgmtCompteController extends AbstractController
             ->to('froulemmeyini-6535@yopmail.com')
             ->subject($formTitle)
             ->html($this->renderView('email/index.html.twig', [
-                'formData' => $formDataSansToken,
+                'formData' => $changementCompte,
                 'formTitle' => $formTitle,
                 'user' => $user,
             ]));
 
+            if (isset($filesList)) {
+
+                foreach ($filesList as $filePath) {
+                    $email->attachFromPath($filePath);
+                }
+            }
+            
             $mailer->send($email);
+
+            if (isset($filesList)) {
+
+                foreach ($filesList as $filePath) {
+                    unlink($filePath);
+                }
+            }
 
             $this->addFlash('success', 'Formulaire soumis avec succès !');
 

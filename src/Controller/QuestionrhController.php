@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\QuestionRH;
 use App\Form\QuestionrhType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,25 +23,20 @@ class QuestionrhController extends AbstractController
     }
 
     #[Route('/question', name: 'app_questionrh')]
-    public function index(Request $request, MailerInterface $mailer): Response
+    public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {
-        $form = $this->createForm(QuestionrhType::class);
+        $questionRh = new QuestionRH();
+        $form = $this->createForm(QuestionrhType::class, $questionRh);
+
         $form->handleRequest($request);
-        $formData = $request->request->all();
         $formTitle = 'Question RH';
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $formDataSansToken = [];
 
-            foreach ($formData as $formData) {
-                foreach ($formData as $key => $value) {
-                    if ('_token' !== $key) {
-                        $formDataSansToken[$key] = $value;
-                    }
-                }
-            }
-
+            $em->persist($questionRh);
+            $em->flush();
+            
             // ================= Envoyer les données à l'adresse mail =================
 
             $email = (new Email())
@@ -47,7 +44,7 @@ class QuestionrhController extends AbstractController
             ->to('froulemmeyini-6535@yopmail.com')
             ->subject($formTitle)
             ->html($this->renderView('email/index.html.twig', [
-                'formData' => $formDataSansToken,
+                'formData' => $questionRh,
                 'formTitle' => $formTitle,
                 'user' => $user,
             ]));

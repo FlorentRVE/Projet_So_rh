@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
-use App\Form\ChgmtAdresseType;
+use App\Entity\ChangementAdresse;
+use App\Form\ChgmtAdresseType; 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,24 +23,23 @@ class ChgmtAdresseController extends AbstractController
     }
 
     #[Route('/changement_adresse', name: 'app_chgmtadresse')]
-    public function index(Request $request, MailerInterface $mailer): Response
+    public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {
-        $form = $this->createForm(ChgmtAdresseType::class);
+        $changementAdresse = new ChangementAdresse();
+        $form = $this->createForm(ChgmtAdresseType::class, $changementAdresse);
+
         $form->handleRequest($request);
-        $formData = $request->request->all();
         $formTitle = 'Changement adresse';
         $user = $this->security->getUser()->getUserIdentifier();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $formDataSansToken = [];
+        // dd($changementAdresse->getFaitLe()->format('d/m/Y'));        
 
-            foreach ($formData as $formData) {
-                foreach ($formData as $key => $value) {
-                    if ('_token' !== $key) {
-                        $formDataSansToken[$key] = $value;
-                    }
-                }
-            }
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // dd($changementAdresse);
+
+            $em->persist($changementAdresse);
+            $em->flush();
 
             // ================= Envoyer les données à l'adresse mail =================
 
@@ -47,7 +48,7 @@ class ChgmtAdresseController extends AbstractController
             ->to('froulemmeyini-6535@yopmail.com')
             ->subject($formTitle)
             ->html($this->renderView('email/index.html.twig', [
-                'formData' => $formDataSansToken,
+                'formData' => $changementAdresse,
                 'formTitle' => $formTitle,
                 'user' => $user,
             ]));
@@ -68,7 +69,8 @@ class ChgmtAdresseController extends AbstractController
             return $this->render('chgmt_adresse/index.html.twig', [
                 'form' => $form,
             ]);
-        }
+        
+     }
 
         return $this->render('chgmt_adresse/index.html.twig', [
             'form' => $form,

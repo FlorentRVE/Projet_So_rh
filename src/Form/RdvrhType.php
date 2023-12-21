@@ -2,8 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\RendezVousRH;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,26 +16,10 @@ class RdvrhType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('pour', ChoiceType::class, [
-            'choices' => [
-                'DRH' => 'DRH',
-                'Service Paie' => 'Service Paie',
-                'Service Formation' => 'Service Formation',
-                'Service Administratif' => 'Service Administratif',
-                'Service Santé et Conditions de Travail' => 'Service Santé et Conditions de Travail',
-            ],
-        ])
+        ->add('rdvAvec')
         ->add('nom')
         ->add('prenom')
-        ->add('service', ChoiceType::class, [
-            'choices' => [
-                'Formation' => 'Formation',
-                'Paie' => 'Paie',
-                'Dossier administratif' => 'Dossier administratif',
-                'Santé et conditions de travail' => 'Santé et conditions de travail',
-                'Autre' => 'Autre',
-            ],
-        ])
+        ->add('service')
         ->add('telephone', TextType::class, [
             'constraints' => [
                 new Assert\Regex([
@@ -59,6 +43,7 @@ class RdvrhType extends AbstractType
     {
         $resolver->setDefaults([
             // Configure your form options here
+            'class' => RendezVousRH::class,
         ]);
     }
 }

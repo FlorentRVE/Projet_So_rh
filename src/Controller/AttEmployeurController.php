@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\AttestationEmployeur;
 use App\Form\AttEmployeurType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,25 +23,19 @@ class AttEmployeurController extends AbstractController
     }
 
     #[Route('/attestation_employeur', name: 'app_attemployeur')]
-    public function index(Request $request, MailerInterface $mailer): Response
+    public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {      
        
-        $form = $this->createForm(AttEmployeurType::class);
+        $attestationEmployeur = new AttestationEmployeur();
+        $form = $this->createForm(AttEmployeurType::class, $attestationEmployeur);
         $form->handleRequest($request);
-        $formData = $request->request->all();
         $formTitle = 'Demande d\'attestation employeur';
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $formDataSansToken = [];
 
-            foreach ($formData as $formData) {
-                foreach ($formData as $key => $value) {
-                    if ('_token' !== $key) {
-                        $formDataSansToken[$key] = $value;
-                    }
-                }
-            }
+            $em->persist($attestationEmployeur);
+            $em->flush();
 
             // ================= Envoyer les données à l'adresse mail =================
 
@@ -48,7 +44,7 @@ class AttEmployeurController extends AbstractController
             ->to('froulemmeyini-6535@yopmail.com')
             ->subject($formTitle)
             ->html($this->renderView('email/index.html.twig', [
-                'formData' => $formDataSansToken,
+                'formData' => $attestationEmployeur,
                 'formTitle' => $formTitle,
                 'user' => $user,
             ]));

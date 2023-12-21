@@ -3,8 +3,7 @@
 {% block title %}Changement d'adresse{% endblock %}
 
 {% block body %}
-
-    {% for message in app.flashes('danger') %}
+     {% for message in app.flashes('danger') %}
         {% if message %}
 
             <div class="alert bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
@@ -31,7 +30,6 @@
         </div>
 
         <div class="bg-slate-800 p-7 mx-auto my-6 rounded-xl w-[90%] shadow-xl md:w-[70%] lg:w-[50%]">
-            {{ form_errors(form) }}
 
             {{ form_start(form) }}
                 <div class="w-11/12 mx-auto flex flex-col">
@@ -39,11 +37,13 @@
                     <div class="mb-8 flex flex-col">
                         {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
                         {{ form_widget(form.nom, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                        {{ form_errors(form.nom) }}
                     </div>
 
                     <div class="mb-8 flex flex-col">
                         {{ form_label(form.prenom, 'Prénom', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
                         {{ form_widget(form.prenom, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                        {{ form_errors(form.prenom) }}
                     </div>
 
                     <div class="mb-8 flex flex-col">
@@ -56,35 +56,45 @@
                         {{ form_widget(form.fonction, {'attr': {'class': 'p-2 rounded-lg'}}) }}
                     </div>
 
-                    <div class="mb-8 flex flex-col">
-                        {{ form_label(form.adresse, 'Votre nouvelle adresse', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
-                        {{ form_widget(form.adresse, {'attr': {'class': 'p-2 rounded-lg'}}) }}
-                    </div>
+                    <div class="flex flex-col border-2 border-sky-500 p-2 rounded-lg mb-8">
+                        <p class="text-slate-100 uppercase font-bold mb-2 text-center">Nouvelle Adresse</p>
 
-                    <div class="mb-8 flex gap-4">
+                        <div class="flex gap-4">
 
-                        <div class="mb-8 flex flex-col w-1/2">
+                            <div class="mb-8 flex flex-col w-1/2">
+                                {{ form_label(form.numero, 'N°', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                                {{ form_widget(form.numero, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                            </div>
+
+                            <div class="mb-8 flex flex-col w-1/2">
+                                {{ form_label(form.position, '', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                                {{ form_widget(form.position, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                            </div>
+                        </div>
+
+                        <div class="mb-8 flex flex-col">
+                            {{ form_label(form.voie, 'Voie', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                            {{ form_widget(form.voie, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                        </div>
+
+
+                        <div class="mb-8 flex flex-col">
                             {{ form_label(form.commune, 'Commune', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
                             {{ form_widget(form.commune, {'attr': {'class': 'p-2 rounded-lg'}}) }}
                         </div>
 
-                        <div class="flex flex-col w-1/2">
-                            {{ form_label(form.cp, 'Code postal', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
-                            {{ form_widget(form.cp, {'attr': {'class': 'p-2 rounded-lg'}}) }}
-                        </div>
-
                     </div>
 
                     <div class="mb-8 flex gap-4">
 
                         <div class="flex flex-col w-1/2">
-                            {{ form_label(form.fait, 'Fait à', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
-                            {{ form_widget(form.fait, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                            {{ form_label(form.faitA, 'Fait à', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                            {{ form_widget(form.faitA, {'attr': {'class': 'p-2 rounded-lg'}}) }}
                         </div>
 
                         <div class="flex flex-col w-1/2">
-                            {{ form_label(form.le, 'Le', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
-                            {{ form_widget(form.le, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                            {{ form_label(form.faitLe, 'Le', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                            {{ form_widget(form.faitLe, {'attr': {'class': 'p-2 rounded-lg'}}) }}
                         </div>
                     
                     </div>

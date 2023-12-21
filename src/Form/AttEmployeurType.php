@@ -2,11 +2,15 @@
 
 namespace App\Form;
 
+use App\Entity\AttestationEmployeur;
+use App\Entity\Service;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -25,7 +29,7 @@ class AttEmployeurType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('telephone', NumberType::class, [
+            ->add('telephone', TextType::class, [
                 'constraints' => [
                     new Assert\Regex([
                         'pattern' => '/^\d{10}$/',
@@ -33,17 +37,9 @@ class AttEmployeurType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('service', ChoiceType::class, [
-                'choices' => [
-                    'Formation' => 'Formation',
-                    'Paie' => 'Paie',
-                    'Dossier administratif' => 'Dossier administratif',
-                    'Santé et conditions de travail' => 'Santé et conditions de travail',
-                    'Autre' => 'Autre',
-                ],
-            ])
+            ->add('service')
             ->add('fonction')
-            ->add('precision', TextareaType::class, [
+            ->add('motif', TextareaType::class, [
                 'required' => false
             ])
             ->add('recuperation', ChoiceType::class, [
@@ -62,6 +58,7 @@ class AttEmployeurType extends AbstractType
     {
         $resolver->setDefaults([
             // Configure your form options here
+            'class' => AttestationEmployeur::class,
         ]);
     }
 }

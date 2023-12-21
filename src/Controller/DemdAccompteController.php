@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\DemandeAccompte;
 use App\Form\DemdAccompteType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,25 +23,20 @@ class DemdAccompteController extends AbstractController
     }
 
     #[Route('/demande_accompte', name: 'app_demdaccompte')]
-    public function index(Request $request, MailerInterface $mailer): Response
+    public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {
         
-        $form = $this->createForm(DemdAccompteType::class);
+        $demandeAccompte = new DemandeAccompte();
+
+        $form = $this->createForm(DemdAccompteType::class, $demandeAccompte);
         $form->handleRequest($request);
-        $formData = $request->request->all();
         $formTitle = 'Demande d\'accompte bancaire';
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $formDataSansToken = [];
 
-            foreach ($formData as $formData) {
-                foreach ($formData as $key => $value) {
-                    if ('_token' !== $key) {
-                        $formDataSansToken[$key] = $value;
-                    }
-                }
-            }
+            $em->persist($demandeAccompte);
+            $em->flush();
 
             // ================= Envoyer les données à l'adresse mail =================
 
@@ -48,7 +45,7 @@ class DemdAccompteController extends AbstractController
             ->to('froulemmeyini-6535@yopmail.com')
             ->subject($formTitle)
             ->html($this->renderView('email/index.html.twig', [
-                'formData' => $formDataSansToken,
+                'formData' => $demandeAccompte,
                 'formTitle' => $formTitle,
                 'user' => $user,
             ]));

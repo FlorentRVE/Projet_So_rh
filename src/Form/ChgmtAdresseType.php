@@ -2,16 +2,13 @@
 
 namespace App\Form;
 
+use App\Entity\ChangementAdresse;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
-
 
 class ChgmtAdresseType extends AbstractType
 {
@@ -20,36 +17,22 @@ class ChgmtAdresseType extends AbstractType
         $builder
             ->add('nom')
             ->add('prenom')
-            ->add('service', ChoiceType::class, [
-                'choices' => [
-                    'Formation' => 'Formation',
-                    'Paie' => 'Paie',
-                    'Dossier administratif' => 'Dossier administratif',
-                    'Santé et conditions de travail' => 'Santé et conditions de travail',
-                    'Autre' => 'Autre',
-                ],
-            ])
+            ->add('service')
             ->add('fonction')
-            ->add('adresse', TextareaType::class)
-            ->add('cp', TextType::class)
-            ->add('commune', ChoiceType::class, [
+            ->add('numero' )
+            ->add('position', ChoiceType::class, [
                 'choices' => [
-                    'Saint-Paul' => 'Saint-Paul',
-                    'Saint-Denis' => 'Saint-Denis',
-                    'Saint-Louis' => 'Saint-Louis',                    
-                ]
+                    'bis' => 'bis',
+                    'ter' => 'ter',
+                ],
+                'required' => false,
             ])
-            ->add('fait', ChoiceType::class, [
-                'choices' => [
-                    'Saint-Paul' => 'Saint-Paul',
-                    'Saint-Denis' => 'Saint-Denis',
-                    'Saint-Louis' => 'Saint-Louis',                    
-                ]
-            ])
-            ->add('le', DateType::class, [
-                'label' => 'le',
+            ->add('voie', TextareaType::class)
+            ->add('commune')
+            ->add('faitA')
+            ->add('faitLe', DateType::class, [
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
+                'input'  => 'datetime_immutable'
                 
             ])
         ;
@@ -59,6 +42,7 @@ class ChgmtAdresseType extends AbstractType
     {
         $resolver->setDefaults([
             // Configure your form options here
+            'class' => ChangementAdresse::class,
         ]);
     }
 }

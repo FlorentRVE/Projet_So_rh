@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\DemandeBulletinSalaire;
 use App\Form\DemdBullSalaireType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,25 +22,21 @@ class DemdBullSalaireController extends AbstractController
     }
 
     #[Route('/demande_bulletin_salaire', name: 'app_demdbullsalaire')]
-    public function index(Request $request, MailerInterface $mailer): Response
+    public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {      
        
-        $form = $this->createForm(DemdBullSalaireType::class);
+        $demandeBulletinSalaire = new DemandeBulletinSalaire();
+
+        $form = $this->createForm(DemdBullSalaireType::class, $demandeBulletinSalaire);
+
         $form->handleRequest($request);
-        $formData = $request->request->all();
         $formTitle = 'Demande de bulletin de salaire';
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $formDataSansToken = [];
 
-            foreach ($formData as $formData) {
-                foreach ($formData as $key => $value) {
-                    if ('_token' !== $key) {
-                        $formDataSansToken[$key] = $value;
-                    }
-                }
-            }
+            $em->persist($demandeBulletinSalaire);
+            $em->flush();
 
             // ================= Envoyer les données à l'adresse mail =================
 
@@ -47,7 +45,7 @@ class DemdBullSalaireController extends AbstractController
             ->to('froulemmeyini-6535@yopmail.com')
             ->subject($formTitle)
             ->html($this->renderView('email/index.html.twig', [
-                'formData' => $formDataSansToken,
+                'formData' => $demandeBulletinSalaire,
                 'formTitle' => $formTitle,
                 'user' => $user,
             ]));

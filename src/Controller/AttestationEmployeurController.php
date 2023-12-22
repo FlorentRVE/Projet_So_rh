@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\DemandeAccompte;
-use App\Form\DemdAccompteType;
+use App\Entity\AttestationEmployeur;
+use App\Form\AttestationEmployeurType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -13,7 +13,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DemdAccompteController extends AbstractController
+class AttestationEmployeurController extends AbstractController
 {
     private $security;
 
@@ -22,20 +22,19 @@ class DemdAccompteController extends AbstractController
         $this->security = $security;
     }
 
-    #[Route('/demande_accompte', name: 'app_demdaccompte')]
+    #[Route('/attestation_employeur', name: 'app_attestation_employeur')]
     public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
-    {
-        
-        $demandeAccompte = new DemandeAccompte();
-
-        $form = $this->createForm(DemdAccompteType::class, $demandeAccompte);
+    {      
+       
+        $attestationEmployeur = new AttestationEmployeur();
+        $form = $this->createForm(AttestationEmployeurType::class, $attestationEmployeur);
         $form->handleRequest($request);
-        $formTitle = 'Demande d\'accompte bancaire';
+        $formTitle = 'Demande d\'attestation employeur';
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $em->persist($demandeAccompte);
+            $em->persist($attestationEmployeur);
             $em->flush();
 
             // ================= Envoyer les données à l'adresse mail =================
@@ -43,10 +42,10 @@ class DemdAccompteController extends AbstractController
             $email = (new Email())
             ->from('expediteur@test.com')
             ->to('froulemmeyini-6535@yopmail.com')
-            ->cc($demandeAccompte->getService()->getEmailSecretariat())
+            ->cc($attestationEmployeur->getService()->getEmailSecretariat())
             ->subject($formTitle)
-            ->html($this->renderView('email/demandeAccompte.html.twig', [
-                'formData' => $demandeAccompte,
+            ->html($this->renderView('email/attestationEmployeur.html.twig', [
+                'formData' => $attestationEmployeur,
                 'formTitle' => $formTitle,
                 'user' => $user,
             ]));
@@ -64,14 +63,14 @@ class DemdAccompteController extends AbstractController
 
             $this->addFlash('danger', $formErrors);
 
-            return $this->render('demd_accompte/index.html.twig', [
+            return $this->render('attestation_employeur/index.html.twig', [
                 'form' => $form,
             ]);
         }
 
-        return $this->render('demd_accompte/index.html.twig', [
+        return $this->render('attestation_employeur/index.html.twig', [
             'form' => $form,
         ]);
-
     }
+    
 }

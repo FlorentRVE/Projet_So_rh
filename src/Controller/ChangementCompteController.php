@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ChangementCompte;
-use App\Form\ChgmtCompteType;
+use App\Form\ChangementCompteType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -13,7 +13,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ChgmtCompteController extends AbstractController
+class ChangementCompteController extends AbstractController
 {
     private $security;
 
@@ -22,11 +22,11 @@ class ChgmtCompteController extends AbstractController
         $this->security = $security;
     }
 
-    #[Route('/changement_compte', name: 'app_chgmtcompte')]
+    #[Route('/changement_compte', name: 'app_changement_compte')]
     public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {
         $changementCompte = new ChangementCompte();      
-        $form = $this->createForm(ChgmtCompteType::class, $changementCompte);
+        $form = $this->createForm(ChangementCompteType::class, $changementCompte);
 
         $files = $request->files->all();
 
@@ -111,12 +111,12 @@ class ChgmtCompteController extends AbstractController
 
             $this->addFlash('danger', $formErrors);
 
-            return $this->render('chgmt_compte/index.html.twig', [
+            return $this->render('changement_compte/index.html.twig', [
                 'form' => $form,
             ]);
         }
 
-        return $this->render('chgmt_compte/index.html.twig', [
+        return $this->render('changement_compte/index.html.twig', [
             'form' => $form,
         ]);
 

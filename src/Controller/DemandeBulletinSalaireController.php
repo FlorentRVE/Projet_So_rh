@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\ChangementAdresse;
-use App\Form\ChgmtAdresseType; 
+use App\Entity\DemandeBulletinSalaire;
+use App\Form\DemandeBulletinSalaireType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -12,8 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
-
-class ChgmtAdresseController extends AbstractController
+class DemandeBulletinSalaireController extends AbstractController
 {
     private $security;
 
@@ -22,19 +21,21 @@ class ChgmtAdresseController extends AbstractController
         $this->security = $security;
     }
 
-    #[Route('/changement_adresse', name: 'app_chgmtadresse')]
+    #[Route('/demande_bulletin_salaire', name: 'app_demande_bulletin_salaire')]
     public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
-    {
-        $changementAdresse = new ChangementAdresse();
-        $form = $this->createForm(ChgmtAdresseType::class, $changementAdresse);
+    {      
+       
+        $demandeBulletinSalaire = new DemandeBulletinSalaire();
+
+        $form = $this->createForm(DemandeBulletinSalaireType::class, $demandeBulletinSalaire);
 
         $form->handleRequest($request);
-        $formTitle = 'Changement adresse';
+        $formTitle = 'Demande de bulletin de salaire';
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->persist($changementAdresse);
+            
+            $em->persist($demandeBulletinSalaire);
             $em->flush();
 
             // ================= Envoyer les données à l'adresse mail =================
@@ -42,10 +43,10 @@ class ChgmtAdresseController extends AbstractController
             $email = (new Email())
             ->from('expediteur@test.com')
             ->to('froulemmeyini-6535@yopmail.com')
-            ->cc($changementAdresse->getService()->getEmailSecretariat())
+            ->cc($demandeBulletinSalaire->getService()->getEmailSecretariat())
             ->subject($formTitle)
-            ->html($this->renderView('email/changementAdresse.html.twig', [
-                'formData' => $changementAdresse,
+            ->html($this->renderView('email/demandeBulletinSalaire.html.twig', [
+                'formData' => $demandeBulletinSalaire,
                 'formTitle' => $formTitle,
                 'user' => $user,
             ]));
@@ -63,13 +64,12 @@ class ChgmtAdresseController extends AbstractController
 
             $this->addFlash('danger', $formErrors);
 
-            return $this->render('chgmt_adresse/index.html.twig', [
+            return $this->render('demande_bulletin_salaire/index.html.twig', [
                 'form' => $form,
             ]);
-        
-     }
+        }
 
-        return $this->render('chgmt_adresse/index.html.twig', [
+        return $this->render('demande_bulletin_salaire/index.html.twig', [
             'form' => $form,
         ]);
     }

@@ -2,15 +2,17 @@
 
 namespace App\Form;
 
-use App\Entity\ChangementAdresse;
+use App\Entity\DemandeAccompte;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ChgmtAdresseType extends AbstractType
+
+class DemandeAccompteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -19,16 +21,9 @@ class ChgmtAdresseType extends AbstractType
             ->add('prenom')
             ->add('service')
             ->add('fonction')
-            ->add('numero' )
-            ->add('position', ChoiceType::class, [
-                'choices' => [
-                    'bis' => 'bis',
-                    'ter' => 'ter',
-                ],
-                'required' => false,
-            ])
-            ->add('voie', TextareaType::class)
-            ->add('commune')
+            ->add('accompteChiffre', NumberType::class)
+            ->add('accompteLettre', TextType::class)
+            ->add('motif', TextareaType::class)
             ->add('faitA')
             ->add('faitLe', DateType::class, [
                 'widget' => 'single_text',
@@ -42,7 +37,7 @@ class ChgmtAdresseType extends AbstractType
     {
         $resolver->setDefaults([
             // Configure your form options here
-            'class' => ChangementAdresse::class,
+            'class' => DemandeAccompte::class,
         ]);
     }
 }

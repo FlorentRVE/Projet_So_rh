@@ -2,17 +2,16 @@
 
 namespace App\Form;
 
-use App\Entity\DemandeAccompte;
+use App\Entity\ChangementCompte;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
-class DemdAccompteType extends AbstractType
+class ChangementCompteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -21,14 +20,14 @@ class DemdAccompteType extends AbstractType
             ->add('prenom')
             ->add('service')
             ->add('fonction')
-            ->add('accompteChiffre', NumberType::class)
-            ->add('accompteLettre', TextType::class)
-            ->add('motif', TextareaType::class)
+            ->add('rib', FileType::class, [
+                'label' => 'RIB',
+                'mapped' => false,
+            ])
             ->add('faitA')
             ->add('faitLe', DateType::class, [
                 'widget' => 'single_text',
-                'input'  => 'datetime_immutable'
-                
+                'input'  => 'datetime_immutable'                
             ])
         ;
     }
@@ -37,7 +36,7 @@ class DemdAccompteType extends AbstractType
     {
         $resolver->setDefaults([
             // Configure your form options here
-            'class' => DemandeAccompte::class,
+            'class' => ChangementCompte::class,
         ]);
     }
 }

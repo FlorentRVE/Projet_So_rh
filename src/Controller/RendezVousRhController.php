@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\RendezVousRH;
-use App\Form\RdvrhType;
+use App\Form\RendezVousRhType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -13,7 +13,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RdvrhController extends AbstractController
+class RendezVousRhController extends AbstractController
 {
     private $security;
 
@@ -22,11 +22,11 @@ class RdvrhController extends AbstractController
         $this->security = $security;
     }
 
-    #[Route('/rendez_vous', name: 'app_rdvrh')]
+    #[Route('/rendez_vous', name: 'app_rendez_vous_rh')]
     public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {
         $rendezVousRh = new RendezVousRH();
-        $form = $this->createForm(RdvrhType::class, $rendezVousRh);
+        $form = $this->createForm(RendezVousRhType::class, $rendezVousRh);
 
         $form->handleRequest($request);
         $formTitle = 'Rendez-vous RH';
@@ -63,12 +63,12 @@ class RdvrhController extends AbstractController
 
             $this->addFlash('danger', $formErrors);
 
-            return $this->render('rdvrh/index.html.twig', [
+            return $this->render('rendez_vous_rh/index.html.twig', [
                 'form' => $form,
             ]);
         }
 
-        return $this->render('rdvrh/index.html.twig', [
+        return $this->render('rendez_vous_rh/index.html.twig', [
             'form' => $form,
         ]);
     }

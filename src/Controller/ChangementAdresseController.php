@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\DemandeBulletinSalaire;
-use App\Form\DemdBullSalaireType;
+use App\Entity\ChangementAdresse;
+use App\Form\ChangementAdresseType; 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -12,7 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
-class DemdBullSalaireController extends AbstractController
+
+class ChangementAdresseController extends AbstractController
 {
     private $security;
 
@@ -21,21 +22,19 @@ class DemdBullSalaireController extends AbstractController
         $this->security = $security;
     }
 
-    #[Route('/demande_bulletin_salaire', name: 'app_demdbullsalaire')]
+    #[Route('/changement_adresse', name: 'app_changement_adresse')]
     public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
-    {      
-       
-        $demandeBulletinSalaire = new DemandeBulletinSalaire();
-
-        $form = $this->createForm(DemdBullSalaireType::class, $demandeBulletinSalaire);
+    {
+        $changementAdresse = new ChangementAdresse();
+        $form = $this->createForm(ChangementAdresseType::class, $changementAdresse);
 
         $form->handleRequest($request);
-        $formTitle = 'Demande de bulletin de salaire';
+        $formTitle = 'Changement adresse';
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $em->persist($demandeBulletinSalaire);
+
+            $em->persist($changementAdresse);
             $em->flush();
 
             // ================= Envoyer les données à l'adresse mail =================
@@ -43,10 +42,10 @@ class DemdBullSalaireController extends AbstractController
             $email = (new Email())
             ->from('expediteur@test.com')
             ->to('froulemmeyini-6535@yopmail.com')
-            ->cc($demandeBulletinSalaire->getService()->getEmailSecretariat())
+            ->cc($changementAdresse->getService()->getEmailSecretariat())
             ->subject($formTitle)
-            ->html($this->renderView('email/demandeBulletinSalaire.html.twig', [
-                'formData' => $demandeBulletinSalaire,
+            ->html($this->renderView('email/changementAdresse.html.twig', [
+                'formData' => $changementAdresse,
                 'formTitle' => $formTitle,
                 'user' => $user,
             ]));
@@ -64,12 +63,13 @@ class DemdBullSalaireController extends AbstractController
 
             $this->addFlash('danger', $formErrors);
 
-            return $this->render('demd_bull_salaire/index.html.twig', [
+            return $this->render('changement_adresse/index.html.twig', [
                 'form' => $form,
             ]);
-        }
+        
+     }
 
-        return $this->render('demd_bull_salaire/index.html.twig', [
+        return $this->render('changement_adresse/index.html.twig', [
             'form' => $form,
         ]);
     }

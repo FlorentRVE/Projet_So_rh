@@ -2,16 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\ChangementCompte;
+use App\Entity\ChangementAdresse;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
-
-class ChgmtCompteType extends AbstractType
+class ChangementAdresseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -20,14 +19,21 @@ class ChgmtCompteType extends AbstractType
             ->add('prenom')
             ->add('service')
             ->add('fonction')
-            ->add('rib', FileType::class, [
-                'label' => 'RIB',
-                'mapped' => false,
+            ->add('numero' )
+            ->add('position', ChoiceType::class, [
+                'choices' => [
+                    'bis' => 'bis',
+                    'ter' => 'ter',
+                ],
+                'required' => false,
             ])
+            ->add('voie', TextareaType::class)
+            ->add('commune')
             ->add('faitA')
             ->add('faitLe', DateType::class, [
                 'widget' => 'single_text',
-                'input'  => 'datetime_immutable'                
+                'input'  => 'datetime_immutable'
+                
             ])
         ;
     }
@@ -36,7 +42,7 @@ class ChgmtCompteType extends AbstractType
     {
         $resolver->setDefaults([
             // Configure your form options here
-            'class' => ChangementCompte::class,
+            'class' => ChangementAdresse::class,
         ]);
     }
 }

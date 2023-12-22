@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class RdvrhType extends AbstractType
+class RendezVousRhType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

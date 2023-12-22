@@ -34,14 +34,6 @@ class RdvrhController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            return $this->render('email/rendezVousRh.html.twig', [  // A FAIRE
-                'formData' => $rendezVousRh,
-                'formTitle' => $formTitle,
-                'user' => $user
-            ]);
-
-            die();
-
             $em->persist($rendezVousRh);
             $em->flush();
 

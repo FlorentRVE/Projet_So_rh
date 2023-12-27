@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\ChangementCompte;
 use App\Form\ChangementCompteType;
+use App\Repository\ChangementCompteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -120,5 +121,37 @@ class ChangementCompteController extends AbstractController
             'form' => $form,
         ]);
 
+    }
+
+    // ======================= PARTIE ADMIN ===========================
+
+    #[Route('/changement_compte_list', name: 'app_changement_compte_index', methods: ['GET'])]
+    public function list(Request $request, ChangementCompteRepository $ccr): Response
+    {
+        $searchTerm = $request->query->get('search');
+
+        return $this->render('changement_compte/list.html.twig', [
+            'changement_comptes' => $ccr->getDataFromSearch($searchTerm),
+            'searchTerm' => $searchTerm,
+        ]);
+    }
+
+    #[Route('/changement_compte_list/{id}', name: 'app_changement_compte_show', methods: ['GET'])]
+    public function show(Request $request, ChangementCompte $changementCompte, ChangementCompteRepository $ccr): Response
+    {
+        return $this->render('changement_compte/show.html.twig', [
+            'demande' => $ccr->find($changementCompte->getId($request->query->get('id'))),
+        ]);
+    }
+
+    #[Route('/changement_compte_list/{id}', name: 'app_changement_compte_delete', methods: ['POST'])]
+    public function delete(Request $request, ChangementCompte $changementCompte, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$changementCompte->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($changementCompte);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_changement_compte_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\RendezVousRH;
 use App\Form\RendezVousRhType;
+use App\Repository\RendezVousRHRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -33,6 +34,9 @@ class RendezVousRhController extends AbstractController
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $currentDate = new \DateTimeImmutable();
+            $rendezVousRh->setFaitLe($currentDate);
 
             $em->persist($rendezVousRh);
             $em->flush();
@@ -71,5 +75,37 @@ class RendezVousRhController extends AbstractController
         return $this->render('rendez_vous_rh/index.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    // ======================= PARTIE ADMIN ===========================
+
+    #[Route('/rendez_vous_rh_list', name: 'app_rendez_vous_rh_index', methods: ['GET'])]
+    public function list(Request $request, RendezVousRHRepository $rdvr): Response
+    {
+        $searchTerm = $request->query->get('search');
+
+        return $this->render('rendez_vous_rh/list.html.twig', [
+            'rendez_vous_rhs' => $rdvr->getDataFromSearch($searchTerm),
+            'searchTerm' => $searchTerm,
+        ]);
+    }
+
+    #[Route('/rendez_vous_rh_list/{id}', name: 'app_rendez_vous_rh_show', methods: ['GET'])]
+    public function show(Request $request, RendezVousRH $rendezVousRH, RendezVousRHRepository $rdvr): Response
+    {
+        return $this->render('rendez_vous_rh/show.html.twig', [
+            'demande' => $rdvr->find($rendezVousRH->getId($request->query->get('id'))),
+        ]);
+    }
+
+    #[Route('/rendez_vous_rh_list/{id}', name: 'app_rendez_vous_rh_delete', methods: ['POST'])]
+    public function delete(Request $request, RendezVousRH $rendezVousRH, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$rendezVousRH->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($rendezVousRH);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_rendez_vous_rh_index', [], Response::HTTP_SEE_OTHER);
     }
 }

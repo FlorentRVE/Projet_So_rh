@@ -24,8 +24,8 @@ class RendezVousRH
     #[ORM\JoinColumn(nullable: false)]
     private ?Service $service = null;
 
-    #[ORM\Column]
-    private ?int $telephone = null;
+    #[ORM\Column(length: 25)]
+    private ?string $telephone = null;
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;
@@ -33,65 +33,20 @@ class RendezVousRH
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    private ?\DateTimeImmutable $faitLe = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getRdvAvec(): ?RdvAvec
-    {
-        return $this->rdvAvec;
-    }
-
-    public function setRdvAvec(?RdvAvec $rdvAvec): static
-    {
-        $this->rdvAvec = $rdvAvec;
-
-        return $this;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): static
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): static
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getService(): ?Service
-    {
-        return $this->service;
-    }
-
-    public function setService(?Service $service): static
-    {
-        $this->service = $service;
-
-        return $this;
-    }
-
-    public function getTelephone(): ?int
+    public function getTelephone(): ?string
     {
         return $this->telephone;
     }
 
-    public function setTelephone(int $telephone): static
+    public function setTelephone(string $telephone): static
     {
         $this->telephone = $telephone;
 
@@ -121,4 +76,41 @@ class RendezVousRH
 
         return $this;
     }
+
+    public function getFaitLe(): ?\DateTimeImmutable
+    {
+        return $this->faitLe;
+    }
+
+    public function setFaitLe(\DateTimeImmutable $faitLe): static
+    {
+        $this->faitLe = $faitLe;
+
+        return $this;
+    }
+
+    public function getRdvAvec(): ?RdvAvec
+    {
+        return $this->rdvAvec;
+    }
+
+    public function setRdvAvec(?RdvAvec $rdvAvec): static
+    {
+        $this->rdvAvec = $rdvAvec;
+
+        return $this;
+    }
+
+    public function getService(): ?Service
+    {
+        return $this->service;
+    }
+
+    public function setService(?Service $service): static
+    {
+        $this->service = $service;
+
+        return $this;
+    }
+
 }

@@ -19,8 +19,8 @@ class DemandeBulletinSalaire
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column]
-    private ?int $telephone = null;
+    #[ORM\Column(length: 15)]
+    private ?string $telephone = null;
 
     #[ORM\ManyToOne(inversedBy: 'demandeBulletinSalaires')]
     #[ORM\JoinColumn(nullable: false)]

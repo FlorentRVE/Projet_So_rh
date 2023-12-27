@@ -16,6 +16,23 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ChangementCompteRepository extends ServiceEntityRepository
 {
+
+    public function getDataFromSearch($searchTerm)
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d')
+            ->leftJoin('d.service', 's')
+            ->where(':searchTerm = \'\' OR 
+                d.nom LIKE :searchTerm OR
+                d.faitLe LIKE :searchTerm OR
+                s.label LIKE :searchTerm OR
+                d.fonction LIKE :searchTerm OR
+                d.prenom LIKE :searchTerm')
+            ->setParameter('searchTerm', '%'.$searchTerm.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ChangementCompte::class);

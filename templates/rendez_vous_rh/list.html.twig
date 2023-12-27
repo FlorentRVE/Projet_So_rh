@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rendez-vous RH{% endblock %}
+
+{% block body %}
+    {# ======================== Sidebar ========================== #}
+    <sidebar class="bg-cyan-950 fixed left-0 top-0 h-screen rounded-tr-3xl">
+        <div class="flex flex-col items-center w-[20vw]">
+
+            {# ===== LOGO ====== #}
+            <a href="{{ path('app_accueil') }}">
+
+                <img src="{{ asset('img/logo_clair.png') }}" alt="logo" class="w-[15vw] mt-8">
+            </a>
+
+            <div class="w-[60%] mx-auto h-[2px] bg-slate-50 rounded-xl my-10"></div>
+
+            <div class="flex flex-col items-center gap-3 pt-4 font-semibold text-[1.5vh] lg:text-[2vh]">
+
+                <a href="{{ path('app_accueil_admin') }}" class="text-slate-50 text-center hover:bg-sky-800 mb-5 px-2 py-1 rounded-lg w-full">Gestion formulaire</a>
+                <a href="{{ path('app_user_index') }}" class="text-slate-50 text-center hover:bg-sky-800 mb-5 px-2 py-1 rounded-lg w-full h-auto">Gestion utilisateurs</a>
+
+                <a href="{{ path('app_logout') }}"  class="flex flex-col text-center transition-all hover:scale-105 p-6 text-slate-50">
+                    <p class="font-semibold">Se déconnecter</p>
+                    <i class="fa-solid fa-right-to-bracket text-slate-50 text-2xl text-center font-semibold"></i>
+                </a>
+            </div>
+        </div>
+    </sidebar>
+
+    {# ==================== Content ======================= #}
+    <content>
+        <div class="ml-[20vw] bg-sky-200 min-h-screen">
+
+            <div class="flex flex-col p-4 justify-center items-center bg-slate-50">
+
+                <h1 class="text-3xl font-semibold text-center">Rendez-vous RH</h1>
+
+            </div>
+
+            <div class="flex flex-col p-4 mt-4 justify-center items-center">
+
+                {# ======================= Barre de recherche ======================#}
+                <form action="#" method="get" class="p-4 w-[90%] flex">
+                    <input type="text" id="search" name="search" value="{{ searchTerm }}" class="w-[90%] text-slate-900 px-2 rounded-l-lg" placeholder="Recherche ...">
+                    <button type="submit" class="bg-sky-800 w-[10%] text-center py-2 hover:brightness-125 rounded-r-lg text-sky-50 transition-all hover:scale-110"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+
+                <a href=""  class="w-[90%] bg-green-600 text-slate-50 rounded-lg text-center px-4 py-2 hover:brightness-125 shadow-lg font-semibold">Exporter xls</a>
+
+                <table class="w-[90%] mt-4">
+                    <tbody>
+                        <tr class="border-2 border-slate-900">
+                            <th class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold">Date</th>
+                            <th class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold">Nom</th>
+                            <th class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold">Service</th>
+                            <th class="border-2 border-slate-900 w-[10%] bg-slate-900 text-slate-50 font-semibold">Actions</th>
+                        </tr>
+
+                        {% for demande in rendez_vous_rhs %}
+                            <tr class="border-2 border-slate-900">
+                                <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold w-[10%]">{{ demande.faitLe.format('d/m/Y') }}</td>
+                                <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.nom }}</td>
+                                <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.service }}</td>
+
+                                <td class="bg-slate-900 text-center p-3 ">
+
+                                    <a href="{{ path('app_rendez_vous_rh_show', {'id': demande.id}) }}" class="btn bg-sky-600 rounded-2xl text-center px-4 py-2 hover:brightness-125 shadow-lg font-semibold text-slate-100">Voir</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4">Pas de demande à afficher</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>                    
+            </div>
+        </div>
+    </content>
+{% endblock %}

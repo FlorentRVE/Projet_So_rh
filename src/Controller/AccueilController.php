@@ -3,22 +3,11 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use Symfony\Component\Routing\Annotation\Route;
-
 
 class AccueilController extends AbstractController
 {
-    private $security;
-
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
-    }
-
     #[Route('/', name: 'app_home')]
     public function home()
     {
@@ -26,7 +15,7 @@ class AccueilController extends AbstractController
     }
 
     #[Route('/accueil', name: 'app_accueil')]
-    public function index(Request $request): Response
+    public function index(): Response
     {
         return $this->render('accueil/index.html.twig', [
             'controller_name' => 'AccueilController',
@@ -43,7 +32,8 @@ class AccueilController extends AbstractController
     }
 
     #[Route('/admin', name: 'app_accueil_admin')]
-    public function admin() {
+    public function admin(): Response
+    {
 
         return $this->render('accueil/admin.html.twig', [
             'controller_name' => 'AccueilController',

@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\ChangementAdresse;
-use App\Form\ChangementAdresseType; 
+use App\Form\ChangementAdresseType;
+use App\Repository\ChangementAdresseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -73,4 +74,36 @@ class ChangementAdresseController extends AbstractController
             'form' => $form,
         ]);
     }
+
+        // ======================= PARTIE ADMIN ===========================
+
+        #[Route('/changement_adresse_list', name: 'app_changement_adresse_index', methods: ['GET'])]
+        public function list(Request $request, ChangementAdresseRepository $car): Response
+        {
+            $searchTerm = $request->query->get('search');
+    
+            return $this->render('changement_adresse/list.html.twig', [
+                'changement_adresses' => $car->getDataFromSearch($searchTerm),
+                'searchTerm' => $searchTerm,
+            ]);
+        }
+
+        #[Route('/changement_adresse_list/{id}', name: 'app_changement_adresse_show', methods: ['GET'])]
+        public function show(Request $request, ChangementAdresse $changementAdresse, ChangementAdresseRepository $car): Response
+        {
+            return $this->render('changement_adresse/show.html.twig', [
+                'demande' => $car->find($changementAdresse->getId($request->query->get('id'))),
+            ]);
+        }
+    
+        #[Route('/changement_adresse_list/{id}', name: 'app_changement_adresse_delete', methods: ['POST'])]
+        public function delete(Request $request, ChangementAdresse $changementAdresse, EntityManagerInterface $entityManager): Response
+        {
+            if ($this->isCsrfTokenValid('delete'.$changementAdresse->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($changementAdresse);
+                $entityManager->flush();
+            }
+    
+            return $this->redirectToRoute('app_changement_adresse_index', [], Response::HTTP_SEE_OTHER);
+        }
 }

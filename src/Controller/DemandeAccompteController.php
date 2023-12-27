@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\DemandeAccompte;
 use App\Form\DemandeAccompteType;
+use App\Repository\DemandeAccompteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -73,5 +74,37 @@ class DemandeAccompteController extends AbstractController
             'form' => $form,
         ]);
 
+    }
+
+    // ======================= PARTIE ADMIN ===========================
+
+    #[Route('/demande_accompte_list', name: 'app_demande_accompte_index', methods: ['GET'])]
+    public function list(Request $request, DemandeAccompteRepository $dar): Response
+    {
+        $searchTerm = $request->query->get('search');
+
+        return $this->render('demande_accompte/list.html.twig', [
+            'demande_accomptes' => $dar->getDataFromSearch($searchTerm),
+            'searchTerm' => $searchTerm,
+        ]);
+    }
+
+    #[Route('/demande_accompte_list/{id}', name: 'app_demande_accompte_show', methods: ['GET'])]
+    public function show(Request $request, DemandeAccompte $demandeAccompte, DemandeAccompteRepository $dar): Response
+    {
+        return $this->render('demande_accompte/show.html.twig', [
+            'demande' => $dar->find($demandeAccompte->getId($request->query->get('id'))),
+        ]);
+    }
+
+    #[Route('/demande_accompte_list/{id}', name: 'app_demande_accompte_delete', methods: ['POST'])]
+    public function delete(Request $request, DemandeAccompte $demandeAccompte, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$demandeAccompte->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($demandeAccompte);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_demande_accompte_index', [], Response::HTTP_SEE_OTHER);
     }
 }

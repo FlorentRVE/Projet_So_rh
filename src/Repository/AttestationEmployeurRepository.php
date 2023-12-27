@@ -21,6 +21,25 @@ class AttestationEmployeurRepository extends ServiceEntityRepository
         parent::__construct($registry, AttestationEmployeur::class);
     }
 
+    public function getDataFromSearch($searchTerm)
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d')
+            ->leftJoin('d.service', 's')
+            ->where(':searchTerm = \'\' OR 
+                d.nom LIKE :searchTerm OR
+                d.email LIKE :searchTerm OR
+                d.telephone LIKE :searchTerm OR
+                s.label LIKE :searchTerm OR
+                d.fonction LIKE :searchTerm OR
+                d.motif LIKE :searchTerm OR
+                d.recuperation LIKE :searchTerm OR
+                d.prenom LIKE :searchTerm')
+            ->setParameter('searchTerm', '%'.$searchTerm.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return AttestationEmployeur[] Returns an array of AttestationEmployeur objects
 //     */

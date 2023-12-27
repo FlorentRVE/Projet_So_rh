@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\AttestationEmployeur;
 use App\Form\AttestationEmployeurType;
+use App\Repository\AttestationEmployeurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -32,7 +33,11 @@ class AttestationEmployeurController extends AbstractController
         $formTitle = 'Demande d\'attestation employeur';
         $user = $this->security->getUser()->getUserIdentifier();
 
+        
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            $currentDate = new \DateTimeImmutable();
+            $attestationEmployeur->setFaitLe($currentDate);
 
             $em->persist($attestationEmployeur);
             $em->flush();
@@ -71,6 +76,38 @@ class AttestationEmployeurController extends AbstractController
         return $this->render('attestation_employeur/index.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    // ======================= PARTIE ADMIN ===========================
+
+    #[Route('/attestation_employeur_list', name: 'app_attestation_employeur_index', methods: ['GET'])]
+    public function list(Request $request, AttestationEmployeurRepository $ar): Response
+    {
+        $searchTerm = $request->query->get('search');
+
+        return $this->render('attestation_employeur/list.html.twig', [
+            'attestation_employeurs' => $ar->getDataFromSearch($searchTerm),
+            'searchTerm' => $searchTerm,
+        ]);
+    }
+
+    #[Route('/attestation_employeur_list/{id}', name: 'app_attestation_employeur_show', methods: ['GET'])]
+    public function show(Request $request, AttestationEmployeur $attestationEmployeur, AttestationEmployeurRepository $ar): Response
+    {
+        return $this->render('attestation_employeur/show.html.twig', [
+            'demande' => $ar->find($attestationEmployeur->getId($request->query->get('id'))),
+        ]);
+    }
+
+    #[Route('/attestation_employeur_list/{id}', name: 'app_attestation_employeur_delete', methods: ['POST'])]
+    public function delete(Request $request, AttestationEmployeur $attestationEmployeur, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$attestationEmployeur->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($attestationEmployeur);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_attestation_employeur_index', [], Response::HTTP_SEE_OTHER);
     }
     
 }

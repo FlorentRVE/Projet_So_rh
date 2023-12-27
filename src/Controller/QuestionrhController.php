@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\QuestionRH;
 use App\Form\QuestionrhType;
+use App\Repository\QuestionRHRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -33,6 +34,9 @@ class QuestionrhController extends AbstractController
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $currentDate = new \DateTimeImmutable();
+            $questionRh->setFaitLe($currentDate);
 
             $em->persist($questionRh);
             $em->flush();
@@ -71,6 +75,38 @@ class QuestionrhController extends AbstractController
         return $this->render('questionrh/index.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    // ======================= PARTIE ADMIN ===========================
+
+    #[Route('/questionrh_list', name: 'app_questionrh_index', methods: ['GET'])]
+    public function list(Request $request, QuestionRHRepository $qr): Response
+    {
+        $searchTerm = $request->query->get('search');
+
+        return $this->render('questionrh/list.html.twig', [
+            'questionrhs' => $qr->getDataFromSearch($searchTerm),
+            'searchTerm' => $searchTerm,
+        ]);
+    }
+
+    #[Route('/questionrh_list/{id}', name: 'app_questionrh_show', methods: ['GET'])]
+    public function show(Request $request, QuestionRH $questionRH, QuestionRHRepository $qr): Response
+    {
+        return $this->render('questionrh/show.html.twig', [
+            'demande' => $qr->find($questionRH->getId($request->query->get('id'))),
+        ]);
+    }
+
+    #[Route('/questionrh_list/{id}', name: 'app_questionrh_delete', methods: ['POST'])]
+    public function delete(Request $request, QuestionRH $questionRH, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$questionRH->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($questionRH);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_questionrh_index', [], Response::HTTP_SEE_OTHER);
     }
 
 }

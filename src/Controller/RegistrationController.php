@@ -57,8 +57,16 @@ class RegistrationController extends AbstractController
     {
         $user_array = [
             [
-                'username' => 'admin',
-                'matricule' => 'adminadmin',
+                'username' => 'Jean',
+                'matricule' => 'jeanjean',
+            ],
+            [
+                'username' => 'Paul',
+                'matricule' => 'paulpaul',
+            ],
+            [
+                'username' => 'Pierre',
+                'matricule' => 'pierrepierre',
             ],
         ];
 
@@ -66,7 +74,8 @@ class RegistrationController extends AbstractController
 
             $user = new User();
             $user->setUsername($usera['username']);
-            $user->setRoles(['ROLE_ACTIF', 'ROLE_ADMIN']);
+            // $user->setRoles(['ROLE_ADMIN', 'ROLE_ACTIF', 'ROLE_USER']);
+            $user->setRoles(['ROLE_ACTIF', 'ROLE_USER']);
 
             $user->setPassword(
                 $userPasswordHasher->hashPassword(

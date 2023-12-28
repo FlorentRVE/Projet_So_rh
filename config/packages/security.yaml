@@ -36,7 +36,16 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/attestation_employeur_list, roles: ROLE_ADMIN }
+        - { path: ^/changement_adresse_list, roles: ROLE_ADMIN }
+        - { path: ^/changement_compte_list, roles: ROLE_ADMIN }
+        - { path: ^/demande_accompte_list, roles: ROLE_ADMIN }
+        - { path: ^/demande_bulletin_salaire_list, roles: ROLE_ADMIN }
+        - { path: ^/questionrh_list, roles: ROLE_ADMIN }
+        - { path: ^/rendez_vous_rh_list, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/utilisateur, roles: ROLE_ADMIN }
+        - { path: ^/excel, roles: ROLE_ADMIN }
         - { path: ^/nouvel_utilisateur, roles: ROLE_ADMIN }
         - { path: ^/accueil, roles: ROLE_ACTIF }
         - { path: ^/form, roles: ROLE_ACTIF }

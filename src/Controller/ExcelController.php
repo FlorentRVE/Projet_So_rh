@@ -139,7 +139,7 @@ class ExcelController extends AbstractController
             ->setARGB('0F172A')
         ;
 
-        $columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        $columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'];
         foreach ($columns as $column) {
             $spreadsheet
                 ->getActiveSheet()
@@ -150,7 +150,7 @@ class ExcelController extends AbstractController
     
         $spreadsheet
             ->getActiveSheet()
-            ->getStyle('A1:J1')
+            ->getStyle('A1:K1')
             ->getFont()
             ->getColor()
             ->setARGB('FFFFFF')
@@ -158,21 +158,21 @@ class ExcelController extends AbstractController
 
         $spreadsheet
             ->getActiveSheet()
-            ->getStyle('A1:J1')
+            ->getStyle('A1:K1')
             ->getFont()
             ->setBold(true)
         ;
 
         $spreadsheet
             ->getActiveSheet()
-            ->getStyle('A1:J1')
+            ->getStyle('A1:K1')
             ->getFont()
             ->setSize(13)
         ;
         
         $spreadsheet
             ->getActiveSheet()
-            ->getStyle('A1:J1')
+            ->getStyle('A1:K1')
             ->getAlignment()
             ->setHorizontal(Alignment::HORIZONTAL_CENTER)
             ->setVertical(Alignment::VERTICAL_CENTER)
@@ -187,8 +187,9 @@ class ExcelController extends AbstractController
         $sheet->setCellValue('F1', 'Position');
         $sheet->setCellValue('G1', 'Voie');
         $sheet->setCellValue('H1', 'Commune');
-        $sheet->setCellValue('I1', 'Fait à');
-        $sheet->setCellValue('J1', 'Fait le');
+        $sheet->setCellValue('I1', 'Code postal');
+        $sheet->setCellValue('J1', 'Fait à');
+        $sheet->setCellValue('K1', 'Fait le');
 
         $row=2;
         foreach ($attestations as $attestation) {
@@ -201,8 +202,9 @@ class ExcelController extends AbstractController
             $sheet->setCellValue('F'.$row, $attestation->getPosition());
             $sheet->setCellValue('G'.$row, $attestation->getVoie());
             $sheet->setCellValue('H'.$row, $attestation->getCommune());
-            $sheet->setCellValue('I'.$row, $attestation->getFaitA());
-            $sheet->setCellValue('J'.$row, $attestation->getFaitLe());
+            $sheet->setCellValue('I'.$row, $attestation->getCommune()->getCodePostal());
+            $sheet->setCellValue('J'.$row, $attestation->getFaitA());
+            $sheet->setCellValue('K'.$row, $attestation->getFaitLe());
         
             $row++;
         }

@@ -27,7 +27,7 @@ class MotDePasseType extends AbstractType
                 'hidden_label' => 'Masquer',
                 'visible_label' => 'Afficher',
                 'use_toggle_form_theme' => false,
-                'button_classes' => ['text-slate-50', 'flex', 'justify-end', 'items-center', 'w-10', 'self-end', 'mt-3'],
+                'button_classes' => ['text-slate-50', 'flex', 'justify-end', 'items-center', 'mt-3'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Entrez un mot de passe',
@@ -45,7 +45,7 @@ class MotDePasseType extends AbstractType
                 'hidden_label' => 'Masquer',
                 'visible_label' => 'Afficher',
                 'use_toggle_form_theme' => false,
-                'button_classes' => ['text-slate-50', 'flex', 'justify-end', 'items-center', 'w-10', 'self-end', 'mt-3'],
+                'button_classes' => ['text-slate-50', 'flex', 'justify-end', 'items-center', 'mt-3'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Entrez un mot de passe',

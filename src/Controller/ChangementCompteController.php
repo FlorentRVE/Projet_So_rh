@@ -26,7 +26,7 @@ class ChangementCompteController extends AbstractController
     #[Route('/changement_compte', name: 'app_changement_compte')]
     public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {
-        $changementCompte = new ChangementCompte();      
+        $changementCompte = new ChangementCompte();
         $form = $this->createForm(ChangementCompteType::class, $changementCompte);
 
         $files = $request->files->all();
@@ -36,34 +36,28 @@ class ChangementCompteController extends AbstractController
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             // ================== Gestion fichier ================
 
             if ($files) {
-
-                $filesList= [];
+                $filesList = [];
 
                 foreach ($files as $file) {
-
-                    if ($file !== null) {
-
+                    if (null !== $file) {
                         // $fileExtension = $file['rib']->getClientOriginalExtension();
 
                         // if ($fileExtension !== 'pdf') {
                         //     $errors['file'] = ['Le fichier doit être au format PDF'];
-                            
+
                         // } else {
 
-                            $directory = 'fichier'; 
-                            $filename = uniqid().'.'.$file['rib']->getClientOriginalExtension();
-                            $file['rib']->move($directory, $filename);
-                            $filePath = $directory.'/'.$filename;
+                        $directory = 'fichier';
+                        $filename = uniqid().'.'.$file['rib']->getClientOriginalExtension();
+                        $file['rib']->move($directory, $filename);
+                        $filePath = $directory.'/'.$filename;
 
-                            $filesList[] = $filePath;
-                        // }
-
+                        $filesList[] = $filePath;
+                    // }
                     } else {
-
                         $errors['file'] = ['Le fichier est obligatoire'];
                     }
                 }
@@ -86,16 +80,14 @@ class ChangementCompteController extends AbstractController
             ]));
 
             if (isset($filesList)) {
-
                 foreach ($filesList as $filePath) {
                     $email->attachFromPath($filePath);
                 }
             }
-            
+
             $mailer->send($email);
 
             if (isset($filesList)) {
-
                 foreach ($filesList as $filePath) {
                     unlink($filePath);
                 }
@@ -120,7 +112,6 @@ class ChangementCompteController extends AbstractController
         return $this->render('changement_compte/index.html.twig', [
             'form' => $form,
         ]);
-
     }
 
     // ======================= PARTIE ADMIN ===========================

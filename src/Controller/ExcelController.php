@@ -23,7 +23,6 @@ class ExcelController extends AbstractController
     #[Route('/attestation_employeur', name: 'app_excel_attestation_employeur', methods: ['GET'])]
     public function excelExportAttestationEmployeur(Request $request, AttestationEmployeurRepository $ar): Response
     {
-        
         $searchTerm = $request->query->get('searchTerm');
         $attestations = $ar->getDataFromSearch($searchTerm);
 
@@ -49,7 +48,7 @@ class ExcelController extends AbstractController
                 ->setWidth(25)
             ;
         }
-    
+
         $spreadsheet
             ->getActiveSheet()
             ->getStyle('A1:I1')
@@ -71,7 +70,7 @@ class ExcelController extends AbstractController
             ->getFont()
             ->setSize(13)
         ;
-        
+
         $spreadsheet
             ->getActiveSheet()
             ->getStyle('A1:I1')
@@ -91,9 +90,8 @@ class ExcelController extends AbstractController
         $sheet->setCellValue('H1', 'Récupération');
         $sheet->setCellValue('I1', 'Fait le');
 
-        $row=2;
+        $row = 2;
         foreach ($attestations as $attestation) {
-
             $sheet->setCellValue('A'.$row, $attestation->getNom());
             $sheet->setCellValue('B'.$row, $attestation->getPrenom());
             $sheet->setCellValue('C'.$row, $attestation->getService());
@@ -103,8 +101,8 @@ class ExcelController extends AbstractController
             $sheet->setCellValue('G'.$row, $attestation->getMotif());
             $sheet->setCellValue('H'.$row, $attestation->getRecuperation());
             $sheet->setCellValue('I'.$row, $attestation->getFaitLe());
-        
-            $row++;
+
+            ++$row;
         }
 
         $writer = new Xlsx($spreadsheet);
@@ -112,11 +110,10 @@ class ExcelController extends AbstractController
         $filename = 'attestation_employeur-'.date('d-m-Y-H-i-s').'.xlsx';
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'. urlencode($filename).'"');
+        header('Content-Disposition: attachment; filename="'.urlencode($filename).'"');
 
         $writer->save('php://output');
-        exit();
-
+        exit;
     }
 
     #[Route('/changement_adresse', name: 'app_excel_changement_adresse', methods: ['GET'])]
@@ -147,7 +144,7 @@ class ExcelController extends AbstractController
                 ->setWidth(25)
             ;
         }
-    
+
         $spreadsheet
             ->getActiveSheet()
             ->getStyle('A1:K1')
@@ -169,7 +166,7 @@ class ExcelController extends AbstractController
             ->getFont()
             ->setSize(13)
         ;
-        
+
         $spreadsheet
             ->getActiveSheet()
             ->getStyle('A1:K1')
@@ -191,9 +188,8 @@ class ExcelController extends AbstractController
         $sheet->setCellValue('J1', 'Fait à');
         $sheet->setCellValue('K1', 'Fait le');
 
-        $row=2;
+        $row = 2;
         foreach ($attestations as $attestation) {
-
             $sheet->setCellValue('A'.$row, $attestation->getNom());
             $sheet->setCellValue('B'.$row, $attestation->getPrenom());
             $sheet->setCellValue('C'.$row, $attestation->getService());
@@ -205,8 +201,8 @@ class ExcelController extends AbstractController
             $sheet->setCellValue('I'.$row, $attestation->getCommune()->getCodePostal());
             $sheet->setCellValue('J'.$row, $attestation->getFaitA());
             $sheet->setCellValue('K'.$row, $attestation->getFaitLe());
-        
-            $row++;
+
+            ++$row;
         }
 
         $writer = new Xlsx($spreadsheet);
@@ -214,11 +210,10 @@ class ExcelController extends AbstractController
         $filename = 'changement_adresse-'.date('d-m-Y-H-i-s').'.xlsx';
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'. urlencode($filename).'"');
+        header('Content-Disposition: attachment; filename="'.urlencode($filename).'"');
 
         $writer->save('php://output');
-        exit();
-
+        exit;
     }
 
     #[Route('/changement_compte', name: 'app_excel_changement_compte', methods: ['GET'])]
@@ -249,7 +244,7 @@ class ExcelController extends AbstractController
                 ->setWidth(25)
             ;
         }
-    
+
         $spreadsheet
             ->getActiveSheet()
             ->getStyle('A1:F1')
@@ -271,7 +266,7 @@ class ExcelController extends AbstractController
             ->getFont()
             ->setSize(13)
         ;
-        
+
         $spreadsheet
             ->getActiveSheet()
             ->getStyle('A1:F1')
@@ -288,9 +283,8 @@ class ExcelController extends AbstractController
         $sheet->setCellValue('E1', 'Fait à');
         $sheet->setCellValue('F1', 'Fait le');
 
-        $row=2;
+        $row = 2;
         foreach ($attestations as $attestation) {
-
             $sheet->setCellValue('A'.$row, $attestation->getNom());
             $sheet->setCellValue('B'.$row, $attestation->getPrenom());
             $sheet->setCellValue('C'.$row, $attestation->getService());
@@ -298,8 +292,7 @@ class ExcelController extends AbstractController
             $sheet->setCellValue('E'.$row, $attestation->getFaitA());
             $sheet->setCellValue('F'.$row, $attestation->getFaitLe());
 
-        
-            $row++;
+            ++$row;
         }
 
         $writer = new Xlsx($spreadsheet);
@@ -307,11 +300,10 @@ class ExcelController extends AbstractController
         $filename = 'changement_compte-'.date('d-m-Y-H-i-s').'.xlsx';
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'. urlencode($filename).'"');
+        header('Content-Disposition: attachment; filename="'.urlencode($filename).'"');
 
         $writer->save('php://output');
-        exit();
-
+        exit;
     }
 
     #[Route('/demande_accompte', name: 'app_excel_demande_accompte', methods: ['GET'])]
@@ -342,7 +334,7 @@ class ExcelController extends AbstractController
                 ->setWidth(25)
             ;
         }
-    
+
         $spreadsheet
             ->getActiveSheet()
             ->getStyle('A1:I1')
@@ -364,7 +356,7 @@ class ExcelController extends AbstractController
             ->getFont()
             ->setSize(13)
         ;
-        
+
         $spreadsheet
             ->getActiveSheet()
             ->getStyle('A1:I1')
@@ -384,9 +376,8 @@ class ExcelController extends AbstractController
         $sheet->setCellValue('H1', 'Fait à');
         $sheet->setCellValue('I1', 'Fait le');
 
-        $row=2;
+        $row = 2;
         foreach ($attestations as $attestation) {
-
             $sheet->setCellValue('A'.$row, $attestation->getNom());
             $sheet->setCellValue('B'.$row, $attestation->getPrenom());
             $sheet->setCellValue('C'.$row, $attestation->getService());
@@ -396,8 +387,8 @@ class ExcelController extends AbstractController
             $sheet->setCellValue('G'.$row, $attestation->getMotif());
             $sheet->setCellValue('H'.$row, $attestation->getFaitA());
             $sheet->setCellValue('I'.$row, $attestation->getFaitLe());
-        
-            $row++;
+
+            ++$row;
         }
 
         $writer = new Xlsx($spreadsheet);
@@ -405,11 +396,10 @@ class ExcelController extends AbstractController
         $filename = 'demande_accompte-'.date('d-m-Y-H-i-s').'.xlsx';
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'. urlencode($filename).'"');
+        header('Content-Disposition: attachment; filename="'.urlencode($filename).'"');
 
         $writer->save('php://output');
-        exit();
-
+        exit;
     }
 
     #[Route('/demande_bulletin_salaire', name: 'app_excel_demande_bulletin_salaire', methods: ['GET'])]
@@ -440,7 +430,7 @@ class ExcelController extends AbstractController
                 ->setWidth(25)
             ;
         }
-    
+
         $spreadsheet
             ->getActiveSheet()
             ->getStyle('A1:L1')
@@ -462,7 +452,7 @@ class ExcelController extends AbstractController
             ->getFont()
             ->setSize(13)
         ;
-        
+
         $spreadsheet
             ->getActiveSheet()
             ->getStyle('A1:L1')
@@ -485,9 +475,8 @@ class ExcelController extends AbstractController
         $sheet->setCellValue('K1', 'Fait à');
         $sheet->setCellValue('L1', 'Fait le');
 
-        $row=2;
+        $row = 2;
         foreach ($attestations as $attestation) {
-
             $sheet->setCellValue('A'.$row, $attestation->getNom());
             $sheet->setCellValue('B'.$row, $attestation->getPrenom());
             $sheet->setCellValue('C'.$row, $attestation->getService());
@@ -500,8 +489,8 @@ class ExcelController extends AbstractController
             $sheet->setCellValue('J'.$row, $attestation->getDateAu());
             $sheet->setCellValue('K'.$row, $attestation->getFaitA());
             $sheet->setCellValue('L'.$row, $attestation->getFaitLe());
-        
-            $row++;
+
+            ++$row;
         }
 
         $writer = new Xlsx($spreadsheet);
@@ -509,11 +498,10 @@ class ExcelController extends AbstractController
         $filename = 'demande_bulletin_salaire-'.date('d-m-Y-H-i-s').'.xlsx';
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'. urlencode($filename).'"');
+        header('Content-Disposition: attachment; filename="'.urlencode($filename).'"');
 
         $writer->save('php://output');
-        exit();
-
+        exit;
     }
 
     #[Route('/question_rh', name: 'app_excel_question_rh', methods: ['GET'])]
@@ -544,7 +532,7 @@ class ExcelController extends AbstractController
                 ->setWidth(25)
             ;
         }
-    
+
         $spreadsheet
             ->getActiveSheet()
             ->getStyle('A1:H1')
@@ -566,7 +554,7 @@ class ExcelController extends AbstractController
             ->getFont()
             ->setSize(13)
         ;
-        
+
         $spreadsheet
             ->getActiveSheet()
             ->getStyle('A1:H1')
@@ -585,9 +573,8 @@ class ExcelController extends AbstractController
         $sheet->setCellValue('G1', 'Question');
         $sheet->setCellValue('H1', 'Fait le');
 
-        $row=2;
+        $row = 2;
         foreach ($attestations as $attestation) {
-
             $sheet->setCellValue('A'.$row, $attestation->getNom());
             $sheet->setCellValue('B'.$row, $attestation->getPrenom());
             $sheet->setCellValue('C'.$row, $attestation->getService());
@@ -596,8 +583,8 @@ class ExcelController extends AbstractController
             $sheet->setCellValue('F'.$row, $attestation->getQuestionPour());
             $sheet->setCellValue('G'.$row, $attestation->getQuestion());
             $sheet->setCellValue('H'.$row, $attestation->getFaitLe());
-        
-            $row++;
+
+            ++$row;
         }
 
         $writer = new Xlsx($spreadsheet);
@@ -605,11 +592,10 @@ class ExcelController extends AbstractController
         $filename = 'question_rh-'.date('d-m-Y-H-i-s').'.xlsx';
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'. urlencode($filename).'"');
+        header('Content-Disposition: attachment; filename="'.urlencode($filename).'"');
 
         $writer->save('php://output');
-        exit();
-
+        exit;
     }
 
     #[Route('/rendez_vous_rh', name: 'app_excel_rendez_vous_rh', methods: ['GET'])]
@@ -640,7 +626,7 @@ class ExcelController extends AbstractController
                 ->setWidth(25)
             ;
         }
-    
+
         $spreadsheet
             ->getActiveSheet()
             ->getStyle('A1:H1')
@@ -662,7 +648,7 @@ class ExcelController extends AbstractController
             ->getFont()
             ->setSize(13)
         ;
-        
+
         $spreadsheet
             ->getActiveSheet()
             ->getStyle('A1:H1')
@@ -681,9 +667,8 @@ class ExcelController extends AbstractController
         $sheet->setCellValue('G1', 'Message');
         $sheet->setCellValue('H1', 'Fait le');
 
-        $row=2;
+        $row = 2;
         foreach ($attestations as $attestation) {
-
             $sheet->setCellValue('A'.$row, $attestation->getNom());
             $sheet->setCellValue('B'.$row, $attestation->getPrenom());
             $sheet->setCellValue('C'.$row, $attestation->getService());
@@ -692,8 +677,8 @@ class ExcelController extends AbstractController
             $sheet->setCellValue('F'.$row, $attestation->getRdvAvec());
             $sheet->setCellValue('G'.$row, $attestation->getMessage());
             $sheet->setCellValue('H'.$row, $attestation->getFaitLe());
-        
-            $row++;
+
+            ++$row;
         }
 
         $writer = new Xlsx($spreadsheet);
@@ -701,13 +686,9 @@ class ExcelController extends AbstractController
         $filename = 'rendez_vous_rh-'.date('d-m-Y-H-i-s').'.xlsx';
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'. urlencode($filename).'"');
+        header('Content-Disposition: attachment; filename="'.urlencode($filename).'"');
 
         $writer->save('php://output');
-        exit();
-
+        exit;
     }
 }
-
-
-

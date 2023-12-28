@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class QuestionRH
 {
     use HasNomTrait;
-    
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -112,5 +112,4 @@ class QuestionRH
 
         return $this;
     }
-
 }

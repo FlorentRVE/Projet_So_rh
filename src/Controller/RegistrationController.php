@@ -71,8 +71,7 @@ class RegistrationController extends AbstractController
             ],
         ];
 
-        foreach( $user_array as $usera ) {
-
+        foreach ($user_array as $usera) {
             $user = new User();
             $user->setUsername($usera['username']);
             $user->setRoles(['ROLE_ADMIN', 'ROLE_ACTIF', 'ROLE_USER']);
@@ -87,7 +86,6 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-
         }
 
         return new Response('Utilisateurs crées avec succes');
@@ -114,13 +112,12 @@ class RegistrationController extends AbstractController
         foreach ($data as $row) {
             $formattedData[] = [
                 'username' => $row[0],
-                'matricule' => $row[1]
+                'matricule' => $row[1],
             ];
         }
 
         $newFormattedData = [];
         foreach ($formattedData as $user) {
-
             $username = $user['username'];
             $modifiedUsername = strtoupper($username);
             $modifiedUsername = str_replace(['é', 'è', 'ê', 'ë'], 'E', $modifiedUsername);
@@ -130,8 +127,7 @@ class RegistrationController extends AbstractController
 
         // ============ PARCOURIR TOUTES LES LIGNES DU TABLEAU =================
 
-        foreach( $newFormattedData as $usera ) {
-
+        foreach ($newFormattedData as $usera) {
             $user = new User();
             $user->setUsername($usera['username']);
             $user->setRoles(['ROLE_ACTIF', 'ROLE_USER']);
@@ -145,7 +141,6 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-
         }
 
         return new Response('Utilisateurs crées avec succes');

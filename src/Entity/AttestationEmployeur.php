@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class AttestationEmployeur
 {
     use HasNomTrait;
-    
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -126,5 +126,4 @@ class AttestationEmployeur
 
         return $this;
     }
-
 }

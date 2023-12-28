@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+
 class DemandeBulletinSalaireController extends AbstractController
 {
     private $security;
@@ -24,8 +25,7 @@ class DemandeBulletinSalaireController extends AbstractController
 
     #[Route('/demande_bulletin_salaire', name: 'app_demande_bulletin_salaire')]
     public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
-    {      
-       
+    {
         $demandeBulletinSalaire = new DemandeBulletinSalaire();
 
         $form = $this->createForm(DemandeBulletinSalaireType::class, $demandeBulletinSalaire);
@@ -35,7 +35,6 @@ class DemandeBulletinSalaireController extends AbstractController
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
             $em->persist($demandeBulletinSalaire);
             $em->flush();
 

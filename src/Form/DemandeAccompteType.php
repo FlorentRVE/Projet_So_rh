@@ -11,7 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
 class DemandeAccompteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -27,8 +26,7 @@ class DemandeAccompteType extends AbstractType
             ->add('faitA')
             ->add('faitLe', DateType::class, [
                 'widget' => 'single_text',
-                'input'  => 'datetime_immutable'
-                
+                'input' => 'datetime_immutable',
             ])
         ;
     }

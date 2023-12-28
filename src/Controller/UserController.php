@@ -37,6 +37,7 @@ class UserController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Utilisateur mis à jour');
+
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -53,7 +54,6 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -63,6 +63,7 @@ class UserController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Mot de passe mis à jour');
+
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -81,6 +82,7 @@ class UserController extends AbstractController
         }
 
         $this->addFlash('success', 'Utilisateur supprimé');
+
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 }

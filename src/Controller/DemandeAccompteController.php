@@ -26,7 +26,6 @@ class DemandeAccompteController extends AbstractController
     #[Route('/demande_accompte', name: 'app_demande_accompte')]
     public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {
-        
         $demandeAccompte = new DemandeAccompte();
 
         $form = $this->createForm(DemandeAccompteType::class, $demandeAccompte);
@@ -35,7 +34,6 @@ class DemandeAccompteController extends AbstractController
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($demandeAccompte);
             $em->flush();
 
@@ -73,7 +71,6 @@ class DemandeAccompteController extends AbstractController
         return $this->render('demande_accompte/index.html.twig', [
             'form' => $form,
         ]);
-
     }
 
     // ======================= PARTIE ADMIN ===========================

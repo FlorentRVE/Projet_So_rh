@@ -34,13 +34,12 @@ class QuestionrhController extends AbstractController
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $currentDate = new \DateTimeImmutable();
             $questionRh->setFaitLe($currentDate);
 
             $em->persist($questionRh);
             $em->flush();
-            
+
             // ================= Envoyer les données à l'adresse mail =================
 
             $email = (new Email())
@@ -111,5 +110,4 @@ class QuestionrhController extends AbstractController
 
         return $this->redirectToRoute('app_questionrh_index', [], Response::HTTP_SEE_OTHER);
     }
-
 }

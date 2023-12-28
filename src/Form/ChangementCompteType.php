@@ -8,8 +8,6 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
-
 
 class ChangementCompteType extends AbstractType
 {
@@ -27,7 +25,7 @@ class ChangementCompteType extends AbstractType
             ->add('faitA')
             ->add('faitLe', DateType::class, [
                 'widget' => 'single_text',
-                'input'  => 'datetime_immutable'                
+                'input' => 'datetime_immutable',
             ])
         ;
     }

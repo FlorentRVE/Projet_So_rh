@@ -16,7 +16,7 @@ class AttestationEmployeurType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder            
+        $builder
             ->add('nom')
             ->add('prenom')
             ->add('email', EmailType::class, [
@@ -37,13 +37,12 @@ class AttestationEmployeurType extends AbstractType
             ->add('service')
             ->add('fonction')
             ->add('motif', TextareaType::class, [
-                'required' => false
+                'required' => false,
             ])
             ->add('recuperation', ChoiceType::class, [
                 'choices' => [
                     'Sur place' => 'Sur place',
                     'Me l\'envoyer par email' => 'Me l\'envoyer par email',
-
                 ],
                 'placeholder' => 'Choisir une option',
                 'multiple' => false,

@@ -19,7 +19,7 @@ class ChangementAdresseType extends AbstractType
             ->add('prenom')
             ->add('service')
             ->add('fonction')
-            ->add('numero' )
+            ->add('numero')
             ->add('position', ChoiceType::class, [
                 'choices' => [
                     'bis' => 'bis',
@@ -32,8 +32,7 @@ class ChangementAdresseType extends AbstractType
             ->add('faitA')
             ->add('faitLe', DateType::class, [
                 'widget' => 'single_text',
-                'input'  => 'datetime_immutable'
-                
+                'input' => 'datetime_immutable',
             ])
         ;
     }

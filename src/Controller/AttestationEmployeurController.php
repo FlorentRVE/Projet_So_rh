@@ -25,17 +25,14 @@ class AttestationEmployeurController extends AbstractController
 
     #[Route('/attestation_employeur', name: 'app_attestation_employeur')]
     public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
-    {      
-       
+    {
         $attestationEmployeur = new AttestationEmployeur();
         $form = $this->createForm(AttestationEmployeurType::class, $attestationEmployeur);
         $form->handleRequest($request);
         $formTitle = 'Demande d\'attestation employeur';
         $user = $this->security->getUser()->getUserIdentifier();
 
-        
         if ($form->isSubmitted() && $form->isValid()) {
-            
             $currentDate = new \DateTimeImmutable();
             $attestationEmployeur->setFaitLe($currentDate);
 
@@ -112,5 +109,4 @@ class AttestationEmployeurController extends AbstractController
 
         return $this->redirectToRoute('app_attestation_employeur_index', [], Response::HTTP_SEE_OTHER);
     }
-    
 }

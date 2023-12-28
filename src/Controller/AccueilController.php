@@ -25,7 +25,6 @@ class AccueilController extends AbstractController
     #[Route('/form', name: 'app_accueil_form')]
     public function form(): Response
     {
-
         return $this->render('accueil/form.html.twig', [
             'controller_name' => 'AccueilController',
         ]);
@@ -34,10 +33,8 @@ class AccueilController extends AbstractController
     #[Route('/admin', name: 'app_accueil_admin')]
     public function admin(): Response
     {
-
         return $this->render('administration/admin.html.twig', [
             'controller_name' => 'AccueilController',
         ]);
     }
-
 }

@@ -34,7 +34,6 @@ class ChangementAdresseController extends AbstractController
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($changementAdresse);
             $em->flush();
 
@@ -67,46 +66,45 @@ class ChangementAdresseController extends AbstractController
             return $this->render('changement_adresse/index.html.twig', [
                 'form' => $form,
             ]);
-        
-     }
+        }
 
         return $this->render('changement_adresse/index.html.twig', [
             'form' => $form,
         ]);
     }
 
-        // ======================= PARTIE ADMIN ===========================
+    // ======================= PARTIE ADMIN ===========================
 
-        #[Route('/changement_adresse_list', name: 'app_changement_adresse_index', methods: ['GET'])]
-        public function list(Request $request, ChangementAdresseRepository $car): Response
-        {
-            $searchTerm = $request->query->get('search');
-    
-            return $this->render('administration/list.html.twig', [
-                'data' => $car->getDataFromSearch($searchTerm),
-                'searchTerm' => $searchTerm,
-                'pathShow' => 'app_changement_adresse_show',
-                'pathExcel' => 'app_excel_changement_adresse',
-                'title' => 'Changement d\'adresse',
-            ]);
+    #[Route('/changement_adresse_list', name: 'app_changement_adresse_index', methods: ['GET'])]
+    public function list(Request $request, ChangementAdresseRepository $car): Response
+    {
+        $searchTerm = $request->query->get('search');
+
+        return $this->render('administration/list.html.twig', [
+            'data' => $car->getDataFromSearch($searchTerm),
+            'searchTerm' => $searchTerm,
+            'pathShow' => 'app_changement_adresse_show',
+            'pathExcel' => 'app_excel_changement_adresse',
+            'title' => 'Changement d\'adresse',
+        ]);
+    }
+
+    #[Route('/changement_adresse_list/{id}', name: 'app_changement_adresse_show', methods: ['GET'])]
+    public function show(Request $request, ChangementAdresse $changementAdresse, ChangementAdresseRepository $car): Response
+    {
+        return $this->render('changement_adresse/show.html.twig', [
+            'demande' => $car->find($changementAdresse->getId($request->query->get('id'))),
+        ]);
+    }
+
+    #[Route('/changement_adresse_list/{id}', name: 'app_changement_adresse_delete', methods: ['POST'])]
+    public function delete(Request $request, ChangementAdresse $changementAdresse, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$changementAdresse->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($changementAdresse);
+            $entityManager->flush();
         }
 
-        #[Route('/changement_adresse_list/{id}', name: 'app_changement_adresse_show', methods: ['GET'])]
-        public function show(Request $request, ChangementAdresse $changementAdresse, ChangementAdresseRepository $car): Response
-        {
-            return $this->render('changement_adresse/show.html.twig', [
-                'demande' => $car->find($changementAdresse->getId($request->query->get('id'))),
-            ]);
-        }
-    
-        #[Route('/changement_adresse_list/{id}', name: 'app_changement_adresse_delete', methods: ['POST'])]
-        public function delete(Request $request, ChangementAdresse $changementAdresse, EntityManagerInterface $entityManager): Response
-        {
-            if ($this->isCsrfTokenValid('delete'.$changementAdresse->getId(), $request->request->get('_token'))) {
-                $entityManager->remove($changementAdresse);
-                $entityManager->flush();
-            }
-    
-            return $this->redirectToRoute('app_changement_adresse_index', [], Response::HTTP_SEE_OTHER);
-        }
+        return $this->redirectToRoute('app_changement_adresse_index', [], Response::HTTP_SEE_OTHER);
+    }
 }

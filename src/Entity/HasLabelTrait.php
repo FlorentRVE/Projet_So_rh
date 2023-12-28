@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-trait HasLabelTrait {
-
+trait HasLabelTrait
+{
     #[ORM\Column(length: 255)]
     private ?string $label = null;
 
@@ -25,5 +25,4 @@ trait HasLabelTrait {
 
         return $this;
     }
-
 }

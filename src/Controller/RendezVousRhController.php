@@ -34,7 +34,6 @@ class RendezVousRhController extends AbstractController
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $currentDate = new \DateTimeImmutable();
             $rendezVousRh->setFaitLe($currentDate);
 

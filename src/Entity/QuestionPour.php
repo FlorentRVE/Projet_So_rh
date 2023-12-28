@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class QuestionPour
 {
     use HasLabelTrait;
-    
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

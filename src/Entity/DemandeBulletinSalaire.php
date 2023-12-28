@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class DemandeBulletinSalaire
 {
     use HasNomTrait;
-    
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

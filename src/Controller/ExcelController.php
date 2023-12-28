@@ -485,8 +485,8 @@ class ExcelController extends AbstractController
             $sheet->setCellValue('F'.$row, $attestation->getTelephone());
             $sheet->setCellValue('G'.$row, $attestation->getMotif());
             $sheet->setCellValue('H'.$row, $attestation->getRecuperation());
-            $sheet->setCellValue('I'.$row, $attestation->getDateDu());
-            $sheet->setCellValue('J'.$row, $attestation->getDateAu());
+            $sheet->setCellValue('I'.$row, $attestation->getDateDu()->format('m/Y'));
+            $sheet->setCellValue('J'.$row, $attestation->getDateAu()->format('m/Y'));
             $sheet->setCellValue('K'.$row, $attestation->getFaitA());
             $sheet->setCellValue('L'.$row, $attestation->getFaitLe());
 

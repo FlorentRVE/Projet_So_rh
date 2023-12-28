@@ -35,7 +35,7 @@ class AccueilController extends AbstractController
     public function admin(): Response
     {
 
-        return $this->render('accueil/admin.html.twig', [
+        return $this->render('administration/admin.html.twig', [
             'controller_name' => 'AccueilController',
         ]);
     }

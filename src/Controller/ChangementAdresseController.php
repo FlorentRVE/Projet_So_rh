@@ -82,9 +82,12 @@ class ChangementAdresseController extends AbstractController
         {
             $searchTerm = $request->query->get('search');
     
-            return $this->render('changement_adresse/list.html.twig', [
-                'changement_adresses' => $car->getDataFromSearch($searchTerm),
+            return $this->render('administration/list.html.twig', [
+                'data' => $car->getDataFromSearch($searchTerm),
                 'searchTerm' => $searchTerm,
+                'pathShow' => 'app_changement_adresse_show',
+                'pathExcel' => 'app_excel_changement_adresse',
+                'title' => 'Changement d\'adresse',
             ]);
         }
 

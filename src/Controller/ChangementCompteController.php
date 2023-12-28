@@ -130,9 +130,12 @@ class ChangementCompteController extends AbstractController
     {
         $searchTerm = $request->query->get('search');
 
-        return $this->render('changement_compte/list.html.twig', [
-            'changement_comptes' => $ccr->getDataFromSearch($searchTerm),
+        return $this->render('administration/list.html.twig', [
+            'data' => $ccr->getDataFromSearch($searchTerm),
             'searchTerm' => $searchTerm,
+            'pathShow' => 'app_changement_compte_show',
+            'pathExcel' => 'app_excel_changement_compte',
+            'title' => 'Changement de compte bancaire',
         ]);
     }
 

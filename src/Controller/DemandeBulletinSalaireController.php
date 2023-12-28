@@ -82,9 +82,12 @@ class DemandeBulletinSalaireController extends AbstractController
     {
         $searchTerm = $request->query->get('search');
 
-        return $this->render('demande_bulletin_salaire/list.html.twig', [
-            'demande_bulletin_salaires' => $dbsr->getDataFromSearch($searchTerm),
+        return $this->render('administration/list.html.twig', [
+            'data' => $dbsr->getDataFromSearch($searchTerm),
             'searchTerm' => $searchTerm,
+            'pathShow' => 'app_demande_bulletin_salaire_show',
+            'pathExcel' => 'app_excel_demande_bulletin_salaire',
+            'title' => 'Demande de bulletin de salaire',
         ]);
     }
 

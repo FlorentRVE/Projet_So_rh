@@ -83,9 +83,12 @@ class DemandeAccompteController extends AbstractController
     {
         $searchTerm = $request->query->get('search');
 
-        return $this->render('demande_accompte/list.html.twig', [
-            'demande_accomptes' => $dar->getDataFromSearch($searchTerm),
+        return $this->render('administration/list.html.twig', [
+            'data' => $dar->getDataFromSearch($searchTerm),
             'searchTerm' => $searchTerm,
+            'pathShow' => 'app_demande_accompte_show',
+            'pathExcel' => 'app_excel_demande_accompte',
+            'title' => 'Demande d\'accompte bancaire',
         ]);
     }
 

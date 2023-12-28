@@ -84,9 +84,12 @@ class RendezVousRhController extends AbstractController
     {
         $searchTerm = $request->query->get('search');
 
-        return $this->render('rendez_vous_rh/list.html.twig', [
-            'rendez_vous_rhs' => $rdvr->getDataFromSearch($searchTerm),
+        return $this->render('administration/list.html.twig', [
+            'data' => $rdvr->getDataFromSearch($searchTerm),
             'searchTerm' => $searchTerm,
+            'pathShow' => 'app_rendez_vous_rh_show',
+            'pathExcel' => 'app_excel_rendez_vous_rh',
+            'title' => 'Rendez-vous RH',
         ]);
     }
 

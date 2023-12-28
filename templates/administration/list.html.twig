@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Demande d'accompte{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block body %}
     {# ======================== Sidebar ========================== #}
@@ -34,7 +34,7 @@
 
             <div class="flex flex-col p-4 justify-center items-center bg-slate-50">
 
-                <h1 class="text-3xl font-semibold text-center">Demande d'accompte</h1>
+                <h1 class="text-3xl font-semibold text-center">{{ title }}</h1>
 
             </div>
 
@@ -46,26 +46,24 @@
                     <button type="submit" class="bg-sky-800 w-[10%] text-center py-2 hover:brightness-125 rounded-r-lg text-sky-50 transition-all hover:scale-110"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
 
-                <a href=""  class="w-[90%] bg-green-600 text-slate-50 rounded-lg text-center px-4 py-2 hover:brightness-125 shadow-lg font-semibold">Exporter xls</a>
+                <a href="{{ path( pathExcel, { 'searchTerm' : searchTerm }) }}" class="w-[90%] bg-green-600 text-slate-50 rounded-lg text-center px-4 py-2 hover:brightness-125 shadow-lg font-semibold md:w-[20%]">Exporter au format xlsx</a>
 
-                <table class="w-[90%] mt-4">
+                <table class="mt-4">
                     <tbody>
                         <tr class="border-2 border-slate-900">
                             <th class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold">Date</th>
                             <th class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold">Nom</th>
-                            <th class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold">Service</th>
                             <th class="border-2 border-slate-900 w-[10%] bg-slate-900 text-slate-50 font-semibold">Actions</th>
                         </tr>
 
-                        {% for demande in demande_accomptes %}
+                        {% for demande in data %}
                             <tr class="border-2 border-slate-900">
-                                <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold w-[10%]">{{ demande.faitLe.format('d/m/Y') }}</td>
+                                <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold max-w-[10%]">{{ demande.faitLe.format('d/m/Y') }}</td>
                                 <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.nom }}</td>
-                                <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.service }}</td>
 
                                 <td class="bg-slate-900 text-center p-3 ">
 
-                                    <a href="{{ path('app_demande_accompte_show', {'id': demande.id}) }}" class="btn bg-sky-600 rounded-2xl text-center px-4 py-2 hover:brightness-125 shadow-lg font-semibold text-slate-100">Voir</a>
+                                    <a href="{{ path( pathShow , {'id': demande.id}) }}" class="btn bg-sky-600 rounded-2xl text-center px-4 py-2 hover:brightness-125 shadow-lg font-semibold text-slate-100">Voir</a>
                                 </td>
                             </tr>
                         {% else %}
@@ -74,7 +72,7 @@
                             </tr>
                         {% endfor %}
                     </tbody>
-                </table>                    
+                </table>                
             </div>
         </div>
     </content>

@@ -85,9 +85,12 @@ class AttestationEmployeurController extends AbstractController
     {
         $searchTerm = $request->query->get('search');
 
-        return $this->render('attestation_employeur/list.html.twig', [
-            'attestation_employeurs' => $ar->getDataFromSearch($searchTerm),
+        return $this->render('administration/list.html.twig', [
+            'data' => $ar->getDataFromSearch($searchTerm),
             'searchTerm' => $searchTerm,
+            'pathShow' => 'app_attestation_employeur_show',
+            'pathExcel' => 'app_excel_attestation_employeur',
+            'title' => 'Attestation employeur',
         ]);
     }
 

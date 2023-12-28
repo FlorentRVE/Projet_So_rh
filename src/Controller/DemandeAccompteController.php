@@ -88,7 +88,7 @@ class DemandeAccompteController extends AbstractController
             'searchTerm' => $searchTerm,
             'pathShow' => 'app_demande_accompte_show',
             'pathExcel' => 'app_excel_demande_accompte',
-            'title' => 'Demande d\'accompte bancaire',
+            'title' => 'Demande d\'accompte',
         ]);
     }
 

@@ -100,7 +100,7 @@ class ExcelController extends AbstractController
             $sheet->setCellValue('F'.$row, $attestation->getTelephone());
             $sheet->setCellValue('G'.$row, $attestation->getMotif());
             $sheet->setCellValue('H'.$row, $attestation->getRecuperation());
-            $sheet->setCellValue('I'.$row, $attestation->getFaitLe());
+            $sheet->setCellValue('I'.$row, $attestation->getFaitLe()->format('d-m-Y'));
 
             ++$row;
         }
@@ -200,7 +200,7 @@ class ExcelController extends AbstractController
             $sheet->setCellValue('H'.$row, $attestation->getCommune());
             $sheet->setCellValue('I'.$row, $attestation->getCommune()->getCodePostal());
             $sheet->setCellValue('J'.$row, $attestation->getFaitA());
-            $sheet->setCellValue('K'.$row, $attestation->getFaitLe());
+            $sheet->setCellValue('K'.$row, $attestation->getFaitLe()->format('d-m-Y'));
 
             ++$row;
         }
@@ -290,7 +290,7 @@ class ExcelController extends AbstractController
             $sheet->setCellValue('C'.$row, $attestation->getService());
             $sheet->setCellValue('D'.$row, $attestation->getFonction());
             $sheet->setCellValue('E'.$row, $attestation->getFaitA());
-            $sheet->setCellValue('F'.$row, $attestation->getFaitLe());
+            $sheet->setCellValue('F'.$row, $attestation->getFaitLe()->format('d-m-Y'));
 
             ++$row;
         }
@@ -386,7 +386,7 @@ class ExcelController extends AbstractController
             $sheet->setCellValue('F'.$row, $attestation->getAccompteLettre());
             $sheet->setCellValue('G'.$row, $attestation->getMotif());
             $sheet->setCellValue('H'.$row, $attestation->getFaitA());
-            $sheet->setCellValue('I'.$row, $attestation->getFaitLe());
+            $sheet->setCellValue('I'.$row, $attestation->getFaitLe()->format('d-m-Y'));
 
             ++$row;
         }
@@ -488,7 +488,7 @@ class ExcelController extends AbstractController
             $sheet->setCellValue('I'.$row, $attestation->getDateDu()->format('m/Y'));
             $sheet->setCellValue('J'.$row, $attestation->getDateAu()->format('m/Y'));
             $sheet->setCellValue('K'.$row, $attestation->getFaitA());
-            $sheet->setCellValue('L'.$row, $attestation->getFaitLe());
+            $sheet->setCellValue('L'.$row, $attestation->getFaitLe()->format('d-m-Y'));
 
             ++$row;
         }
@@ -582,7 +582,7 @@ class ExcelController extends AbstractController
             $sheet->setCellValue('E'.$row, $attestation->getTelephone());
             $sheet->setCellValue('F'.$row, $attestation->getQuestionPour());
             $sheet->setCellValue('G'.$row, $attestation->getQuestion());
-            $sheet->setCellValue('H'.$row, $attestation->getFaitLe());
+            $sheet->setCellValue('H'.$row, $attestation->getFaitLe()->format('d-m-Y'));
 
             ++$row;
         }
@@ -676,7 +676,7 @@ class ExcelController extends AbstractController
             $sheet->setCellValue('E'.$row, $attestation->getTelephone());
             $sheet->setCellValue('F'.$row, $attestation->getRdvAvec());
             $sheet->setCellValue('G'.$row, $attestation->getMessage());
-            $sheet->setCellValue('H'.$row, $attestation->getFaitLe());
+            $sheet->setCellValue('H'.$row, $attestation->getFaitLe()->format('d-m-Y'));
 
             ++$row;
         }

@@ -48,6 +48,8 @@
 
                 <a href="{{ path( pathExcel, { 'searchTerm' : searchTerm }) }}" class="w-[90%] bg-green-600 text-slate-50 rounded-lg text-center px-4 py-2 hover:brightness-125 shadow-lg font-semibold md:w-[20%]">Exporter au format xlsx</a>
 
+                <div class="text-slate-950 font-bold text-xl mt-5">{{ knp_pagination_render(data) }}</div>
+
                 <table class="mt-4">
                     <tbody>
                         <tr class="border-2 border-slate-900">

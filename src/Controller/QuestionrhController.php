@@ -6,6 +6,7 @@ use App\Entity\QuestionRH;
 use App\Form\QuestionrhType;
 use App\Repository\QuestionRHRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,12 +80,20 @@ class QuestionrhController extends AbstractController
     // ======================= PARTIE ADMIN ===========================
 
     #[Route('/questionrh_list', name: 'app_questionrh_index', methods: ['GET'])]
-    public function list(Request $request, QuestionRHRepository $qr): Response
+    public function list(Request $request, QuestionRHRepository $qr, PaginatorInterface $paginator): Response
     {
         $searchTerm = $request->query->get('search');
 
+        $donnee = $qr->getDataFromSearch($searchTerm);
+
+        $data = $paginator->paginate(
+            $donnee,
+            $request->query->getInt('page', 1),
+            10
+        );
+
         return $this->render('administration/list.html.twig', [
-            'data' => $qr->getDataFromSearch($searchTerm),
+            'data' => $data,
             'searchTerm' => $searchTerm,
             'pathShow' => 'app_questionrh_show',
             'pathExcel' => 'app_excel_question_rh',

@@ -6,6 +6,7 @@ use App\Entity\RendezVousRH;
 use App\Form\RendezVousRhType;
 use App\Repository\RendezVousRHRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,12 +80,20 @@ class RendezVousRhController extends AbstractController
     // ======================= PARTIE ADMIN ===========================
 
     #[Route('/rendez_vous_rh_list', name: 'app_rendez_vous_rh_index', methods: ['GET'])]
-    public function list(Request $request, RendezVousRHRepository $rdvr): Response
+    public function list(Request $request, RendezVousRHRepository $rdvr, PaginatorInterface $paginator): Response
     {
         $searchTerm = $request->query->get('search');
 
+        $donnee = $rdvr->getDataFromSearch($searchTerm);
+
+        $data = $paginator->paginate(
+            $donnee,
+            $request->query->getInt('page', 1),
+            10
+        );
+
         return $this->render('administration/list.html.twig', [
-            'data' => $rdvr->getDataFromSearch($searchTerm),
+            'data' => $data,
             'searchTerm' => $searchTerm,
             'pathShow' => 'app_rendez_vous_rh_show',
             'pathExcel' => 'app_excel_rendez_vous_rh',

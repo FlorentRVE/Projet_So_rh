@@ -48,6 +48,8 @@
 
                 <a href="{{ path('app_register') }}" class="text-slate-50 text-xl text-center bg-sky-800 mb-5 px-4 py-3 font-bold rounded-lg w-[90%]">Nouvel utilisateur</a>
 
+                <div class="text-slate-950 font-bold text-xl mb-5">{{ knp_pagination_render(users) }}</div>
+
                 <table class="w-full">
                     <tbody>
                     {% for user in users %}

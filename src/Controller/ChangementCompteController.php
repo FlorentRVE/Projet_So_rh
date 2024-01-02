@@ -6,6 +6,7 @@ use App\Entity\ChangementCompte;
 use App\Form\ChangementCompteType;
 use App\Repository\ChangementCompteRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -117,12 +118,20 @@ class ChangementCompteController extends AbstractController
     // ======================= PARTIE ADMIN ===========================
 
     #[Route('/changement_compte_list', name: 'app_changement_compte_index', methods: ['GET'])]
-    public function list(Request $request, ChangementCompteRepository $ccr): Response
+    public function list(Request $request, ChangementCompteRepository $ccr, PaginatorInterface $paginator): Response
     {
         $searchTerm = $request->query->get('search');
 
+        $donnee = $ccr->getDataFromSearch($searchTerm);
+
+        $data = $paginator->paginate(
+            $donnee,
+            $request->query->getInt('page', 1),
+            10
+        );
+
         return $this->render('administration/list.html.twig', [
-            'data' => $ccr->getDataFromSearch($searchTerm),
+            'data' => $data,
             'searchTerm' => $searchTerm,
             'pathShow' => 'app_changement_compte_show',
             'pathExcel' => 'app_excel_changement_compte',

@@ -6,6 +6,7 @@ use App\Entity\AttestationEmployeur;
 use App\Form\AttestationEmployeurType;
 use App\Repository\AttestationEmployeurRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -78,12 +79,20 @@ class AttestationEmployeurController extends AbstractController
     // ======================= PARTIE ADMIN ===========================
 
     #[Route('/attestation_employeur_list', name: 'app_attestation_employeur_index', methods: ['GET'])]
-    public function list(Request $request, AttestationEmployeurRepository $ar): Response
+    public function list(Request $request, AttestationEmployeurRepository $ar, PaginatorInterface $paginator): Response
     {
         $searchTerm = $request->query->get('search');
 
+        $donnee = $ar->getDataFromSearch($searchTerm);
+
+        $data = $paginator->paginate(
+            $donnee,
+            $request->query->getInt('page', 1),
+            10
+        );
+
         return $this->render('administration/list.html.twig', [
-            'data' => $ar->getDataFromSearch($searchTerm),
+            'data' => $data,
             'searchTerm' => $searchTerm,
             'pathShow' => 'app_attestation_employeur_show',
             'pathExcel' => 'app_excel_attestation_employeur',

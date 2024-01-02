@@ -6,6 +6,7 @@ use App\Entity\DemandeBulletinSalaire;
 use App\Form\DemandeBulletinSalaireType;
 use App\Repository\DemandeBulletinSalaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,12 +78,20 @@ class DemandeBulletinSalaireController extends AbstractController
     // ======================= PARTIE ADMIN ===========================
 
     #[Route('/demande_bulletin_salaire_list', name: 'app_demande_bulletin_salaire_index', methods: ['GET'])]
-    public function list(Request $request, DemandeBulletinSalaireRepository $dbsr): Response
+    public function list(Request $request, DemandeBulletinSalaireRepository $dbsr, PaginatorInterface $paginator): Response
     {
         $searchTerm = $request->query->get('search');
 
+        $donnee = $dbsr->getDataFromSearch($searchTerm);
+
+        $data = $paginator->paginate(
+            $donnee,
+            $request->query->getInt('page', 1),
+            10
+        );
+
         return $this->render('administration/list.html.twig', [
-            'data' => $dbsr->getDataFromSearch($searchTerm),
+            'data' => $data,
             'searchTerm' => $searchTerm,
             'pathShow' => 'app_demande_bulletin_salaire_show',
             'pathExcel' => 'app_excel_demande_bulletin_salaire',

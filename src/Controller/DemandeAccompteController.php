@@ -6,6 +6,7 @@ use App\Entity\DemandeAccompte;
 use App\Form\DemandeAccompteType;
 use App\Repository\DemandeAccompteRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,12 +77,20 @@ class DemandeAccompteController extends AbstractController
     // ======================= PARTIE ADMIN ===========================
 
     #[Route('/demande_accompte_list', name: 'app_demande_accompte_index', methods: ['GET'])]
-    public function list(Request $request, DemandeAccompteRepository $dar): Response
+    public function list(Request $request, DemandeAccompteRepository $dar, PaginatorInterface $paginator): Response
     {
         $searchTerm = $request->query->get('search');
 
+        $donnee = $dar->getDataFromSearch($searchTerm);
+
+        $data = $paginator->paginate(
+            $donnee,
+            $request->query->getInt('page', 1),
+            10
+        );
+
         return $this->render('administration/list.html.twig', [
-            'data' => $dar->getDataFromSearch($searchTerm),
+            'data' => $data,
             'searchTerm' => $searchTerm,
             'pathShow' => 'app_demande_accompte_show',
             'pathExcel' => 'app_excel_demande_accompte',

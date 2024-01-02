@@ -6,6 +6,7 @@ use App\Entity\ChangementAdresse;
 use App\Form\ChangementAdresseType;
 use App\Repository\ChangementAdresseRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,12 +77,20 @@ class ChangementAdresseController extends AbstractController
     // ======================= PARTIE ADMIN ===========================
 
     #[Route('/changement_adresse_list', name: 'app_changement_adresse_index', methods: ['GET'])]
-    public function list(Request $request, ChangementAdresseRepository $car): Response
+    public function list(Request $request, ChangementAdresseRepository $car, PaginatorInterface $paginator): Response
     {
         $searchTerm = $request->query->get('search');
 
+        $donnee = $car->getDataFromSearch($searchTerm);
+
+        $data = $paginator->paginate(
+            $donnee,
+            $request->query->getInt('page', 1),
+            10
+        );
+
         return $this->render('administration/list.html.twig', [
-            'data' => $car->getDataFromSearch($searchTerm),
+            'data' => $data,
             'searchTerm' => $searchTerm,
             'pathShow' => 'app_changement_adresse_show',
             'pathExcel' => 'app_excel_changement_adresse',

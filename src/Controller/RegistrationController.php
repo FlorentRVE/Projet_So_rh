@@ -125,12 +125,12 @@ class RegistrationController extends AbstractController
             $newFormattedData[] = $user;
         }
 
-        // ============ PARCOURIR TOUTES LES LIGNES DU TABLEAU =================
+        // ============ PARCOURIR TOUTES LES LIGNES DU TABLEAU ET CREE USER =================
 
         foreach ($newFormattedData as $usera) {
             $user = new User();
             $user->setUsername($usera['username']);
-            $user->setRoles(['ROLE_ACTIF', 'ROLE_USER']);
+            $user->setRoles(['ROLE_ACTIF',]);
 
             $user->setPassword(
                 $userPasswordHasher->hashPassword(

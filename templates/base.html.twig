@@ -1,36 +1,55 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}SO RH{% endblock %}</title>
-        {# <script src="https://cdn.tailwindcss.com"></script> #}
-        <script src="{{ asset('/js/script.js') }}" defer></script>
-        {# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> #}
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        <link rel="icon" href="{{ asset('/img/logo_clair.png') }}">
-        <link href="{{ asset('/css/fontawesome.css') }}" rel="stylesheet">
-        <link href="{{ asset('/css/solid.css') }}" rel="stylesheet">
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}SO RH
+			{% endblock %}
+		</title>
+		<script src="{{ asset('/js/script.js') }}" defer></script>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		<link rel="icon" href="{{ asset('/img/logo_clair.png') }}">
+		<link href="{{ asset('/css/fontawesome.css') }}" rel="stylesheet">
+		<link href="{{ asset('/css/solid.css') }}" rel="stylesheet">
+		<script src="{{ asset('/widget/build/js/widget.js') }}"></script>
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body class="bg-slate-50">
-    
-        {% for message in app.flashes('success') %}
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<body class="bg-slate-50">
 
-            <div class="alert bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative font-bold" role="alert">
-                <span class="block text-center text-xl">{{ message }}</span>
-                <span class="close absolute top-0 bottom-0 right-0 px-4 py-3">
-                    <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-                </span>
-            </div>
-        {% endfor %}
-        
-        {% block body %}{% endblock %}
-    </body>
+		{% for message in app.flashes('success') %}
+
+			<div class="alert bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative font-bold" role="alert">
+				<span class="block text-center text-xl">{{ message }}</span>
+				<span class="close absolute top-0 bottom-0 right-0 px-4 py-3">
+					<svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20">
+						<title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+				</span>
+			</div>
+		{% endfor %}
+
+		{# ==== ChatBot === #}
+		<script>
+			var botmanWidget = {
+                chatServer: "{{ path('app_chatbot_index') }}",
+                frameEndpoint: "{{ path('app_chatbot_vue') }}",
+                title: "ChatBot SO RH",
+                introMessage: 'Bonjour, je suis le chatbot SO RH. Comment puis-je vous aider ? <br> <br> <a href="#" id="reponse" onclick="reponse(this)">Question sur les congés</a> | <a href="#" id="reponse" onclick="reponse(this)">Question sur la formation en entreprise</a> | <a href="#" id="reponse" onclick="reponse(this)">Question sur la paie en entreprise</a> | <a href="#" id="reponse" onclick="reponse(this)">Question sur la situation de famille</a> | <a href="#" id="reponse" onclick="reponse(this)">Question sur les avantages sociaux</a>',
+                placeholderText: "Envoyer votre message",
+                mainColor: "#0EA5E9",
+                bubbleBackground: "#d3ebff",
+                headerTextColor: "white",
+                aboutText: "",
+                bubbleAvatarUrl: "https://media.licdn.com/dms/image/C4D0BAQEJu8tjhvD0pg/company-logo_200_200/0/1641880440715/sodiparc_logo?e=2147483647&v=beta&t=MJDfFE8PRmHeauQ0bU92nNT6TRwBc8roaRY1pmNZb_0"
+                };
+		</script>
+
+		{% block body %}{% endblock %}
+	</body>
 </html>

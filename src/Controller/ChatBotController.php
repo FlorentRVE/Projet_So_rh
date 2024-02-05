@@ -223,7 +223,7 @@ class ChatBotController extends AbstractController
         // Start listening
         $botman->listen();
 
-        return new Response();
+        die();
     }
 
     #[Route('/chatbotvue', name: 'app_chatbot_vue')]

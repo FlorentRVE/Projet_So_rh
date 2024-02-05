@@ -21,9 +21,9 @@ class UserController extends AbstractController
     public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
     {
         $searchTerm = $request->query->get('search');
-        
+
         $donnee = $userRepository->getUsersFromSearch($searchTerm);
-        
+
         $users = $paginator->paginate(
             $donnee,
             $request->query->getInt('page', 1),

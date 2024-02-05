@@ -130,7 +130,7 @@ class RegistrationController extends AbstractController
         foreach ($newFormattedData as $usera) {
             $user = new User();
             $user->setUsername($usera['username']);
-            $user->setRoles(['ROLE_ACTIF',]);
+            $user->setRoles(['ROLE_ACTIF']);
 
             $user->setPassword(
                 $userPasswordHasher->hashPassword(

@@ -1,75 +1,105 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Accueil
+{% endblock %}
+
+{% block javascripts %}
+	{# ==== ChatBot === #}
+	<script src="{{ asset('/widget/build/js/widget.js') }}" defer></script>
+	<script>
+        var botmanWidget = {
+            chatServer: "{{ path('app_chatbot_index') }}",
+            frameEndpoint: "{{ path('app_chatbot_vue') }}",
+            title: "ChatBot SO RH",
+            introMessage: 'Bonjour, je suis le chatbot SO RH. Comment puis-je vous aider ? <br> <br> <a href="#" id="reponse" onclick="reponse(this)">Question sur les congés</a> | <a href="#" id="reponse" onclick="reponse(this)">Question sur la formation en entreprise</a> | <a href="#" id="reponse" onclick="reponse(this)">Question sur la paie en entreprise</a> | <a href="#" id="reponse" onclick="reponse(this)">Question sur la situation de famille</a> | <a href="#" id="reponse" onclick="reponse(this)">Question sur les avantages sociaux</a>',
+            placeholderText: "Envoyer votre message",
+            mainColor: "#0EA5E9",
+            bubbleBackground: "#d3ebff",
+            headerTextColor: "white",
+            aboutText: "",
+            bubbleAvatarUrl: "https://media.licdn.com/dms/image/C4D0BAQEJu8tjhvD0pg/company-logo_200_200/0/1641880440715/sodiparc_logo?e=2147483647&v=beta&t=MJDfFE8PRmHeauQ0bU92nNT6TRwBc8roaRY1pmNZb_0"
+            };
+        defer
+	</script>
+{% endblock %}
 
 {% block body %}
 
-<div class="flex flex-col bg-sky-200 font-semibold lg:bg-sky-500 min-h-screen">
+	<div class="flex flex-col bg-sky-200 font-semibold lg:bg-sky-500 min-h-screen">
 
-    <div class="flex flex-col bg-sky-500 relative">
-    
-        <div class="flex h-[21vh] w-[90%] mx-auto justify-between">
-            
-            {% if is_granted('ROLE_ADMIN') %}
-            <div class="flex flex-col pt-2">
-                <p class="text-white text-[3vh] ">Bonjour,</p>
-                <p class="text-white text-[3vh] capitalize">{{ app.user.username }}</p>
-            </div>
+		<div class="flex flex-col bg-sky-500 relative">
 
-            <a href="{{ path('app_accueil_admin') }}"  class="flex flex-col ml-6 p-4 text-center transition-all hover:scale-105">
-                <p class="font-semibold text-slate-100">Panneau d'administration</p>
-                <i class="fa-solid fa-gears text-slate-50 text-xl text-center py-1 font-semibold"></i>
-            </a>
-            {% else %}
-            <div class="flex flex-col pt-2">
-                <p class="text-white text-[3vh] ">Bonjour,</p>
-                <p class="text-white text-[3vh] capitalize">{{ app.user.username }}</p>
-            </div>
+			<div class="flex h-[21vh] w-[90%] mx-auto justify-between">
 
-            <a href="{{ path('app_logout') }}" class="flex flex-col text-center transition-all hover:scale-105 py-4">
-                <p class="font-semibold text-slate-50">Se déconnecter</p>
-                <i class="fa-solid fa-right-to-bracket text-slate-50 text-2xl text-center font-semibold"></i>
-            </a>
+				{% if is_granted('ROLE_ADMIN') %}
+					<div class="flex flex-col pt-2">
+						<p class="text-white text-[3vh] ">Bonjour,</p>
+						<p class="text-white text-[3vh] capitalize">{{ app.user.username }}</p>
+					</div>
 
-            {% endif %}
- 
-        </div>
+					<a href="{{ path('app_accueil_admin') }}" class="flex flex-col ml-6 p-4 text-center transition-all hover:scale-105">
+						<p class="font-semibold text-slate-100">Panneau d'administration</p>
+						<i class="fa-solid fa-gears text-slate-50 text-xl text-center py-1 font-semibold"></i>
+					</a>
+				{% else %}
+					<div class="flex flex-col pt-2">
+						<p class="text-white text-[3vh] ">Bonjour,</p>
+						<p class="text-white text-[3vh] capitalize">{{ app.user.username }}</p>
+					</div>
 
-        <div class="flex flex-col gap-2 bg-slate-50 w-[90%] mx-auto h-[17vh] rounded-xl p-2 text-center shadow-lg justify-center absolute -bottom-[40%] left-1/2 -translate-x-1/2">
-            <h2 class="text-[3vh] font-bold">Bienvenue sur SO RH</h2>
-            <div class="w-[10%] mx-auto h-[3px] bg-slate-800 rounded-xl"></div>            
-            <p class="w-[60%] mx-auto text-slate-800">Transmettez vos demandes au bureau RH de manière simple et rapide</p>
-        
-        </div>
-    </div>
+					<a href="{{ path('app_logout') }}" class="flex flex-col text-center transition-all hover:scale-105 py-4">
+						<p class="font-semibold text-slate-50">Se déconnecter</p>
+						<i class="fa-solid fa-right-to-bracket text-slate-50 text-2xl text-center font-semibold"></i>
+					</a>
+
+				{% endif %}
+
+			</div>
+
+			<div class="flex flex-col gap-2 bg-slate-50 w-[90%] mx-auto h-[17vh] rounded-xl p-2 text-center shadow-lg justify-center absolute -bottom-[40%] left-1/2 -translate-x-1/2">
+				<h2 class="text-[3vh] font-bold">Bienvenue sur SO RH</h2>
+				<div class="w-[10%] mx-auto h-[3px] bg-slate-800 rounded-xl"></div>
+				<p class="w-[60%] mx-auto text-slate-800">Transmettez vos demandes au bureau RH de manière simple et rapide</p>
+
+			</div>
+		</div>
 
 
-    <div class="bg-sky-200 mt-[7rem] flex flex-col gap-4 w-[90%] mx-auto p-4 lg:mb-5 rounded-2xl h-[62vh]">
+		<div class="bg-sky-200 mt-[7rem] flex flex-col gap-4 w-[90%] mx-auto p-4 lg:mb-5 rounded-2xl h-[62vh]">
 
-        <h3 class="text-3xl text-center">Choisir une catégorie</h3>
-        
-        <div class="flex flex-col gap-4 h-full text-4xl text-slate-50 lg:flex-row lg:p-4 lg:gap-10 lg:justify-center">
+			<h3 class="text-3xl text-center">Choisir une catégorie</h3>
 
-            <a href="{{ path('app_accueil_form') }}" class="bg-sky-500 flex-1 rounded-xl flex items-center justify-between px-4 shadow-lg hover:cursor-pointer hover:scale-105 lg:flex-col lg:justify-center lg:gap-10">
-                    <h4 class="lg:order-2">Formulaires</h4>
-                    <p class="text-5xl mr-2 lg:order-1 lg:text-[25vh]"><i class="fa-regular fa-rectangle-list"></i></p>
+			<div class="flex flex-col gap-4 h-full text-4xl text-slate-50 lg:flex-row lg:p-4 lg:gap-10 lg:justify-center">
 
-            </a>
+				<a href="{{ path('app_accueil_form') }}" class="bg-sky-500 flex-1 rounded-xl flex items-center justify-between px-4 shadow-lg hover:cursor-pointer hover:scale-105 lg:flex-col lg:justify-center lg:gap-10">
+					<h4 class="lg:order-2">Formulaires</h4>
+					<p class="text-5xl mr-2 lg:order-1 lg:text-[25vh]">
+						<i class="fa-regular fa-rectangle-list"></i>
+					</p>
 
-            <a href="{{ path('app_questionrh') }}" class="bg-sky-700 flex-1 rounded-xl flex items-center justify-between px-4 shadow-lg hover:cursor-pointer hover:scale-105 lg:flex-col lg:justify-center lg:gap-10">
-                <h4 class="lg:order-2">Question RH</h4>
-                <p class="text-5xl mr-2 lg:order-1 lg:text-[25vh]"><i class="fa-regular fa-circle-question"></i></p>
+				</a>
 
-            </a>
+				<a href="{{ path('app_questionrh') }}" class="bg-sky-700 flex-1 rounded-xl flex items-center justify-between px-4 shadow-lg hover:cursor-pointer hover:scale-105 lg:flex-col lg:justify-center lg:gap-10">
+					<h4 class="lg:order-2">Question RH</h4>
+					<p class="text-5xl mr-2 lg:order-1 lg:text-[25vh]">
+						<i class="fa-regular fa-circle-question"></i>
+					</p>
 
-            <a href="{{ path('app_rendez_vous_rh') }}" class="bg-sky-900 flex-1 rounded-xl flex items-center justify-between px-4 shadow-lg hover:cursor-pointer hover:scale-105 lg:flex-col lg:justify-center lg:gap-10">
-                <h4 class="lg:order-2">Rendez-vous</h4>
-                <p class="text-5xl mr-2 lg:order-1 lg:text-[25vh]"><i class="fa-regular fa-calendar"></i></p>
+				</a>
 
-            </a>
-        </div>
-    
-    </div>
+				<a href="{{ path('app_rendez_vous_rh') }}" class="bg-sky-900 flex-1 rounded-xl flex items-center justify-between px-4 shadow-lg hover:cursor-pointer hover:scale-105 lg:flex-col lg:justify-center lg:gap-10">
+					<h4 class="lg:order-2">Rendez-vous</h4>
+					<p class="text-5xl mr-2 lg:order-1 lg:text-[25vh]">
+						<i class="fa-regular fa-calendar"></i>
+					</p>
 
-</div>
+				</a>
+			</div>
+
+		</div>
+
+
+	</div>
+
+
 {% endblock %}

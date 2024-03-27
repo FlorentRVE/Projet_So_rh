@@ -36,6 +36,10 @@ class RendezVousRH
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $faitLe = null;
 
+    public function __toString() {
+        return $this->service->getLabel();
+
+    }
     public function getId(): ?int
     {
         return $this->id;

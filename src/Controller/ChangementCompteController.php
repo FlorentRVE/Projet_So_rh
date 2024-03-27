@@ -105,12 +105,12 @@ class ChangementCompteController extends AbstractController
 
             $this->addFlash('danger', $formErrors);
 
-            return $this->render('changement_compte/index.html.twig', [
+            return $this->render('demandes/changement_compte/index.html.twig', [
                 'form' => $form,
             ]);
         }
 
-        return $this->render('changement_compte/index.html.twig', [
+        return $this->render('demandes/changement_compte/index.html.twig', [
             'form' => $form,
         ]);
     }
@@ -142,7 +142,7 @@ class ChangementCompteController extends AbstractController
     #[Route('/changement_compte_list/{id}', name: 'app_changement_compte_show', methods: ['GET'])]
     public function show(Request $request, ChangementCompte $changementCompte, ChangementCompteRepository $ccr): Response
     {
-        return $this->render('changement_compte/show.html.twig', [
+        return $this->render('demandes/changement_compte/show.html.twig', [
             'demande' => $ccr->find($changementCompte->getId($request->query->get('id'))),
         ]);
     }

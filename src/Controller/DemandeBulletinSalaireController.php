@@ -65,12 +65,12 @@ class DemandeBulletinSalaireController extends AbstractController
 
             $this->addFlash('danger', $formErrors);
 
-            return $this->render('demande_bulletin_salaire/index.html.twig', [
+            return $this->render('demandes/bulletin_salaire/index.html.twig', [
                 'form' => $form,
             ]);
         }
 
-        return $this->render('demande_bulletin_salaire/index.html.twig', [
+        return $this->render('demandes/bulletin_salaire/index.html.twig', [
             'form' => $form,
         ]);
     }
@@ -102,7 +102,7 @@ class DemandeBulletinSalaireController extends AbstractController
     #[Route('/demande_bulletin_salaire_list/{id}', name: 'app_demande_bulletin_salaire_show', methods: ['GET'])]
     public function show(Request $request, DemandeBulletinSalaire $demandeBulletinSalaire, DemandeBulletinSalaireRepository $dbsr): Response
     {
-        return $this->render('demande_bulletin_salaire/show.html.twig', [
+        return $this->render('demandes/demande_bulletin_salaire/show.html.twig', [
             'demande' => $dbsr->find($demandeBulletinSalaire->getId($request->query->get('id'))),
         ]);
     }

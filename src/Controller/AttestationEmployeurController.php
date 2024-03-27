@@ -66,12 +66,12 @@ class AttestationEmployeurController extends AbstractController
 
             $this->addFlash('danger', $formErrors);
 
-            return $this->render('attestation_employeur/index.html.twig', [
+            return $this->render('demandes/attestation_employeur/index.html.twig', [
                 'form' => $form,
             ]);
         }
 
-        return $this->render('attestation_employeur/index.html.twig', [
+        return $this->render('demandes/attestation_employeur/index.html.twig', [
             'form' => $form,
         ]);
     }
@@ -103,7 +103,7 @@ class AttestationEmployeurController extends AbstractController
     #[Route('/attestation_employeur_list/{id}', name: 'app_attestation_employeur_show', methods: ['GET'])]
     public function show(Request $request, AttestationEmployeur $attestationEmployeur, AttestationEmployeurRepository $ar): Response
     {
-        return $this->render('attestation_employeur/show.html.twig', [
+        return $this->render('demandes/attestation_employeur/show.html.twig', [
             'demande' => $ar->find($attestationEmployeur->getId($request->query->get('id'))),
         ]);
     }

@@ -67,12 +67,12 @@ class QuestionrhController extends AbstractController
 
             $this->addFlash('danger', $formErrors);
 
-            return $this->render('questionrh/index.html.twig', [
+            return $this->render('demandes/question_rh/index.html.twig', [
                 'form' => $form,
             ]);
         }
 
-        return $this->render('questionrh/index.html.twig', [
+        return $this->render('demandes/question_rh/index.html.twig', [
             'form' => $form,
         ]);
     }
@@ -104,7 +104,7 @@ class QuestionrhController extends AbstractController
     #[Route('/questionrh_list/{id}', name: 'app_questionrh_show', methods: ['GET'])]
     public function show(Request $request, QuestionRH $questionRH, QuestionRHRepository $qr): Response
     {
-        return $this->render('questionrh/show.html.twig', [
+        return $this->render('demandes/question_rh/show.html.twig', [
             'demande' => $qr->find($questionRH->getId($request->query->get('id'))),
         ]);
     }

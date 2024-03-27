@@ -64,12 +64,12 @@ class DemandeAccompteController extends AbstractController
 
             $this->addFlash('danger', $formErrors);
 
-            return $this->render('demande_accompte/index.html.twig', [
+            return $this->render('demandes/accompte/index.html.twig', [
                 'form' => $form,
             ]);
         }
 
-        return $this->render('demande_accompte/index.html.twig', [
+        return $this->render('demandes/accompte/index.html.twig', [
             'form' => $form,
         ]);
     }
@@ -101,7 +101,7 @@ class DemandeAccompteController extends AbstractController
     #[Route('/demande_accompte_list/{id}', name: 'app_demande_accompte_show', methods: ['GET'])]
     public function show(Request $request, DemandeAccompte $demandeAccompte, DemandeAccompteRepository $dar): Response
     {
-        return $this->render('demande_accompte/show.html.twig', [
+        return $this->render('demandes/accompte/show.html.twig', [
             'demande' => $dar->find($demandeAccompte->getId($request->query->get('id'))),
         ]);
     }

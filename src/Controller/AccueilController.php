@@ -30,10 +30,10 @@ class AccueilController extends AbstractController
         ]);
     }
 
-    #[Route('/admin', name: 'app_accueil_admin')]
+    #[Route('/gestion_formulaire', name: 'app_accueil_admin')]
     public function admin(): Response
     {
-        return $this->render('administration/admin.html.twig', [
+        return $this->render('administration/gestion_formulaire.html.twig', [
             'controller_name' => 'AccueilController',
         ]);
     }

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formulaire index{% endblock %}
+
+{% block body %}
+    {# ======================== Sidebar ========================== #}
+
+    {{ include('component/_sidebar.html.twig') }}
+
+    {# ==================== Content ======================= #}
+    <content>
+        <div class="ml-[20vw] bg-sky-200 min-h-screen">
+
+            <div class="flex flex-col p-4 justify-center items-center bg-slate-50">
+
+                <h1 class="text-3xl font-semibold text-center">Administration</h1>
+
+            </div>
+
+            <div class="flex flex-col p-4 mt-4 justify-center items-center">
+
+                <a href="{{ path('app_service_new') }}" class="text-slate-50 text-xl text-center bg-sky-800 mb-5 px-4 py-3 font-bold rounded-lg w-[90%]">Nouveau service</a>
+
+                <table class="w-full">
+                    <tbody>
+                    {% for service in services %}
+                        <tr class="border-2 border-slate-900">
+                            <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold p-2 lg:text-xl w-[65%]">
+                                <p class="text-green-700">{{ service.label }}</p>
+                                <p>{{ service.emailSecretariat }}</p>
+                                <p>{{ service.emailSecretariat }}</p>
+                            </td>                      
+
+                            <td class="border-2 border-slate-900 bg-slate-950 text-center lg:text-xl">
+
+                                <a href="{{ path('app_service_edit', {'id': service.id}) }}" class="bg-yellow-400 text-center px-3  hover:brightness-125 rounded-lg font-semibold">Modifier</a>
+                                <form method="post" action="{{ path('app_service_delete', {'id': service.id}) }}" onsubmit="return confirm('Voulez vous vraiment supprimer ce service ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">
+                                    <button class="btn text-red-700  text-center px-3  hover:brightness-125 rounded-lg font-semibold">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr class="border-2 border-slate-900 bg-slate-50 text-2xl text-center">
+                            <td colspan="3">Aucun utilisateur ne correspond à votre recherche ...</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>                
+            </div>
+        </div>
+    </content>
+{% endblock %}

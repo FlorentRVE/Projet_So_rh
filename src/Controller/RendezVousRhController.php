@@ -31,7 +31,7 @@ class RendezVousRhController extends AbstractController
         $form = $this->createForm(RendezVousRhType::class, $rendezVousRh);
 
         $form->handleRequest($request);
-        $formTitle = 'Rendez-vous RH';
+        $formTitle = 'Rendez-vous RH - ' . $rendezVousRh->getService();
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -67,12 +67,12 @@ class RendezVousRhController extends AbstractController
 
             $this->addFlash('danger', $formErrors);
 
-            return $this->render('rendez_vous_rh/index.html.twig', [
+            return $this->render('demandes/rendez_vous_rh/index.html.twig', [
                 'form' => $form,
             ]);
         }
 
-        return $this->render('rendez_vous_rh/index.html.twig', [
+        return $this->render('demandes/rendez_vous_rh/index.html.twig', [
             'form' => $form,
         ]);
     }
@@ -104,7 +104,7 @@ class RendezVousRhController extends AbstractController
     #[Route('/rendez_vous_rh_list/{id}', name: 'app_rendez_vous_rh_show', methods: ['GET'])]
     public function show(Request $request, RendezVousRH $rendezVousRH, RendezVousRHRepository $rdvr): Response
     {
-        return $this->render('rendez_vous_rh/show.html.twig', [
+        return $this->render('demandes/rendez_vous_rh/show.html.twig', [
             'demande' => $rdvr->find($rendezVousRH->getId($request->query->get('id'))),
         ]);
     }

@@ -1,32 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Attestation Employeur{% endblock %}
+{% block title %}Rendez-vous RH{% endblock %}
 
 {% block body %}
-    {# ======================== Sidebar ========================== #}
-    <sidebar class="bg-cyan-950 fixed left-0 top-0 h-screen rounded-tr-3xl">
-        <div class="flex flex-col items-center w-[20vw]">
-
-            {# ===== LOGO ====== #}
-            <a href="{{ path('app_accueil') }}">
-
-                <img src="{{ asset('img/logo_clair.png') }}" alt="logo" class="w-[15vw] mt-8">
-            </a>
-
-            <div class="w-[60%] mx-auto h-[2px] bg-slate-50 rounded-xl my-10"></div>
-
-            <div class="flex flex-col items-center gap-3 pt-4 font-semibold text-[1.5vh] lg:text-[2vh]">
-
-                <a href="{{ path('app_accueil_admin') }}" class="text-slate-50 text-center hover:bg-sky-800 mb-5 px-2 py-1 rounded-lg w-full">Gestion formulaire</a>
-                <a href="{{ path('app_user_index') }}" class="text-slate-50 text-center hover:bg-sky-800 mb-5 px-2 py-1 rounded-lg w-full h-auto">Gestion utilisateurs</a>
-
-                <a href="{{ path('app_logout') }}"  class="flex flex-col text-center transition-all hover:scale-105 p-6 text-slate-50">
-                    <p class="font-semibold">Se déconnecter</p>
-                    <i class="fa-solid fa-right-to-bracket text-slate-50 text-2xl text-center font-semibold"></i>
-                </a>
-            </div>
-        </div>
-    </sidebar>
+    
+    {{ include('component/_sidebar.html.twig') }}
 
     {# ==================== Content ======================= #}
     <content>
@@ -34,7 +12,7 @@
 
             <div class="flex flex-col p-4 justify-center items-center bg-slate-50">
 
-                <h1 class="text-3xl font-semibold text-center">Attestation Employeur</h1>
+                <h1 class="text-3xl font-semibold text-center">Rendez-vous RH</h1>
 
             </div>
 
@@ -62,8 +40,8 @@
 
                     <tr class="border-2 border-slate-900">
 
-                        <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Fonction</th>
-                        <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.fonction }}</td>
+                        <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Téléphone</th>
+                        <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.telephone }}</td>
                     </tr>
 
                     <tr class="border-2 border-slate-900">
@@ -74,20 +52,14 @@
 
                     <tr class="border-2 border-slate-900">
 
-                        <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Téléphone</th>
-                        <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.telephone }}</td>
+                        <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Rendez-vous avec</th>
+                        <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.rdvAvec }}</td>
                     </tr>
 
                     <tr class="border-2 border-slate-900">
 
-                        <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Motif</th>
-                        <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.motif }}</td>
-                    </tr>
-
-                    <tr class="border-2 border-slate-900">
-
-                        <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Récupération</th>
-                        <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.recuperation }}</td>
+                        <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Message</th>
+                        <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.message }}</td>
                     </tr>
 
                     <tr class="border-2 border-slate-900">
@@ -100,9 +72,9 @@
 
                 <div class="flex flex-col gap-3 justify-center items-center lg:flex-row w-[90%] md:w-1/2 lg:w-[30vw]">
 
-                    <a href="{{ path('app_attestation_employeur_index') }}"  class="w-full bg-sky-800 text-slate-50 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold">Retour à la liste</a>
+                    <a href="{{ path('app_rendez_vous_rh_index') }}"  class="w-full bg-sky-800 text-slate-50 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold">Retour à la liste</a>
                     
-                    <form method="post" action="{{ path('app_attestation_employeur_delete', {'id': demande.id}) }}" onsubmit="return confirm('Voulez vous vraiment supprimer cette entrée ?');" class="w-full">
+                    <form method="post" action="{{ path('app_rendez_vous_rh_delete', {'id': demande.id}) }}" onsubmit="return confirm('Voulez vous vraiment supprimer cette entrée ?');" class="w-full">
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ demande.id) }}">
                         <button class="btn bg-red-600 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold text-slate-100 w-full">Supprimer</button>
                     </form>                    

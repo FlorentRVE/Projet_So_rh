@@ -41,6 +41,9 @@ class Service
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $emailSecretariat = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $emailResponsable = null;
+
     public function __construct()
     {
         $this->changementAdresses = new ArrayCollection();
@@ -275,6 +278,18 @@ class Service
     public function setEmailSecretariat(?string $emailSecretariat): static
     {
         $this->emailSecretariat = $emailSecretariat;
+
+        return $this;
+    }
+
+    public function getEmailResponsable(): ?string
+    {
+        return $this->emailResponsable;
+    }
+
+    public function setEmailResponsable(?string $emailResponsable): static
+    {
+        $this->emailResponsable = $emailResponsable;
 
         return $this;
     }

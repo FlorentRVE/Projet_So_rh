@@ -36,6 +36,7 @@ class AttestationEmployeurController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $currentDate = new \DateTimeImmutable();
             $attestationEmployeur->setFaitLe($currentDate);
+            $attestationEmployeur->setDemandeur($this->security->getUser());
 
             $em->persist($attestationEmployeur);
             $em->flush();

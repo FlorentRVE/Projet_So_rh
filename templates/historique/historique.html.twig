@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Historique{% endblock %}
+
+{% block body %}
+
+    <content>
+        <div class="bg-sky-200 min-h-screen">
+
+            <div class="flex p-4 justify-between items-center bg-slate-50">
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('app_user_index') }}"  class="text-lg"><i class="fa-solid fa-arrow-left"></i></a>
+                {% else %}
+                    <a href="{{ path('app_accueil') }}"  class="text-lg"><i class="fa-solid fa-arrow-left"></i></a>
+                {% endif %}
+
+                <h1 class="text-3xl font-semibold text-center">Historique</h1>
+                <p></p>
+
+            </div>
+
+            {{include('historique/_tableau.html.twig', {'title': 'Attestation Employeur','demandes': user.AttestationEmployeurs,'pathId': 'app_attestation_employeur_historique'})}}
+            {{include('historique/_tableau.html.twig', {'title': 'Changement d\'adresse','demandes': user.ChangementAdresses,'pathId': 'app_changement_adresse_historique'})}}
+            {{include('historique/_tableau.html.twig', {'title': 'Changement de compte','demandes': user.ChangementComptes,'pathId': 'app_changement_compte_historique'})}}
+            {{include('historique/_tableau.html.twig', {'title': 'Demande d\'accomptes','demandes': user.DemandeAccomptes,'pathId': 'app_demande_accompte_historique'})}}
+            {{include('historique/_tableau.html.twig', {'title': 'Demande de bulletin de salaires','demandes': user.DemandeBulletinSalaires,'pathId': 'app_demande_bulletin_salaire_historique'})}}
+            {{include('historique/_tableau.html.twig', {'title': 'Question RH','demandes': user.QuestionRHs,'pathId': 'app_question_rh_historique'})}}
+            {{include('historique/_tableau.html.twig', {'title': 'Rendez-vous RH','demandes': user.RendezVousRHs,'pathId': 'app_rendez_vous_rh_historique'})}}
+
+        </div>
+    </content>
+{% endblock %}

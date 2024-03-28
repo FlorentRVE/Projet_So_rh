@@ -1,18 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Demande de bulletin de salaire{% endblock %}
+{% block title %}Attestation Employeur{% endblock %}
 
 {% block body %}
-    
-    {{ include('component/_sidebar.html.twig') }}
 
-    {# ==================== Content ======================= #}
     <content>
-        <div class="ml-[20vw] bg-sky-200 min-h-screen">
+        <div class="bg-sky-200 min-h-screen">
 
             <div class="flex flex-col p-4 justify-center items-center bg-slate-50">
 
-                <h1 class="text-3xl font-semibold text-center">Demande de bulletin de salaire</h1>
+                <h1 class="text-3xl font-semibold text-center">Attestation Employeur</h1>
 
             </div>
 
@@ -25,7 +22,7 @@
                         <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Service</th>
                         <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.service }}</td>
                     </tr>
-
+                    
                     <tr class="border-2 border-slate-900">
 
                         <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Fonction</th>
@@ -42,26 +39,8 @@
 
                     <tr class="border-2 border-slate-900">
 
-                        <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Période du</th>
-                        <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.dateDu.format('m/Y') }}</td>
-                    </tr>
-
-                    <tr class="border-2 border-slate-900">
-
-                        <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Au</th>
-                        <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.dateAu.format('m/Y') }}</td>
-                    </tr>
-
-                    <tr class="border-2 border-slate-900">
-
                         <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Récupération</th>
                         <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.recuperation }}</td>
-                    </tr>
-
-                    <tr class="border-2 border-slate-900">
-
-                        <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Fait à</th>
-                        <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.faitA }}</td>
                     </tr>
 
                     <tr class="border-2 border-slate-900">
@@ -74,12 +53,8 @@
 
                 <div class="flex flex-col gap-3 justify-center items-center lg:flex-row w-[90%] md:w-1/2 lg:w-[30vw]">
 
-                    <a href="{{ path('app_demande_bulletin_salaire_index') }}"  class="w-full bg-sky-800 text-slate-50 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold">Retour à la liste</a>
-                    
-                    <form method="post" action="{{ path('app_demande_bulletin_salaire_delete', {'id': demande.id}) }}" onsubmit="return confirm('Voulez vous vraiment supprimer cette entrée ?');" class="w-full">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ demande.id) }}">
-                        <button class="btn bg-red-600 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold text-slate-100 w-full">Supprimer</button>
-                    </form>                    
+                    <a href="{{ path('app_accueil_historique') }}"  class="w-full bg-sky-800 text-slate-50 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold">Retour à la liste</a>
+                                       
                 </div>   
 
              

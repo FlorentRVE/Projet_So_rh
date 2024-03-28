@@ -26,16 +26,16 @@ class AttestationEmployeurRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('d')
             ->select('d')
             ->leftJoin('d.service', 's')
+            ->leftJoin('d.demandeur', 'u')
             ->where(':searchTerm = \'\' OR 
-                d.nom LIKE :searchTerm OR
                 d.email LIKE :searchTerm OR
+                u.username LIKE :searchTerm OR
                 d.telephone LIKE :searchTerm OR
                 s.label LIKE :searchTerm OR
                 d.fonction LIKE :searchTerm OR
                 d.motif LIKE :searchTerm OR
                 d.recuperation LIKE :searchTerm OR
-                d.faitLe LIKE :searchTerm OR
-                d.prenom LIKE :searchTerm')
+                d.faitLe LIKE :searchTerm')
             ->setParameter('searchTerm', '%'.$searchTerm.'%')
             ->getQuery()
             ->getResult();

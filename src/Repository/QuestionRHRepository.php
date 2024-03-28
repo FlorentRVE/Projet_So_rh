@@ -21,11 +21,11 @@ class QuestionRHRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('d')
             ->select('d')
             ->leftJoin('d.service', 's')
+            ->leftJoin('d.demandeur', 'u')
             ->where(':searchTerm = \'\' OR 
-                d.nom LIKE :searchTerm OR
                 d.faitLe LIKE :searchTerm OR
                 s.label LIKE :searchTerm OR
-                d.prenom LIKE :searchTerm')
+                u.username LIKE :searchTerm')
             ->setParameter('searchTerm', '%'.$searchTerm.'%')
             ->getQuery()
             ->getResult();

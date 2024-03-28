@@ -17,8 +17,6 @@ class QuestionrhType extends AbstractType
     {
         $builder
             ->add('questionPour')
-            ->add('nom')
-            ->add('prenom')
             ->add('service')
             ->add('telephone', TextType::class, [
                 'constraints' => [

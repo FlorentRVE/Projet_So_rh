@@ -31,12 +31,13 @@ class RendezVousRhController extends AbstractController
         $form = $this->createForm(RendezVousRhType::class, $rendezVousRh);
 
         $form->handleRequest($request);
-        $formTitle = 'Rendez-vous RH - ' . $rendezVousRh->getService();
+        $formTitle = 'Rendez-vous RH - ' . $rendezVousRh->getRdvAvec();
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $currentDate = new \DateTimeImmutable();
             $rendezVousRh->setFaitLe($currentDate);
+            $rendezVousRh->setDemandeur($this->security->getUser());
 
             $em->persist($rendezVousRh);
             $em->flush();

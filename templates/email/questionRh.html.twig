@@ -114,11 +114,6 @@
           <p>sodiparc@sodiparc.fr</p>
         </div>
       </div>
-
-      <div id="by">
-        <p>Envoyé par <span id="user">{{ user }}</span></p>
-      </div>
-
     </div>
 
     <div id="title">
@@ -127,8 +122,7 @@
 
     <div id="container">      
       <p class="li"><span id="key">Ma question concerne:</span><span id="value">{{ formData.questionPour }}</span></p>
-      <p class="li"><span id="key">Nom:</span><span id="value">{{ formData.nom }}</span></p>
-      <p class="li"><span id="key">Prenom:</span><span id="value">{{ formData.prenom }}</span></p>
+      <p class="li"><span id="key">Nom/Prénom:</span><span id="value">{{ user }}</span></p>
       <p class="li"><span id="key">Service:</span><span id="value">{{ formData.service }}</span></p>
       <p class="li"><span id="key">Email:</span><span id="value">{{ formData.email }}</span></p>
       <p class="li"><span id="key">Telephone:</span><span id="value">{{ formData.telephone }}</span></p>

@@ -15,8 +15,6 @@ class ChangementAdresseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
-            ->add('prenom')
             ->add('service')
             ->add('fonction')
             ->add('numero')

@@ -35,6 +35,7 @@ class ChangementAdresseController extends AbstractController
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $changementAdresse->setDemandeur($this->security->getUser());
             $em->persist($changementAdresse);
             $em->flush();
 

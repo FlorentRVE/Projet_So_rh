@@ -9,8 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: QuestionRHRepository::class)]
 class QuestionRH
 {
-    use HasNomTrait;
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -35,6 +33,10 @@ class QuestionRH
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $faitLe = null;
+
+    #[ORM\ManyToOne(inversedBy: 'questionRHs')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $demandeur = null;
 
     public function getId(): ?int
     {
@@ -109,6 +111,18 @@ class QuestionRH
     public function setService(?Service $service): static
     {
         $this->service = $service;
+
+        return $this;
+    }
+
+    public function getDemandeur(): ?User
+    {
+        return $this->demandeur;
+    }
+
+    public function setDemandeur(?User $demandeur): static
+    {
+        $this->demandeur = $demandeur;
 
         return $this;
     }

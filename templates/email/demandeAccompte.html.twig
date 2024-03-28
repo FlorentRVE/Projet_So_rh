@@ -114,11 +114,6 @@
           <p>sodiparc@sodiparc.fr</p>
         </div>
       </div>
-
-      <div id="by">
-        <p>Envoyé par <span id="user">{{ user }}</span></p>
-      </div>
-
     </div>
 
     <div id="title">
@@ -127,8 +122,7 @@
 
     <div id="container">
       
-      <p class="li"><span class="key">Nom:</span><span class="value">{{ formData.nom }}</span></p>
-      <p class="li"><span class="key">Prenom:</span><span class="value">{{ formData.prenom }}</span></p>
+      <p class="li"><span class="key">Nom/Prénom:</span><span class="value">{{ user }}</span></p>
       <p class="li"><span class="key">Service:</span><span class="value">{{ formData.service }}</span></p>
       <p class="li"><span class="key">Fonction:</span><span class="value">{{ formData.fonction }}</span></p>
       <p class="li"><span class="key">Montant en chiffres:</span><span class="value">{{ formData.accompteChiffre }}</span></p>

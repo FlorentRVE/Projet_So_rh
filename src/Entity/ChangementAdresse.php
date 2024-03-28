@@ -10,8 +10,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ChangementAdresseRepository::class)]
 class ChangementAdresse
 {
-    use HasNomTrait;
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -46,6 +44,10 @@ class ChangementAdresse
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $faitLe = null;
+
+    #[ORM\ManyToOne(inversedBy: 'changementAdresses')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $demandeur = null;
 
     public function getId(): ?int
     {
@@ -144,6 +146,18 @@ class ChangementAdresse
     public function setFaitLe(\DateTimeImmutable $faitLe): static
     {
         $this->faitLe = $faitLe;
+
+        return $this;
+    }
+
+    public function getDemandeur(): ?User
+    {
+        return $this->demandeur;
+    }
+
+    public function setDemandeur(?User $demandeur): static
+    {
+        $this->demandeur = $demandeur;
 
         return $this;
     }

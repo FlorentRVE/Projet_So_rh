@@ -35,6 +35,7 @@ class DemandeAccompteController extends AbstractController
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $demandeAccompte->setDemandeur($this->security->getUser());
             $em->persist($demandeAccompte);
             $em->flush();
 

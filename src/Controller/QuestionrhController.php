@@ -37,6 +37,7 @@ class QuestionrhController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $currentDate = new \DateTimeImmutable();
             $questionRh->setFaitLe($currentDate);
+            $questionRh->setDemandeur($this->security->getUser());
 
             $em->persist($questionRh);
             $em->flush();

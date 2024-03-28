@@ -9,8 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ChangementCompteRepository::class)]
 class ChangementCompte
 {
-    use HasNomTrait;
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -30,33 +28,13 @@ class ChangementCompte
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $faitLe = null;
 
+    #[ORM\ManyToOne(inversedBy: 'changementComptes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $demandeur = null;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): static
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): static
-    {
-        $this->prenom = $prenom;
-
-        return $this;
     }
 
     public function getService(): ?Service
@@ -103,6 +81,18 @@ class ChangementCompte
     public function setFaitLe(\DateTimeImmutable $faitLe): static
     {
         $this->faitLe = $faitLe;
+
+        return $this;
+    }
+
+    public function getDemandeur(): ?User
+    {
+        return $this->demandeur;
+    }
+
+    public function setDemandeur(?User $demandeur): static
+    {
+        $this->demandeur = $demandeur;
 
         return $this;
     }

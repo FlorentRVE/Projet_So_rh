@@ -17,8 +17,6 @@ class RendezVousRhType extends AbstractType
     {
         $builder
         ->add('rdvAvec')
-        ->add('nom')
-        ->add('prenom')
         ->add('service')
         ->add('telephone', TextType::class, [
             'constraints' => [

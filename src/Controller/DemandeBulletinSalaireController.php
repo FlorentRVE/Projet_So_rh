@@ -36,6 +36,7 @@ class DemandeBulletinSalaireController extends AbstractController
         $user = $this->security->getUser()->getUserIdentifier();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $demandeBulletinSalaire->setDemandeur($this->security->getUser());
             $em->persist($demandeBulletinSalaire);
             $em->flush();
 

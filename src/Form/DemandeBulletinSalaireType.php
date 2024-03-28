@@ -18,8 +18,6 @@ class DemandeBulletinSalaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
-            ->add('prenom')
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new Assert\Email([

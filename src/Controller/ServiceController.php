@@ -22,7 +22,7 @@ class ServiceController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_service_new', methods: ['GET', 'POST'])]
+    #[Route('/nouveau', name: 'app_service_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $service = new Service();
@@ -50,7 +50,7 @@ class ServiceController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_service_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modifier', name: 'app_service_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Service $service, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ServiceType::class, $service);

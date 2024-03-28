@@ -36,7 +36,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modifier', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(UserType::class, $user);
@@ -56,7 +56,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit_password', name: 'app_userPassword_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modifier_mot_de_passe', name: 'app_userPassword_edit', methods: ['GET', 'POST'])]
     public function editPassword(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $form = $this->createForm(MotDePasseType::class, $user);

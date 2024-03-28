@@ -18,11 +18,7 @@
 
             <div class="flex flex-col p-4 mt-4 justify-center items-center">
 
-                {# ======================= Barre de recherche ======================#}
-                <form action="#" method="get" class="p-4 w-[90%] flex">
-                    <input type="text" id="search" name="search" value="{{ searchTerm }}" class="w-[90%] text-slate-900 px-2 rounded-l-lg" placeholder="Recherche ...">
-                    <button type="submit" class="bg-sky-800 w-[10%] text-center py-2 hover:brightness-125 rounded-r-lg text-sky-50 transition-all hover:scale-110"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </form>
+                {{ include('component/_searchbar.html.twig') }}
 
                 <a href="{{ path( pathExcel, { 'searchTerm' : searchTerm }) }}" class="w-[90%] bg-green-600 text-slate-50 rounded-lg text-center px-4 py-2 hover:brightness-125 shadow-lg font-semibold md:w-[20%]">Exporter au format xlsx</a>
 

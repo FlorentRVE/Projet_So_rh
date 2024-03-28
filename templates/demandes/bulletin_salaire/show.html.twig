@@ -20,23 +20,7 @@
 
                 <table class="w-[90%] lg:w-[60%] lg:text-xl">
 
-                    <tr class="border-2 border-slate-900">
-
-                        <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Nom</th>
-                        <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.nom }}</td>
-                    </tr>
-
-                    <tr class="border-2 border-slate-900">
-
-                        <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Prénom</th>
-                        <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.prenom }}</td>
-                    </tr>
-
-                    <tr class="border-2 border-slate-900">
-
-                        <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Service</th>
-                        <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.service }}</td>
-                    </tr>
+                    {{ include('component/_demande_show_nom_prenom_service.html.twig')}}
 
                     <tr class="border-2 border-slate-900">
 
@@ -44,17 +28,7 @@
                         <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.fonction }}</td>
                     </tr>
 
-                    <tr class="border-2 border-slate-900">
-
-                        <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Téléphone</th>
-                        <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.telephone }}</td>
-                    </tr>
-
-                    <tr class="border-2 border-slate-900">
-
-                        <th scope="row" class="border-2 border-slate-900 bg-slate-900 text-slate-50 text-center font-semibold p-3">Email</th>
-                        <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold">{{ demande.email }}</td>
-                    </tr>
+                    {{ include('component/_demande_show_email_tel.html.twig')}}
 
                     <tr class="border-2 border-slate-900">
 

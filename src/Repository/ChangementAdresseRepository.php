@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ChangementAdresse;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,6 +17,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ChangementAdresseRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, ChangementAdresse::class);
+    }
+
     public function getDataFromSearch($searchTerm)
     {
         return $this->createQueryBuilder('d')
@@ -32,10 +38,19 @@ class ChangementAdresseRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function __construct(ManagerRegistry $registry)
+    public function findOneByIDandUser(int $id, User $user)
     {
-        parent::__construct($registry, ChangementAdresse::class);
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.demandeur', 'u')
+            ->andWhere('a.id = :id')
+            ->andWhere('u = :user')
+            ->setParameter('id', $id)
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
+
 
     //    /**
     //     * @return ChangementAdresse[] Returns an array of ChangementAdresse objects

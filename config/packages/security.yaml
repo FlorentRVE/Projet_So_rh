@@ -47,6 +47,7 @@ security:
         - { path: ^/utilisateur, roles: ROLE_ADMIN }
         - { path: ^/excel, roles: ROLE_ADMIN }
         - { path: ^/nouvel_utilisateur, roles: ROLE_ADMIN }
+        - { path: ^/historique/admin, roles: ROLE_ADMIN }
         - { path: ^/accueil, roles: ROLE_ACTIF }
         - { path: ^/form, roles: ROLE_ACTIF }
 

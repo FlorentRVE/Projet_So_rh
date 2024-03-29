@@ -46,7 +46,13 @@ class HistoriqueController extends AbstractController
     public function historiqueAttestationEmployeur(Request $request, AttestationEmployeurRepository $attestationEmployeurRepository): Response
     {
         $id = $request->get('id');
-        $attestationEmployeur = $attestationEmployeurRepository->find($id);
+        $user = $this->getUser();
+
+        if (in_array("ROLE_ADMIN", $user->getRoles())) {
+            $attestationEmployeur = $attestationEmployeurRepository->find($id);
+        } else {            
+            $attestationEmployeur = $attestationEmployeurRepository->findOneByIDandUser($id, $user);
+        }
 
         return $this->render('historique/attestation_employeur.html.twig', [
             'controller_name' => 'AccueilController',
@@ -58,7 +64,13 @@ class HistoriqueController extends AbstractController
     public function historiqueChangementAdresse(Request $request, ChangementAdresseRepository $changementAdresseRepository): Response
     {
         $id = $request->get('id');
-        $changementAdresse = $changementAdresseRepository->find($id);
+        $user = $this->getUser();
+
+        if (in_array("ROLE_ADMIN", $user->getRoles())) {
+            $changementAdresse = $changementAdresseRepository->find($id);
+        } else {
+            $changementAdresse = $changementAdresseRepository->findOneByIDandUser($id, $user);
+        }
 
         return $this->render('historique/changement_adresse.html.twig', [
             'controller_name' => 'AccueilController',
@@ -70,7 +82,13 @@ class HistoriqueController extends AbstractController
     public function historiqueChangementCompte(Request $request, ChangementCompteRepository $changementCompteRepository): Response
     {
         $id = $request->get('id');
-        $changementCompte = $changementCompteRepository->find($id);
+        $user = $this->getUser();
+
+        if (in_array("ROLE_ADMIN", $user->getRoles())) {
+            $changementCompte = $changementCompteRepository->find($id);
+        } else {
+            $changementCompte = $changementCompteRepository->findOneByIDandUser($id, $user);
+        }
 
         return $this->render('historique/changement_compte.html.twig', [
             'controller_name' => 'AccueilController',
@@ -82,7 +100,13 @@ class HistoriqueController extends AbstractController
     public function historiqueDemandeAccompte(Request $request, DemandeAccompteRepository $demandeAccompteRepository): Response
     {
         $id = $request->get('id');
-        $demandeAccompte = $demandeAccompteRepository->find($id);
+        $user = $this->getUser();
+
+        if (in_array("ROLE_ADMIN", $user->getRoles())) {
+            $demandeAccompte = $demandeAccompteRepository->find($id);
+        } else {
+            $demandeAccompte = $demandeAccompteRepository->findOneByIDandUser($id, $user);
+        }
 
         return $this->render('historique/demande_accompte.html.twig', [
             'controller_name' => 'AccueilController',
@@ -94,7 +118,13 @@ class HistoriqueController extends AbstractController
     public function historiqueDemandeBulletinSalaire(Request $request, DemandeBulletinSalaireRepository $demandeBulletinSalaireRepository): Response
     {
         $id = $request->get('id');
-        $demandeBulletinSalaire = $demandeBulletinSalaireRepository->find($id);
+        $user = $this->getUser();
+
+        if (in_array("ROLE_ADMIN", $user->getRoles())) {
+            $demandeBulletinSalaire = $demandeBulletinSalaireRepository->find($id);
+        } else {
+            $demandeBulletinSalaire = $demandeBulletinSalaireRepository->findOneByIDandUser($id, $user);
+        }
 
         return $this->render('historique/demande_bulletin_salaire.html.twig', [
             'controller_name' => 'AccueilController',
@@ -106,7 +136,13 @@ class HistoriqueController extends AbstractController
     public function historiqueQuestionRH(Request $request, QuestionRHRepository $questionRHRepository): Response
     {
         $id = $request->get('id');
-        $questionRH = $questionRHRepository->find($id);
+        $user = $this->getUser();
+
+        if (in_array("ROLE_ADMIN", $user->getRoles())) {
+            $questionRH = $questionRHRepository->find($id);
+        } else {
+            $questionRH = $questionRHRepository->findOneByIDandUser($id, $user);
+        }
 
         return $this->render('historique/question_rh.html.twig', [
             'controller_name' => 'AccueilController',
@@ -118,12 +154,18 @@ class HistoriqueController extends AbstractController
     public function historiqueRendezVousRH(Request $request, RendezVousRHRepository $rendezVousRHRepository): Response
     {
         $id = $request->get('id');
-        $rendezVousRH = $rendezVousRHRepository->find($id);
+
+        $user = $this->getUser();
+
+        if (in_array("ROLE_ADMIN", $user->getRoles())) {
+            $rendezVousRH = $rendezVousRHRepository->find($id);
+        } else {
+            $rendezVousRH = $rendezVousRHRepository->findOneByIDandUser($id, $user);
+        }
 
         return $this->render('historique/rendez_vous_rh.html.twig', [
             'controller_name' => 'AccueilController',
             'demande' => $rendezVousRH
-
         ]);
     }
 }

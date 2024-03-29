@@ -53,7 +53,11 @@
 
                 <div class="flex flex-col gap-3 justify-center items-center lg:flex-row w-[90%] md:w-1/2 lg:w-[30vw]">
 
-                    <a href="{{ path('app_accueil_historique') }}"  class="w-full bg-sky-800 text-slate-50 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold">Retour à la liste</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_user_index') }}"  class="w-full bg-sky-800 text-slate-50 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold">Retour à la liste</a>
+                    {% else %}
+                        <a href="{{ path('app_accueil_historique') }}"  class="w-full bg-sky-800 text-slate-50 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold">Retour à la liste</a>
+                    {% endif %}
                                        
                 </div>   
 

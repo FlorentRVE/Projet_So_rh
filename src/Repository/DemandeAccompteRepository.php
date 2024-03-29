@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\DemandeAccompte;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -35,6 +36,19 @@ class DemandeAccompteRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, DemandeAccompte::class);
+    }
+
+    public function findOneByIDandUser(int $id, User $user)
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.demandeur', 'u')
+            ->andWhere('a.id = :id')
+            ->andWhere('u = :user')
+            ->setParameter('id', $id)
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 
     //    /**

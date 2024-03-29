@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\AttestationEmployeur;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -36,9 +37,22 @@ class AttestationEmployeurRepository extends ServiceEntityRepository
                 d.motif LIKE :searchTerm OR
                 d.recuperation LIKE :searchTerm OR
                 d.faitLe LIKE :searchTerm')
-            ->setParameter('searchTerm', '%'.$searchTerm.'%')
+            ->setParameter('searchTerm', '%' . $searchTerm . '%')
             ->getQuery()
             ->getResult();
+    }
+
+    public function findOneByIDandUser(int $id, User $user)
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.demandeur', 'u')
+            ->andWhere('a.id = :id')
+            ->andWhere('u = :user')
+            ->setParameter('id', $id)
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 
     //    /**

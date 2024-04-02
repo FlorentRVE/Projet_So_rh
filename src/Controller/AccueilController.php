@@ -30,6 +30,7 @@ class AccueilController extends AbstractController
         ]);
     }
 
+    // =============== PARTIE ADMIN ==============
     #[Route('/gestion_formulaire', name: 'app_accueil_admin')]
     public function admin(): Response
     {

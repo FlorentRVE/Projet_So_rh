@@ -72,14 +72,10 @@ class QuestionrhController extends AbstractController
                 'form' => $form,
             ]);
         }
-
-        return $this->render('demandes/question_rh/index.html.twig', [
-            'form' => $form,
-        ]);
     }
 
     // ======================= PARTIE ADMIN ===========================
-
+   
     #[Route('/questionrh_list', name: 'app_questionrh_index', methods: ['GET'])]
     public function list(Request $request, QuestionRHRepository $qr, PaginatorInterface $paginator): Response
     {
@@ -103,10 +99,10 @@ class QuestionrhController extends AbstractController
     }
 
     #[Route('/questionrh_list/{id}', name: 'app_questionrh_show', methods: ['GET'])]
-    public function show(Request $request, QuestionRH $questionRH, QuestionRHRepository $qr): Response
+    public function show(QuestionRH $questionRH): Response
     {
         return $this->render('demandes/question_rh/show.html.twig', [
-            'demande' => $qr->find($questionRH->getId($request->query->get('id'))),
+            'demande' => $questionRH
         ]);
     }
 

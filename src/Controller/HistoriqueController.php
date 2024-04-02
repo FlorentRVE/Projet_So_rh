@@ -29,6 +29,7 @@ class HistoriqueController extends AbstractController
 
         ]);
     }
+    
     #[Route('/admin/{id}', name: 'app_admin_historique')]
     public function historiqueAdmin(Request $request, UserRepository $userRepository): Response
     {

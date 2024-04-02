@@ -72,9 +72,6 @@ class AttestationEmployeurController extends AbstractController
             ]);
         }
 
-        return $this->render('demandes/attestation_employeur/index.html.twig', [
-            'form' => $form,
-        ]);
     }
 
     // ======================= PARTIE ADMIN ===========================
@@ -102,10 +99,10 @@ class AttestationEmployeurController extends AbstractController
     }
 
     #[Route('/attestation_employeur_list/{id}', name: 'app_attestation_employeur_show', methods: ['GET'])]
-    public function show(Request $request, AttestationEmployeur $attestationEmployeur, AttestationEmployeurRepository $ar): Response
+    public function show(AttestationEmployeur $attestationEmployeur): Response
     {
         return $this->render('demandes/attestation_employeur/show.html.twig', [
-            'demande' => $ar->find($attestationEmployeur->getId($request->query->get('id'))),
+            'demande' => $attestationEmployeur,
         ]);
     }
 

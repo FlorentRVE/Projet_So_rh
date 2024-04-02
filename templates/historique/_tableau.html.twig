@@ -1,5 +1,5 @@
 
-<div class="flex flex-col p-4 mt-4 justify-center items-center">
+<div class="flex flex-col p-4 mt-4">
 
     <h1 class="text-xl font-semibold text-red-600">{{title}}</h1>
 
@@ -20,8 +20,9 @@
                     </td>
                 </tr>
             {% else %}
-                <tr class="border-2 border-slate-900 bg-slate-50 text-xl text-center">
-                    <td colspan="2">Aucune demande pour le moment ...</td>
+                <tr class="border-2 border-slate-900">
+                    <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold max-w-[10%] p-2">Aucune demande pour le moment ...</td>
+                    <td class="bg-slate-900 text-center p-3 "></td>
                 </tr>
             {% endfor %}
         </tbody>

@@ -109,10 +109,6 @@ class ChangementCompteController extends AbstractController
                 'form' => $form,
             ]);
         }
-
-        return $this->render('demandes/changement_compte/index.html.twig', [
-            'form' => $form,
-        ]);
     }
 
     // ======================= PARTIE ADMIN ===========================
@@ -140,10 +136,10 @@ class ChangementCompteController extends AbstractController
     }
 
     #[Route('/changement_compte_list/{id}', name: 'app_changement_compte_show', methods: ['GET'])]
-    public function show(Request $request, ChangementCompte $changementCompte, ChangementCompteRepository $ccr): Response
+    public function show(ChangementCompte $changementCompte): Response
     {
         return $this->render('demandes/changement_compte/show.html.twig', [
-            'demande' => $ccr->find($changementCompte->getId($request->query->get('id'))),
+            'demande' => $changementCompte
         ]);
     }
 

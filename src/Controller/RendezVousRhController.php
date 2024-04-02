@@ -72,10 +72,6 @@ class RendezVousRhController extends AbstractController
                 'form' => $form,
             ]);
         }
-
-        return $this->render('demandes/rendez_vous_rh/index.html.twig', [
-            'form' => $form,
-        ]);
     }
 
     // ======================= PARTIE ADMIN ===========================
@@ -103,10 +99,10 @@ class RendezVousRhController extends AbstractController
     }
 
     #[Route('/rendez_vous_rh_list/{id}', name: 'app_rendez_vous_rh_show', methods: ['GET'])]
-    public function show(Request $request, RendezVousRH $rendezVousRH, RendezVousRHRepository $rdvr): Response
+    public function show(RendezVousRH $rendezVousRH): Response
     {
         return $this->render('demandes/rendez_vous_rh/show.html.twig', [
-            'demande' => $rdvr->find($rendezVousRH->getId($request->query->get('id'))),
+            'demande' => $rendezVousRH
         ]);
     }
 

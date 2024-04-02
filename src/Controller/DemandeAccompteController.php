@@ -69,10 +69,6 @@ class DemandeAccompteController extends AbstractController
                 'form' => $form,
             ]);
         }
-
-        return $this->render('demandes/accompte/index.html.twig', [
-            'form' => $form,
-        ]);
     }
 
     // ======================= PARTIE ADMIN ===========================
@@ -100,10 +96,10 @@ class DemandeAccompteController extends AbstractController
     }
 
     #[Route('/demande_accompte_list/{id}', name: 'app_demande_accompte_show', methods: ['GET'])]
-    public function show(Request $request, DemandeAccompte $demandeAccompte, DemandeAccompteRepository $dar): Response
+    public function show(DemandeAccompte $demandeAccompte): Response
     {
         return $this->render('demandes/accompte/show.html.twig', [
-            'demande' => $dar->find($demandeAccompte->getId($request->query->get('id'))),
+            'demande' => $demandeAccompte
         ]);
     }
 

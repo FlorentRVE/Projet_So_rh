@@ -69,10 +69,6 @@ class ChangementAdresseController extends AbstractController
                 'form' => $form,
             ]);
         }
-
-        return $this->render('demandes/changement_adresse/index.html.twig', [
-            'form' => $form,
-        ]);
     }
 
     // ======================= PARTIE ADMIN ===========================
@@ -100,10 +96,10 @@ class ChangementAdresseController extends AbstractController
     }
 
     #[Route('/changement_adresse_list/{id}', name: 'app_changement_adresse_show', methods: ['GET'])]
-    public function show(Request $request, ChangementAdresse $changementAdresse, ChangementAdresseRepository $car): Response
+    public function show(ChangementAdresse $changementAdresse): Response
     {
         return $this->render('demandes/changement_adresse/show.html.twig', [
-            'demande' => $car->find($changementAdresse->getId($request->query->get('id'))),
+            'demande' => $changementAdresse
         ]);
     }
 

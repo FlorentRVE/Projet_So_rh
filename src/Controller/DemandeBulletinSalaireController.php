@@ -33,10 +33,10 @@ class DemandeBulletinSalaireController extends AbstractController
 
         $form->handleRequest($request);
         $formTitle = 'Demande de bulletin de salaire';
-        $user = $this->security->getUser()->getUserIdentifier();
+        $user = $this->security->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $demandeBulletinSalaire->setDemandeur($this->security->getUser());
+            $demandeBulletinSalaire->setDemandeur($user);
             $em->persist($demandeBulletinSalaire);
             $em->flush();
 
@@ -45,12 +45,12 @@ class DemandeBulletinSalaireController extends AbstractController
             $email = (new Email())
             ->from('expediteur@test.com')
             ->to('froulemmeyini-6535@yopmail.com')
-            ->cc($demandeBulletinSalaire->getService()->getEmailSecretariat())
+            ->cc($demandeBulletinSalaire->getService()->getEmailSecretariat(), $demandeBulletinSalaire->getService()->getEmailResponsable())
             ->subject($formTitle)
             ->html($this->renderView('email/demandeBulletinSalaire.html.twig', [
                 'formData' => $demandeBulletinSalaire,
                 'formTitle' => $formTitle,
-                'user' => $user,
+                'user' => $user->getUserIdentifier(),
             ]));
 
             $mailer->send($email);
@@ -72,7 +72,8 @@ class DemandeBulletinSalaireController extends AbstractController
         }
     }
 
-    // ======================= PARTIE ADMIN ===========================
+    // ========================================= PARTIE ADMIN ===========================================
+    // ======================= Afficher tous les formulaires de demande de bulletin de salaire ===========================
 
     #[Route('/demande_bulletin_salaire_list', name: 'app_demande_bulletin_salaire_index', methods: ['GET'])]
     public function list(Request $request, DemandeBulletinSalaireRepository $dbsr, PaginatorInterface $paginator): Response
@@ -95,6 +96,8 @@ class DemandeBulletinSalaireController extends AbstractController
             'title' => 'Demande de bulletin de salaire',
         ]);
     }
+
+    // ======================= Afficher un formulaire de demande de bulletin de salaire ===========================
 
     #[Route('/demande_bulletin_salaire_list/{id}', name: 'app_demande_bulletin_salaire_show', methods: ['GET'])]
     public function show(DemandeBulletinSalaire $demandeBulletinSalaire): Response

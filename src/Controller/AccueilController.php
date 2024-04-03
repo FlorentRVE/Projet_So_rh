@@ -22,15 +22,17 @@ class AccueilController extends AbstractController
         ]);
     }
 
-    #[Route('/form', name: 'app_accueil_form')]
+    #[Route('/choix_formulaire', name: 'app_accueil_form')]
     public function form(): Response
     {
-        return $this->render('accueil/form.html.twig', [
+        return $this->render('accueil/choix_formulaire.html.twig', [
             'controller_name' => 'AccueilController',
         ]);
     }
 
-    // =============== PARTIE ADMIN ==============
+    // ======================= PARTIE ADMIN ==========================
+    // =============== Choix des formulaires à consulter ==============
+    
     #[Route('/gestion_formulaire', name: 'app_accueil_admin')]
     public function admin(): Response
     {

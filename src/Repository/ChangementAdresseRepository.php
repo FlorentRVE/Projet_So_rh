@@ -34,6 +34,7 @@ class ChangementAdresseRepository extends ServiceEntityRepository
                 d.fonction LIKE :searchTerm OR
                 u.username LIKE :searchTerm')
             ->setParameter('searchTerm', '%'.$searchTerm.'%')
+            ->orderBy('d.faitLe', 'DESC')
             ->getQuery()
             ->getResult();
     }

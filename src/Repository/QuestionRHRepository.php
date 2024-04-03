@@ -28,6 +28,7 @@ class QuestionRHRepository extends ServiceEntityRepository
                 s.label LIKE :searchTerm OR
                 u.username LIKE :searchTerm')
             ->setParameter('searchTerm', '%'.$searchTerm.'%')
+            ->orderBy('d.faitLe', 'DESC')
             ->getQuery()
             ->getResult();
     }

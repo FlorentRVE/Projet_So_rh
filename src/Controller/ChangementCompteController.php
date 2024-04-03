@@ -34,7 +34,7 @@ class ChangementCompteController extends AbstractController
 
         $form->handleRequest($request);
         $formTitle = 'Changement de compte bancaire';
-        $user = $this->security->getUser()->getUserIdentifier();
+        $user = $this->security->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
             // ================== Gestion fichier ================
@@ -63,7 +63,7 @@ class ChangementCompteController extends AbstractController
                 }
             }
 
-            $changementCompte->setDemandeur($this->security->getUser());
+            $changementCompte->setDemandeur($user);
             $em->persist($changementCompte);
             $em->flush();
 
@@ -72,12 +72,12 @@ class ChangementCompteController extends AbstractController
             $email = (new Email())
             ->from('expediteur@test.com')
             ->to('froulemmeyini-6535@yopmail.com')
-            ->cc($changementCompte->getService()->getEmailSecretariat())
+            ->cc($changementCompte->getService()->getEmailSecretariat(), $changementCompte->getService()->getEmailResponsable())
             ->subject($formTitle)
             ->html($this->renderView('email/changementCompte.html.twig', [
                 'formData' => $changementCompte,
                 'formTitle' => $formTitle,
-                'user' => $user,
+                'user' => $user->getUserIdentifier(),
             ]));
 
             if (isset($filesList)) {
@@ -111,7 +111,8 @@ class ChangementCompteController extends AbstractController
         }
     }
 
-    // ======================= PARTIE ADMIN ===========================
+    // ========================================= PARTIE ADMIN ===========================================
+    // ======================= Afficher tous les formulaires changement compte ===========================
 
     #[Route('/changement_compte_list', name: 'app_changement_compte_index', methods: ['GET'])]
     public function list(Request $request, ChangementCompteRepository $ccr, PaginatorInterface $paginator): Response
@@ -134,6 +135,8 @@ class ChangementCompteController extends AbstractController
             'title' => 'Changement de compte bancaire',
         ]);
     }
+
+    // ======================= Afficher un formulaire changement compte ===========================
 
     #[Route('/changement_compte_list/{id}', name: 'app_changement_compte_show', methods: ['GET'])]
     public function show(ChangementCompte $changementCompte): Response

@@ -32,10 +32,10 @@ class ChangementAdresseController extends AbstractController
 
         $form->handleRequest($request);
         $formTitle = 'Changement adresse';
-        $user = $this->security->getUser()->getUserIdentifier();
+        $user = $this->security->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $changementAdresse->setDemandeur($this->security->getUser());
+            $changementAdresse->setDemandeur($user);
             $em->persist($changementAdresse);
             $em->flush();
 
@@ -44,12 +44,12 @@ class ChangementAdresseController extends AbstractController
             $email = (new Email())
             ->from('expediteur@test.com')
             ->to('froulemmeyini-6535@yopmail.com')
-            ->cc($changementAdresse->getService()->getEmailSecretariat())
+            ->cc($changementAdresse->getService()->getEmailSecretariat(), $changementAdresse->getService()->getEmailResponsable())
             ->subject($formTitle)
             ->html($this->renderView('email/changementAdresse.html.twig', [
                 'formData' => $changementAdresse,
                 'formTitle' => $formTitle,
-                'user' => $user,
+                'user' => $user->getUserIdentifier(),
             ]));
 
             $mailer->send($email);
@@ -71,7 +71,8 @@ class ChangementAdresseController extends AbstractController
         }
     }
 
-    // ======================= PARTIE ADMIN ===========================
+    // ========================================= PARTIE ADMIN ===========================================
+    // ======================= Afficher tous les formulaires changement adresse ===========================
 
     #[Route('/changement_adresse_list', name: 'app_changement_adresse_index', methods: ['GET'])]
     public function list(Request $request, ChangementAdresseRepository $car, PaginatorInterface $paginator): Response
@@ -94,6 +95,8 @@ class ChangementAdresseController extends AbstractController
             'title' => 'Changement d\'adresse',
         ]);
     }
+
+    // ======================= Afficher un formulaire changement adresse ===========================
 
     #[Route('/changement_adresse_list/{id}', name: 'app_changement_adresse_show', methods: ['GET'])]
     public function show(ChangementAdresse $changementAdresse): Response

@@ -23,7 +23,6 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -33,7 +32,7 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
+            $this->addFlash('success', 'Utilisateur crée avec succès');
 
             return $this->redirectToRoute('app_user_index');
         } else {
@@ -48,10 +47,6 @@ class RegistrationController extends AbstractController
                 'registrationForm' => $form,
             ]);
         }
-
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
     }
 
     #[Route('/resetuser', name: 'app_resetuser')]
@@ -75,7 +70,6 @@ class RegistrationController extends AbstractController
             $user = new User();
             $user->setUsername($usera['username']);
             $user->setRoles(['ROLE_ADMIN', 'ROLE_ACTIF', 'ROLE_USER']);
-            // $user->setRoles(['ROLE_ACTIF', 'ROLE_USER']);
 
             $user->setPassword(
                 $userPasswordHasher->hashPassword(

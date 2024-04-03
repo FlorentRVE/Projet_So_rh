@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\AttestationEmployeurRepository;
 use App\Repository\ChangementAdresseRepository;
 use App\Repository\ChangementCompteRepository;
@@ -31,10 +32,7 @@ class HistoriqueController extends AbstractController
     }
     
     #[Route('/admin/{id}', name: 'app_admin_historique')]
-    public function historiqueAdmin(Request $request, UserRepository $userRepository): Response
-    {
-        $id = $request->get('id');
-        $user = $userRepository->find($id);
+    public function historiqueAdmin(Request $request, User $user): Response {
 
         return $this->render('historique/historique.html.twig', [
             'controller_name' => 'AccueilController',
@@ -43,6 +41,8 @@ class HistoriqueController extends AbstractController
         ]);
     }
 
+    // ============ VUE UNIQUE HISTORIQUE ====================
+    
     #[Route('/attestation_employeur/{id}', name: 'app_attestation_employeur_historique')]
     public function historiqueAttestationEmployeur(Request $request, AttestationEmployeurRepository $attestationEmployeurRepository): Response
     {

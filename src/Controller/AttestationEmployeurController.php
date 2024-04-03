@@ -31,12 +31,12 @@ class AttestationEmployeurController extends AbstractController
         $form = $this->createForm(AttestationEmployeurType::class, $attestationEmployeur);
         $form->handleRequest($request);
         $formTitle = 'Demande d\'attestation employeur';
-        $user = $this->security->getUser()->getUserIdentifier();
+        $user = $this->security->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $currentDate = new \DateTimeImmutable();
             $attestationEmployeur->setFaitLe($currentDate);
-            $attestationEmployeur->setDemandeur($this->security->getUser());
+            $attestationEmployeur->setDemandeur($user);
 
             $em->persist($attestationEmployeur);
             $em->flush();
@@ -46,12 +46,12 @@ class AttestationEmployeurController extends AbstractController
             $email = (new Email())
             ->from('expediteur@test.com')
             ->to('froulemmeyini-6535@yopmail.com')
-            ->cc($attestationEmployeur->getService()->getEmailSecretariat())
+            ->cc($attestationEmployeur->getService()->getEmailSecretariat(), $attestationEmployeur->getService()->getEmailResponsable())
             ->subject($formTitle)
             ->html($this->renderView('email/attestationEmployeur.html.twig', [
                 'formData' => $attestationEmployeur,
                 'formTitle' => $formTitle,
-                'user' => $user,
+                'user' => $user->getUserIdentifier(),
             ]));
 
             $mailer->send($email);
@@ -74,7 +74,8 @@ class AttestationEmployeurController extends AbstractController
 
     }
 
-    // ======================= PARTIE ADMIN ===========================
+    // ========================================= PARTIE ADMIN ===========================================
+    // ======================= Afficher tous les formulaires attestation employeur ===========================
 
     #[Route('/attestation_employeur_list', name: 'app_attestation_employeur_index', methods: ['GET'])]
     public function list(Request $request, AttestationEmployeurRepository $ar, PaginatorInterface $paginator): Response
@@ -97,6 +98,8 @@ class AttestationEmployeurController extends AbstractController
             'title' => 'Attestation employeur',
         ]);
     }
+
+    // ======================= Afficher un formulaire attestation employeur ===========================
 
     #[Route('/attestation_employeur_list/{id}', name: 'app_attestation_employeur_show', methods: ['GET'])]
     public function show(AttestationEmployeur $attestationEmployeur): Response

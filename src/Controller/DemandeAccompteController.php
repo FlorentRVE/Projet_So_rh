@@ -32,10 +32,10 @@ class DemandeAccompteController extends AbstractController
         $form = $this->createForm(DemandeAccompteType::class, $demandeAccompte);
         $form->handleRequest($request);
         $formTitle = 'Demande d\'accompte bancaire';
-        $user = $this->security->getUser()->getUserIdentifier();
+        $user = $this->security->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $demandeAccompte->setDemandeur($this->security->getUser());
+            $demandeAccompte->setDemandeur($user);
             $em->persist($demandeAccompte);
             $em->flush();
 
@@ -44,12 +44,12 @@ class DemandeAccompteController extends AbstractController
             $email = (new Email())
             ->from('expediteur@test.com')
             ->to('froulemmeyini-6535@yopmail.com')
-            ->cc($demandeAccompte->getService()->getEmailSecretariat())
+            ->cc($demandeAccompte->getService()->getEmailSecretariat(), $demandeAccompte->getService()->getEmailResponsable())
             ->subject($formTitle)
             ->html($this->renderView('email/demandeAccompte.html.twig', [
                 'formData' => $demandeAccompte,
                 'formTitle' => $formTitle,
-                'user' => $user,
+                'user' => $user->getUserIdentifier(),
             ]));
 
             $mailer->send($email);
@@ -71,7 +71,8 @@ class DemandeAccompteController extends AbstractController
         }
     }
 
-    // ======================= PARTIE ADMIN ===========================
+    // ========================================= PARTIE ADMIN ===========================================
+    // ======================= Afficher tous les formulaires de demande d'accompte ===========================
 
     #[Route('/demande_accompte_list', name: 'app_demande_accompte_index', methods: ['GET'])]
     public function list(Request $request, DemandeAccompteRepository $dar, PaginatorInterface $paginator): Response
@@ -94,6 +95,8 @@ class DemandeAccompteController extends AbstractController
             'title' => 'Demande d\'accompte',
         ]);
     }
+
+    // ======================= Afficher un formulaire de demande d'accompte ===========================
 
     #[Route('/demande_accompte_list/{id}', name: 'app_demande_accompte_show', methods: ['GET'])]
     public function show(DemandeAccompte $demandeAccompte): Response

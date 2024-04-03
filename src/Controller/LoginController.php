@@ -15,20 +15,20 @@ class LoginController extends AbstractController
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
-        $errorMsg = 'Merci de vérifier vos identifiants : ';
+        $errorMsg = 'Merci de vérifier vos identifiants';
 
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
         if ($error) {
-            $errorMsg .= $error->getMessage();
-            $this->addFlash('danger', $errorMsg);
+            $errorArray = [];
+            $errorArray[] = $errorMsg;
+            $errorArray[] = $error->getMessage();
+            $this->addFlash('danger', $errorArray);
         }
 
         return $this->render('login/index.html.twig', [
             'last_username' => $lastUsername,
-            'error' => $error,
-            'errorMsg' => $errorMsg,
         ]);
     }
 

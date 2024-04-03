@@ -1,5 +1,6 @@
+{# ================== TEMPLATE TABLEAU HISTORIQUE ================== #}
 
-<div class="flex flex-col p-4 mt-4">
+{# <div class="flex flex-col p-4 mt-4">
 
     <h1 class="text-xl font-semibold text-red-600">{{title}}</h1>
 
@@ -27,4 +28,25 @@
             {% endfor %}
         </tbody>
     </table>                
+</div> #}
+
+<div class="flex flex-col p-4 mt-4">
+
+    <h1 class="text-xl font-semibold text-red-600">{{title}}</h1>
+
+    <div class="mt-4">
+        {% for demande in demandes %}
+            <div class="flex justify-between items-center bg-slate-50 p-3 rounded-xl my-2 shadow-lg">
+                <p class="text-center font-semibold text-xl">{{ demande.faitLe.format('d/m/Y') }}</p>
+
+                <div class="text-center p-3 ">
+                    <a href="{{ path(pathId, {'id': demande.id}) }}" class="text-xl">Voir</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="flex justify-between items-center bg-red-100 p-3 rounded-xl my-2 shadow-lg">
+                <p class="">Aucune demande pour le moment ...</p>
+            </div>
+        {% endfor %}
+    </div>                
 </div>

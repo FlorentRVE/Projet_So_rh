@@ -1,3 +1,5 @@
+// Fermeture des messages flash
+
 const closeButton = document.querySelectorAll('.close');
 
 closeButton.forEach(element => {

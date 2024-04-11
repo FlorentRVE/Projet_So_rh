@@ -19,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/historique')]
 class HistoriqueController extends AbstractController
 {
+    // ========== Historique pour Tous les utilisateurs ==========
     #[Route('/', name: 'app_accueil_historique')]
     public function historique(): Response
     {
@@ -31,6 +32,7 @@ class HistoriqueController extends AbstractController
         ]);
     }
     
+    // ============ Historique pour Admin ===========
     #[Route('/admin/{id}', name: 'app_admin_historique')]
     public function historiqueAdmin(Request $request, User $user): Response {
 

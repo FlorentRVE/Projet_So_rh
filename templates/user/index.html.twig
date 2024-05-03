@@ -34,11 +34,11 @@
 
                             <td class="border-2 border-slate-900 bg-slate-950 flex flex-col items-center">
 
-                                <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="bg-yellow-400 text-center px-3  hover:brightness-125 rounded-lg font-semibold">Modifier</a>
-                                <a href="{{ path('app_userPassword_edit', {'id': user.id}) }}" class="text-slate-100 text-center px-3  hover:brightness-125 hover:text-orange-400 rounded-lg font-semibold">Changer mot de passe</a>
+                                <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="text-slate-100 text-center px-3 hover:brightness-125 hover:text-orange-400 hover:scale-110 font-semibold">Modifier</a>
+                                <a href="{{ path('app_userPassword_edit', {'id': user.id}) }}" class="text-slate-100 text-center px-3 hover:brightness-125 hover:text-orange-400 hover:scale-110 font-semibold">Changer mot de passe</a>
                                 <form method="post" action="{{ path('app_user_delete', {'id': user.id}) }}" onsubmit="return confirm('Voulez vous vraiment supprimer cet utilisateur ?');">
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-                                    <button class="btn text-red-700  text-center px-3  hover:brightness-125 rounded-lg font-semibold">Supprimer</button>
+                                    <button class="btn text-red-700  text-center px-3 hover:brightness-125 hover:scale-110 font-semibold">Supprimer</button>
                                 </form>
                             </td>
                         </tr>

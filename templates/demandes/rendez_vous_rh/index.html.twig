@@ -38,16 +38,16 @@
                         {{ form_widget(form.message, {'attr': {'class': 'p-2 rounded-lg'}}) }}
                     </div>
 
-                    <button class="bg-sky-500 text-white p-2 rounded-lg mt-10 font-semibold text-lg">{{ button_label|default('Envoyer') }}</button>
+                    <button class="bg-sky-500 text-white p-2 rounded-lg mt-10 font-semibold text-lg hover:scale-105">{{ button_label|default('Envoyer') }}</button>
                 </div>
             {{ form_end(form) }}
         </div>
-    </div>
 
-    <div class="flex flex-col bg-sky-200 font-semibold text-2xl">
+        <div class="flex flex-col bg-sky-200 font-semibold text-2xl hover:scale-105">
 
-        <a href="{{ path('app_accueil') }}" class="bg-sky-500 text-white p-2 rounded-lg my-2 text-center w-[90%] mx-auto lg:w-[70%] xl:w-[50%]">Retour</a>
+            <a href="{{ path('app_accueil') }}" class="bg-sky-500 text-white p-2 rounded-lg my-2 text-center w-[90%] mx-auto lg:w-[70%] xl:w-[50%]">Retour</a>
 
+        </div>
     </div>
 
 

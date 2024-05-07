@@ -40,10 +40,12 @@ class DemandeAccompteController extends AbstractController
             $em->flush();
 
             // ================= Envoyer les données à l'adresse mail =================
+            $email_from = $_ENV['EMAIL_FROM'];
+            $email_to = $_ENV['EMAIL_TO'];
 
             $email = (new Email())
-            ->from('expediteur@test.com')
-            ->to('froulemmeyini-6535@yopmail.com')
+            ->from($email_from)
+            ->to($email_to)
             ->cc($demandeAccompte->getService()->getEmailSecretariat(), $demandeAccompte->getService()->getEmailResponsable())
             ->subject($formTitle)
             ->html($this->renderView('email/demandeAccompte.html.twig', [

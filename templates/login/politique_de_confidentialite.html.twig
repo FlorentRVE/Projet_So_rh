@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="flex flex-col bg-sky-500">
+
+        <div class="flex justify-center items-center h-[30vh]">
+            <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-[40vh]">
+        </div>
+
+        <div class="bg-slate-50 flex flex-col gap-6 p-4">
+
+            <h1 class="text-[3rem] text-slate-800 font-bold text-center">Politique de confidentialité</h1>
+
+            <div class="flex flex-col w-[90%] mx-auto gap-4 pb-4">
+
+                <p>Le traitement de vos données à caractère personnel est conforme au Règlement Général sur la Protection des Données 2016/679 du 27 avril 2016 (« RGPD »).</p>
+
+                <p>Les informations recueillies sont enregistrées dans un fichier informatisé par le service des ressources humaine pour le traitement des procédures demandées.</p>
+
+                <p>La base légale du traitement est l'intérêt légitime. Cette base légale peut par exemple être envisagée pour les traitements de données portant sur des clients ou des employés au sein d'un groupe d'entreprises à des fins de gestion administrative interne.</p> 
+
+                <p>Les données collectées seront communiquées aux seuls destinataires suivants : Service des ressources humaines et administrateurs de l'application.</p> 
+                <p>Vous pouvez accéder aux données vous concernant, les rectifier, demander leur effacement ou exercer votre droit à la limitation du traitement de vos données.</p>
+
+                <p>Pour exercer ces droits ou pour toute question sur le traitement de vos données dans ce dispositif, vous pouvez contacter le service des ressources humaines ou l'administrateur de l'application. </p>
+
+            </div>
+
+            <a href="{{ path('app_login') }}" class="bg-sky-500 rounded-xl text-center hover:brightness-125 shadow-lg font-bold w-[70%] mx-auto text-slate-50 p-4">Retour</a>
+
+        </div>
+    </div>
+
+{% endblock %}

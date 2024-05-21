@@ -50,6 +50,8 @@ security:
         - { path: ^/historique/admin, roles: ROLE_ADMIN }
         - { path: ^/accueil, roles: ROLE_ACTIF }
         - { path: ^/form, roles: ROLE_ACTIF }
+        # - { path: ^/mentions_legales, roles: ROLE_ADMIN }
+        # - { path: ^/politique_de_confidentialite, roles: ROLE_ADMIN }
 
 when@test:
     security:

@@ -10,16 +10,16 @@
             <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-[40vh]">
         </div>
 
-        <form action="{{ path('app_login') }}" method="post" class="text-[2rem] bg-slate-50 rounded-t-[70px] flex flex-col gap-6 h-[70vh] lg:w-[60%] lg:mx-auto lg:rounded-t-[50px]">
+        <form action="{{ path('app_login') }}" method="post" class="bg-slate-50 rounded-t-[70px] flex flex-col gap-6 h-[70vh] lg:w-[60%] lg:mx-auto lg:rounded-t-[50px]">
 
             <h1 class="text-[3rem] text-slate-800 font-bold my-6 text-center">Connexion</h1>
 
-            <div class="flex flex-col w-[90%] mx-auto gap-2">
+            <div class="flex flex-col w-[90%] mx-auto gap-2 text-[2rem]">
                 <label for="username" class="text-slate-600 font-bold">Utilisateur:</label>
                 <input type="text" id="username" name="_username" value="{{ last_username }}" class="rounded-lg bg-slate-200 h-10 p-2">
             </div>
 
-            <div class="flex flex-col w-[90%] mx-auto gap-2">
+            <div class="flex flex-col w-[90%] mx-auto gap-2 text-[2rem]">
                 <label for="password" class="text-slate-600 font-bold">Mot de passe:</label>
                 <input type="text" id="password" name="_password" class="rounded-lg bg-slate-200 h-10 p-2">
             </div>
@@ -29,7 +29,13 @@
             
             <button type="submit" class="btn bg-sky-500 rounded-xl text-center hover:brightness-125 shadow-lg font-bold w-[70%] mx-auto text-slate-50 p-4 mt-16">Se connecter</button>
             
+            <div class="flex justify-center items-center gap-2 mt-10">
+                <a href="{{ path('app_mentions_legales') }}" class="text-sky-800 hover:text-red-500"><p>Mentions Légales</p></a>
+                <p>-</p>
+                <a href="{{ path('app_politique_de_confidentialite') }}" class="text-sky-800 hover:text-red-500"><p>Politique de confidentialité</p></a>
+            </div>
         </form>
+
     </div>
 
 {% endblock %}

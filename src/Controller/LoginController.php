@@ -35,4 +35,16 @@ class LoginController extends AbstractController
     {
         throw new \Exception('Don\'t forget to activate logout in security.yaml');
     }
+
+    #[Route('/mentions_legales', name: 'app_mentions_legales')]
+    public function mentionsLegales(): Response
+    {
+        return $this->render('login/mentions_legales.html.twig');
+    }
+
+    #[Route('/politique_de_confidentialite', name: 'app_politique_de_confidentialite')]
+    public function confidentialite(): Response
+    {
+        return $this->render('login/politique_de_confidentialite.html.twig');
+    }
 }

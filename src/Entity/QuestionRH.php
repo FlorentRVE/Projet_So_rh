@@ -74,7 +74,7 @@ class QuestionRH
 
     public function setQuestion(string $question): static
     {
-        $this->question = $question;
+        $this->question = strip_tags($question);
 
         return $this;
     }

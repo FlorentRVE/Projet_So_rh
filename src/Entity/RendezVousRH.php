@@ -78,7 +78,7 @@ class RendezVousRH
 
     public function setMessage(string $message): static
     {
-        $this->message = $message;
+        $this->message = strip_tags($message);
 
         return $this;
     }

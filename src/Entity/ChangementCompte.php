@@ -56,7 +56,7 @@ class ChangementCompte
 
     public function setFonction(string $fonction): static
     {
-        $this->fonction = $fonction;
+        $this->fonction = strip_tags($fonction);
 
         return $this;
     }

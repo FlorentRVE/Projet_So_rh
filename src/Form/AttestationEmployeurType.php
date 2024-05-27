@@ -36,6 +36,7 @@ class AttestationEmployeurType extends AbstractType
             ->add('fonction')
             ->add('motif', TextareaType::class, [
                 'required' => false,
+                'sanitize_html' => true,
             ])
             ->add('recuperation', ChoiceType::class, [
                 'choices' => [

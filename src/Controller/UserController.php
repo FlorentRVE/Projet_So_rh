@@ -21,9 +21,9 @@ class UserController extends AbstractController
     public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
     {
         $searchTerm = $request->query->get('search');
-        
+
         $donnee = $userRepository->getUsersFromSearch($searchTerm);
-        
+
         $users = $paginator->paginate(
             $donnee,
             $request->query->getInt('page', 1),
@@ -42,12 +42,15 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+        if ($this->isCsrfTokenValid('modify', $request->request->get('_token'))) {
 
-            $this->addFlash('success', 'Utilisateur mis à jour');
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->flush();
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+                $this->addFlash('success', 'Utilisateur mis à jour');
+
+                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('user/edit.html.twig', [
@@ -62,18 +65,22 @@ class UserController extends AbstractController
         $form = $this->createForm(MotDePasseType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-            $entityManager->flush();
 
-            $this->addFlash('success', 'Mot de passe mis à jour');
+        if ($this->isCsrfTokenValid('modify', $request->request->get('_token'))) {
+            
+            if ($form->isSubmitted() && $form->isValid()) {
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    )
+                );
+                $entityManager->flush();
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+                $this->addFlash('success', 'Mot de passe mis à jour');
+
+                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('user/motDePasse.html.twig', [
@@ -85,7 +92,7 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
         }

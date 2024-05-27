@@ -65,7 +65,7 @@ class DemandeAccompte
 
     public function setFonction(string $fonction): static
     {
-        $this->fonction = $fonction;
+        $this->fonction = strip_tags($fonction);
 
         return $this;
     }
@@ -89,7 +89,7 @@ class DemandeAccompte
 
     public function setAccompteLettre(string $accompteLettre): static
     {
-        $this->accompteLettre = $accompteLettre;
+        $this->accompteLettre = strip_tags($accompteLettre);
 
         return $this;
     }
@@ -101,7 +101,7 @@ class DemandeAccompte
 
     public function setMotif(?string $motif): static
     {
-        $this->motif = $motif;
+        $this->motif = strip_tags($motif);
 
         return $this;
     }

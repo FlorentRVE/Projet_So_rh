@@ -73,7 +73,7 @@ class ChangementAdresse
 
     public function setFonction(string $fonction): static
     {
-        $this->fonction = $fonction;
+        $this->fonction = strip_tags($fonction);
 
         return $this;
     }
@@ -109,7 +109,7 @@ class ChangementAdresse
 
     public function setVoie(string $voie): static
     {
-        $this->voie = $voie;
+        $this->voie = strip_tags($voie);
 
         return $this;
     }

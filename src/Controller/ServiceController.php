@@ -58,12 +58,15 @@ class ServiceController extends AbstractController
         $form = $this->createForm(ServiceType::class, $service);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+        if ($this->isCsrfTokenValid('modify', $request->request->get('_token'))) {
 
-            $this->addFlash('success', 'Service mis à jour');
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->flush();
 
-            return $this->redirectToRoute('app_service_index', [], Response::HTTP_SEE_OTHER);
+                $this->addFlash('success', 'Service mis à jour');
+
+                return $this->redirectToRoute('app_service_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('service/edit.html.twig', [

@@ -99,7 +99,7 @@ class DemandeBulletinSalaire
 
     public function setFonction(string $fonction): static
     {
-        $this->fonction = $fonction;
+        $this->fonction = strip_tags($fonction);
 
         return $this;
     }
@@ -135,7 +135,7 @@ class DemandeBulletinSalaire
 
     public function setMotif(string $motif): static
     {
-        $this->motif = $motif;
+        $this->motif = strip_tags($motif);
 
         return $this;
     }

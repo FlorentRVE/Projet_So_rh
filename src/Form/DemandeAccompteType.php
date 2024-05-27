@@ -20,7 +20,10 @@ class DemandeAccompteType extends AbstractType
             ->add('fonction')
             ->add('accompteChiffre', NumberType::class)
             ->add('accompteLettre', TextType::class)
-            ->add('motif', TextareaType::class)
+            ->add('motif', TextareaType::class, [
+                'required' => false,
+                'sanitize_html' => true,
+            ])
             ->add('faitA')
             ->add('faitLe', DateType::class, [
                 'widget' => 'single_text',

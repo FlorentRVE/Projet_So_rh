@@ -38,23 +38,29 @@ class ChangementCompteController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // ================== Gestion fichier ================
-
             if ($files) {
                 $filesList = [];
 
                 foreach ($files as $file) {
                     if (null !== $file) {
-
                         $directory = 'fichier';
-                        $filename = uniqid().'.'.$file['rib']->getClientOriginalExtension();
+                        $filename = uniqid() . '.' . $file['rib']->getClientOriginalExtension();
+                        $fileExtension = $file['rib']->getClientOriginalExtension();
+
+                        if (!in_array($fileExtension, ['pdf', 'jpg', 'png'])) {
+                            $this->addFlash('danger', 'Le fichier doit être au format PDF, JPG ou PNG');
+
+                            return $this->render('demandes/changement_compte/index.html.twig', [
+                                'form' => $form,
+                            ]);
+                        }
+
                         $file['rib']->move($directory, $filename);
-                        $filePath = $directory.'/'.$filename;
+                        $filePath = $directory . '/' . $filename;
 
                         $filesList[] = $filePath;
                     } else {
-
-                        $errors['file'] = ['Le fichier est obligatoire'];
-                        $this->addFlash('danger', $errors);
+                        $this->addFlash('danger', 'Le fichier est obligatoire');
 
                         return $this->render('demandes/changement_compte/index.html.twig', [
                             'form' => $form,
@@ -72,15 +78,15 @@ class ChangementCompteController extends AbstractController
             $email_to = $_ENV['EMAIL_TO'];
 
             $email = (new Email())
-            ->from($email_from)
-            ->to($email_to)
-            ->cc($changementCompte->getService()->getEmailSecretariat(), $changementCompte->getService()->getEmailResponsable())
-            ->subject($formTitle)
-            ->html($this->renderView('email/changementCompte.html.twig', [
-                'formData' => $changementCompte,
-                'formTitle' => $formTitle,
-                'user' => $user->getUserIdentifier(),
-            ]));
+                ->from($email_from)
+                ->to($email_to)
+                ->cc($changementCompte->getService()->getEmailSecretariat(), $changementCompte->getService()->getEmailResponsable())
+                ->subject($formTitle)
+                ->html($this->renderView('email/changementCompte.html.twig', [
+                    'formData' => $changementCompte,
+                    'formTitle' => $formTitle,
+                    'user' => $user->getUserIdentifier(),
+                ]));
 
             if (isset($filesList)) {
                 foreach ($filesList as $filePath) {
@@ -151,7 +157,7 @@ class ChangementCompteController extends AbstractController
     #[Route('/changement_compte_list/{id}', name: 'app_changement_compte_delete', methods: ['POST'])]
     public function delete(Request $request, ChangementCompte $changementCompte, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$changementCompte->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $changementCompte->getId(), $request->request->get('_token'))) {
             $entityManager->remove($changementCompte);
             $entityManager->flush();
         }

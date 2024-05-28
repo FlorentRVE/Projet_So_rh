@@ -24,7 +24,7 @@ class LoginController extends AbstractController
             $errorArray[] = $error->getMessage();
 
             if($errorArray[1] == ""){
-                $errorArray[1] = "Trop de tentative de login. Veuillez réessayer dans 1 minute.";
+                $errorArray[1] = "Trop de tentative de login infructueuses. Veuillez réessayer dans 1 minute.";
             }
 
             $this->addFlash('danger', $errorArray);

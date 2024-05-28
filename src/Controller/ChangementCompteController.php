@@ -42,14 +42,15 @@ class ChangementCompteController extends AbstractController
                 $filesList = [];
 
                 foreach ($files as $file) {
+
                     if (null !== $file) {
                         $directory = 'fichier';
                         $filename = uniqid() . '.' . $file['rib']->getClientOriginalExtension();
                         $fileExtension = $file['rib']->getClientOriginalExtension();
 
                         if (!in_array($fileExtension, ['pdf', 'jpg', 'png'])) {
-                            $this->addFlash('danger', 'Le fichier doit être au format PDF, JPG ou PNG');
 
+                            $this->addFlash('danger', ['Le fichier doit être au format PDF, JPG ou PNG']);
                             return $this->render('demandes/changement_compte/index.html.twig', [
                                 'form' => $form,
                             ]);
@@ -57,14 +58,15 @@ class ChangementCompteController extends AbstractController
 
                         $file['rib']->move($directory, $filename);
                         $filePath = $directory . '/' . $filename;
-
                         $filesList[] = $filePath;
-                    } else {
-                        $this->addFlash('danger', 'Le fichier est obligatoire');
 
+                    } else {
+
+                        $this->addFlash('danger', ['Le fichier est obligatoire']);
                         return $this->render('demandes/changement_compte/index.html.twig', [
                             'form' => $form,
                         ]);
+
                     }
                 }
             }

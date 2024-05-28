@@ -25,6 +25,8 @@ security:
 
                 # where to redirect after logout
                 target: app_login
+            login_throttling:
+                max_attempts: 5
         secured_area:
             # ...
             form_login:

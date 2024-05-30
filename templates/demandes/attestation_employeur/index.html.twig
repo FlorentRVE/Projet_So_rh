@@ -43,7 +43,7 @@
                         {{ form_widget(form.recuperation, {'attr': {'class': 'p-2 rounded-lg'}}) }}
                     </div>
 
-                    <button class="bg-sky-500 text-white p-2 rounded-lg mt-10 font-semibold text-lg">{{ button_label|default('Envoyer') }}</button>
+                    <button class="bg-sky-500 text-white p-2 rounded-lg mt-10 font-semibold text-lg" name="submit">{{ button_label|default('Envoyer') }}</button>
                 </div>
             {{ form_end(form) }}
         </div>

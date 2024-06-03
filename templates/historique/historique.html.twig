@@ -4,31 +4,33 @@
 
 {% block body %}
 
-    <content>
-        <div class="bg-sky-200 min-h-screen w-full">
+    <div class="bg-sky-200 min-h-screen w-full">
 
-            <div class="flex p-4 justify-between items-center bg-slate-50">
+        <div class="flex p-4 justify-between items-center bg-slate-50">
 
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('app_user_index') }}"  class="text-lg"><i class="fa-solid fa-arrow-left"></i></a>
-                {% else %}
-                    <a href="{{ path('app_accueil') }}"  class="text-lg"><i class="fa-solid fa-arrow-left"></i></a>
-                {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_user_index') }}"  class="text-lg"><i class="fa-solid fa-arrow-left"></i></a>
+            {% else %}
+                <a href="{{ path('app_accueil') }}"  class="text-lg"><i class="fa-solid fa-arrow-left"></i></a>
+            {% endif %}
 
-                <h1 class="text-3xl font-semibold text-center">Historique</h1>
-                <p></p>
+            <h1 class="text-3xl font-semibold text-center">Historique</h1>
+            <p></p>
 
-            </div>
-
-            <div class="flex flex-col lg:w-[70%] mx-auto">
-                {{include('historique/_tableau.html.twig', {'title': 'Attestation Employeur','demandes': user.AttestationEmployeurs,'pathId': 'app_attestation_employeur_historique'})}}
-                {{include('historique/_tableau.html.twig', {'title': 'Changement d\'adresse','demandes': user.ChangementAdresses,'pathId': 'app_changement_adresse_historique'})}}
-                {{include('historique/_tableau.html.twig', {'title': 'Changement de compte','demandes': user.ChangementComptes,'pathId': 'app_changement_compte_historique'})}}
-                {{include('historique/_tableau.html.twig', {'title': 'Demande d\'accomptes','demandes': user.DemandeAccomptes,'pathId': 'app_demande_accompte_historique'})}}
-                {{include('historique/_tableau.html.twig', {'title': 'Demande de bulletin de salaires','demandes': user.DemandeBulletinSalaires,'pathId': 'app_demande_bulletin_salaire_historique'})}}
-                {{include('historique/_tableau.html.twig', {'title': 'Question RH','demandes': user.QuestionRHs,'pathId': 'app_question_rh_historique'})}}
-                {{include('historique/_tableau.html.twig', {'title': 'Rendez-vous RH','demandes': user.RendezVousRHs,'pathId': 'app_rendez_vous_rh_historique'})}}
-            </div>
         </div>
-    </content>
+
+        <div class="flex flex-col lg:w-[70%] mx-auto">
+            {{include('historique/_tableau.html.twig', {'title': 'Attestation Employeur','demandes': user.AttestationEmployeurs,'pathId': 'app_attestation_employeur_historique'})}}
+            {{include('historique/_tableau.html.twig', {'title': 'Changement d\'adresse','demandes': user.ChangementAdresses,'pathId': 'app_changement_adresse_historique'})}}
+            {{include('historique/_tableau.html.twig', {'title': 'Changement de compte','demandes': user.ChangementComptes,'pathId': 'app_changement_compte_historique'})}}
+            {{include('historique/_tableau.html.twig', {'title': 'Demande d\'accomptes','demandes': user.DemandeAccomptes,'pathId': 'app_demande_accompte_historique'})}}
+            {{include('historique/_tableau.html.twig', {'title': 'Demande de bulletin de salaires','demandes': user.DemandeBulletinSalaires,'pathId': 'app_demande_bulletin_salaire_historique'})}}
+            {{include('historique/_tableau.html.twig', {'title': 'Question RH','demandes': user.QuestionRHs,'pathId': 'app_question_rh_historique'})}}
+            {{include('historique/_tableau.html.twig', {'title': 'Rendez-vous RH','demandes': user.RendezVousRHs,'pathId': 'app_rendez_vous_rh_historique'})}}
+        </div>
+
+        <div>
+            <button class="topBtn fixed bottom-[5%] right-[2%] bg-sky-900 text-slate-100 px-3 py-2 rounded-full font-bold shadow-lg hover:scale-110">Haut de page</button>
+        </div>
+    </div>
 {% endblock %}

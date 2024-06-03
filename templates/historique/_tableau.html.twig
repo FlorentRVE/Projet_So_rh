@@ -9,7 +9,7 @@
             <div class="flex justify-between items-center bg-slate-50 p-3 rounded-xl my-2 shadow-lg">
                 <p class="text-center font-semibold text-xl">{{ demande.faitLe.format('d/m/Y') }}</p>
 
-                <div class="text-center p-3 ">
+                <div class="text-center p-3 hover:scale-110">
                     <a href="{{ path(pathId, {'id': demande.id, 'userID': user.id}) }}" class="text-xl bg-slate-900 text-slate-100 rounded-2xl text-center px-5 py-3 shadow-lg font-semibold hover:cursor-pointer">Voir</a>
                 </div>
             </div>

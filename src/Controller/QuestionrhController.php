@@ -7,6 +7,7 @@ use App\Form\QuestionrhType;
 use App\Repository\QuestionRHRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,16 +47,17 @@ class QuestionrhController extends AbstractController
             $email_from = $_ENV['EMAIL_FROM'];
             $email_to = $_ENV['EMAIL_TO'];
 
-            $email = (new Email())
+            $email = (new TemplatedEmail())
             ->from($email_from)
             ->to($email_to)
             ->cc($questionRh->getService()->getEmailSecretariat(), $questionRh->getService()->getEmailResponsable())
             ->subject($formTitle)
-            ->html($this->renderView('email/questionRh.html.twig', [
+            ->htmlTemplate('email/questionRh.html.twig')
+            ->context([
                 'formData' => $questionRh,
                 'formTitle' => $formTitle,
                 'user' => $user->getUserIdentifier(),
-            ]));
+            ]);
 
             $mailer->send($email);
 

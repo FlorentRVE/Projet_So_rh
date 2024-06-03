@@ -7,6 +7,7 @@ use App\Form\RendezVousRhType;
 use App\Repository\RendezVousRHRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,16 +47,17 @@ class RendezVousRhController extends AbstractController
             $email_from = $_ENV['EMAIL_FROM'];
             $email_to = $_ENV['EMAIL_TO'];
 
-            $email = (new Email())
+            $email = (new TemplatedEmail())
             ->from($email_from)
             ->to($email_to)
             ->cc($rendezVousRh->getService()->getEmailSecretariat(), $rendezVousRh->getService()->getEmailResponsable())
             ->subject($formTitle)
-            ->html($this->renderView('email/rendezVousRh.html.twig', [
+            ->htmlTemplate('email/rendezVousRh.html.twig')
+            ->context([
                 'formData' => $rendezVousRh,
                 'formTitle' => $formTitle,
                 'user' => $user->getUserIdentifier(),
-            ]));
+            ]);
 
             $mailer->send($email);
 

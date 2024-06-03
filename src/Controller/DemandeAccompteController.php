@@ -7,6 +7,7 @@ use App\Form\DemandeAccompteType;
 use App\Repository\DemandeAccompteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,16 +44,17 @@ class DemandeAccompteController extends AbstractController
             $email_from = $_ENV['EMAIL_FROM'];
             $email_to = $_ENV['EMAIL_TO'];
 
-            $email = (new Email())
+            $email = (new TemplatedEmail())
             ->from($email_from)
             ->to($email_to)
             ->cc($demandeAccompte->getService()->getEmailSecretariat(), $demandeAccompte->getService()->getEmailResponsable())
             ->subject($formTitle)
-            ->html($this->renderView('email/demandeAccompte.html.twig', [
+            ->htmlTemplate('email/demandeAccompte.html.twig')
+            ->context([
                 'formData' => $demandeAccompte,
                 'formTitle' => $formTitle,
                 'user' => $user->getUserIdentifier(),
-            ]));
+            ]);
 
             $mailer->send($email);
 

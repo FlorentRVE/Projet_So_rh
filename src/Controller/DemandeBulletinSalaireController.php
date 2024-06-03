@@ -7,6 +7,7 @@ use App\Form\DemandeBulletinSalaireType;
 use App\Repository\DemandeBulletinSalaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,16 +45,17 @@ class DemandeBulletinSalaireController extends AbstractController
             $email_from = $_ENV['EMAIL_FROM'];
             $email_to = $_ENV['EMAIL_TO'];
 
-            $email = (new Email())
+            $email = (new TemplatedEmail())
             ->from($email_from)
             ->to($email_to)
             ->cc($demandeBulletinSalaire->getService()->getEmailSecretariat(), $demandeBulletinSalaire->getService()->getEmailResponsable())
             ->subject($formTitle)
-            ->html($this->renderView('email/demandeBulletinSalaire.html.twig', [
+            ->htmlTemplate('email/demandeBulletinSalaire.html.twig')
+            ->context([
                 'formData' => $demandeBulletinSalaire,
                 'formTitle' => $formTitle,
                 'user' => $user->getUserIdentifier(),
-            ]));
+            ]);
 
             $mailer->send($email);
 

@@ -7,6 +7,7 @@ use App\Form\ChangementCompteType;
 use App\Repository\ChangementCompteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,16 +80,17 @@ class ChangementCompteController extends AbstractController
             $email_from = $_ENV['EMAIL_FROM'];
             $email_to = $_ENV['EMAIL_TO'];
 
-            $email = (new Email())
-                ->from($email_from)
-                ->to($email_to)
-                ->cc($changementCompte->getService()->getEmailSecretariat(), $changementCompte->getService()->getEmailResponsable())
-                ->subject($formTitle)
-                ->html($this->renderView('email/changementCompte.html.twig', [
-                    'formData' => $changementCompte,
-                    'formTitle' => $formTitle,
-                    'user' => $user->getUserIdentifier(),
-                ]));
+            $email = (new TemplatedEmail())
+            ->from($email_from)
+            ->to($email_to)
+            ->cc($changementCompte->getService()->getEmailSecretariat(), $changementCompte->getService()->getEmailResponsable())
+            ->subject($formTitle)
+            ->htmlTemplate('email/changementCompte.html.twig')
+            ->context([
+                'formData' => $changementCompte,
+                'formTitle' => $formTitle,
+                'user' => $user->getUserIdentifier(),
+            ]);
 
             if (isset($filesList)) {
                 foreach ($filesList as $filePath) {

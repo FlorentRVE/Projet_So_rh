@@ -7,6 +7,7 @@ use App\Form\ChangementAdresseType;
 use App\Repository\ChangementAdresseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,16 +44,17 @@ class ChangementAdresseController extends AbstractController
             $email_from = $_ENV['EMAIL_FROM'];
             $email_to = $_ENV['EMAIL_TO'];
 
-            $email = (new Email())
+            $email = (new TemplatedEmail())
             ->from($email_from)
             ->to($email_to)
             ->cc($changementAdresse->getService()->getEmailSecretariat(), $changementAdresse->getService()->getEmailResponsable())
             ->subject($formTitle)
-            ->html($this->renderView('email/changementAdresse.html.twig', [
+            ->htmlTemplate('email/changementAdresse.html.twig')
+            ->context([
                 'formData' => $changementAdresse,
                 'formTitle' => $formTitle,
                 'user' => $user->getUserIdentifier(),
-            ]));
+            ]);
 
             $mailer->send($email);
 

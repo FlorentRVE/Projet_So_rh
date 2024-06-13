@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  database:
+    image: mysql:8.0
+    restart: always
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: SO_RH
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+    volumes:
+      - db:/var/lib/mysql
+
+  apps:
+    image: 3145fed30e690d458e3cc07cd83e9ddaba724d65a770fe0b49073b723cee6e67 
+    ports:
+      - "8080:80"
+    environment:
+      DATABASE_URL: mysql://root:root@mysql:3306/SO_RH
+
+volumes:
+  db:

@@ -7,13 +7,21 @@ services:
     container_name: mysql
     environment:
       MYSQL_DATABASE: SO_RH
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user
+      MYSQL_ROOT_PASSWORD: root
     volumes:
       - db:/var/lib/mysql
 
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql
+    restart: always
+    ports:
+      - 7777:8080
+
   apps:
-    image: 3145fed30e690d458e3cc07cd83e9ddaba724d65a770fe0b49073b723cee6e67 
+    image: projetsorh:latest 
     ports:
       - "8080:80"
     environment:

@@ -4,28 +4,29 @@ services:
   database:
     image: mysql:8.0
     restart: always
-    container_name: mysql
+    container_name: mysql_sorh
     environment:
       MYSQL_DATABASE: SO_RH
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - db:/var/lib/mysql
+      - db:/var/lib/mysql_sorh
 
   adminer:
     image: adminer:latest
-    container_name: adminer
+    container_name: adminer_sorh
     environment:
-      ADMINER_DEFAULT_SERVER: mysql
+      ADMINER_DEFAULT_SERVER: mysql_sorh
     restart: always
     ports:
       - 7777:8080
 
   apps:
-    image: projetsorh:latest 
+    image: projetsorh:latest
+    container_name: app_sorh
     ports:
       - "8080:80"
     environment:
-      DATABASE_URL: mysql://root:root@mysql:3306/SO_RH
+      DATABASE_URL: mysql://root:root@mysql_sorh:3306/SO_RH
 
 volumes:
   db:

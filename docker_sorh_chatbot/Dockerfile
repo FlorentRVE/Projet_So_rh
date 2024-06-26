@@ -8,7 +8,7 @@ RUN apt update && apt install -y nodejs npm
 
 COPY --chown=www-data:www-data . /var/www/
 
-COPY ./docker_sorh/apache.conf /etc/apache2/sites-available/000-default.conf
+COPY ./docker_sorh_chatbot/apache.conf /etc/apache2/sites-available/000-default.conf
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 

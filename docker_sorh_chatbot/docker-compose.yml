@@ -4,29 +4,29 @@ services:
   database:
     image: mysql:8.0
     restart: always
-    container_name: mysql_sorh
+    container_name: mysql_sorh_chatbot
     environment:
       MYSQL_DATABASE: SO_RH
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - db:/var/lib/mysql_sorh
+      - db:/var/lib/mysql_sorh_chatbot
 
   adminer:
     image: adminer:latest
-    container_name: adminer_sorh
+    container_name: adminer_sorh_chatbot
     environment:
-      ADMINER_DEFAULT_SERVER: mysql_sorh
+      ADMINER_DEFAULT_SERVER: mysql_sorh_chatbot
     restart: always
     ports:
       - 7777:8080
 
   apps:
-    image: projetsorh:latest
-    container_name: app_sorh
+    image: projetsorhchatbot:latest
+    container_name: app_sorh_chatbot
     ports:
       - "8080:80"
     environment:
-      DATABASE_URL: mysql://root:root@mysql_sorh:3306/SO_RH
+      DATABASE_URL: mysql://root:root@mysql_sorh_chatbot:3306/SO_RH
 
 volumes:
   db:

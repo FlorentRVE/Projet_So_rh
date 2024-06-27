@@ -8,12 +8,11 @@ use App\Repository\RendezVousRHRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RendezVousRhController extends AbstractController
@@ -32,7 +31,7 @@ class RendezVousRhController extends AbstractController
         $form = $this->createForm(RendezVousRhType::class, $rendezVousRh);
 
         $form->handleRequest($request);
-        $formTitle = 'Rendez-vous RH - ' . $rendezVousRh->getRdvAvec();
+        $formTitle = 'Rendez-vous RH - '.$rendezVousRh->getRdvAvec();
         $user = $this->security->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -109,7 +108,7 @@ class RendezVousRhController extends AbstractController
     public function show(RendezVousRH $rendezVousRH): Response
     {
         return $this->render('demandes/rendez_vous_rh/show.html.twig', [
-            'demande' => $rendezVousRH
+            'demande' => $rendezVousRH,
         ]);
     }
 

@@ -43,7 +43,6 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($this->isCsrfTokenValid('modify', $request->request->get('_token'))) {
-
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager->flush();
 
@@ -65,9 +64,7 @@ class UserController extends AbstractController
         $form = $this->createForm(MotDePasseType::class, $user);
         $form->handleRequest($request);
 
-
         if ($this->isCsrfTokenValid('modify', $request->request->get('_token'))) {
-            
             if ($form->isSubmitted() && $form->isValid()) {
                 $user->setPassword(
                     $userPasswordHasher->hashPassword(
@@ -92,7 +89,7 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
         }

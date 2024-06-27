@@ -13,7 +13,6 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DemandeAccompteController extends AbstractController
@@ -106,7 +105,7 @@ class DemandeAccompteController extends AbstractController
     public function show(DemandeAccompte $demandeAccompte): Response
     {
         return $this->render('demandes/accompte/show.html.twig', [
-            'demande' => $demandeAccompte
+            'demande' => $demandeAccompte,
         ]);
     }
 

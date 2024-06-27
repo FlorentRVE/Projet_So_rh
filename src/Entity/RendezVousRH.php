@@ -38,10 +38,11 @@ class RendezVousRH
     #[ORM\JoinColumn(nullable: false)]
     private ?User $demandeur = null;
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->service->getLabel();
-
     }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -2,17 +2,17 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Repository\DemandeBulletinSalaireRepository;
 use App\Repository\AttestationEmployeurRepository;
 use App\Repository\ChangementAdresseRepository;
 use App\Repository\ChangementCompteRepository;
 use App\Repository\DemandeAccompteRepository;
+use App\Repository\DemandeBulletinSalaireRepository;
 use App\Repository\QuestionRHRepository;
 use App\Repository\RendezVousRHRepository;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ExcelController extends AbstractController
 {
     // ================ EXPORTATION DES DONNEES AU FORMAT XLSX ================
-    
+
     #[Route('/attestation_employeur', name: 'app_excel_attestation_employeur', methods: ['GET'])]
     public function excelExportAttestationEmployeur(Request $request, AttestationEmployeurRepository $ar): Response
     {

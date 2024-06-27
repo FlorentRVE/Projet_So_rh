@@ -32,7 +32,7 @@ class AccueilController extends AbstractController
 
     // ======================= PARTIE ADMIN ==========================
     // =============== Choix des formulaires à consulter ==============
-    
+
     #[Route('/gestion_formulaire', name: 'app_accueil_admin')]
     public function admin(): Response
     {

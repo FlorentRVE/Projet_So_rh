@@ -7,7 +7,6 @@ use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
 use BotMan\Drivers\Web\WebDriver as Driver;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ChatBotController extends AbstractController
@@ -223,7 +222,7 @@ class ChatBotController extends AbstractController
         // Start listening
         $botman->listen();
 
-        die();
+        exit;
     }
 
     #[Route('/chatbotvue', name: 'app_chatbot_vue')]

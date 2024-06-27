@@ -59,7 +59,6 @@ class ServiceController extends AbstractController
         $form->handleRequest($request);
 
         if ($this->isCsrfTokenValid('modify', $request->request->get('_token'))) {
-
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager->flush();
 
@@ -84,7 +83,7 @@ class ServiceController extends AbstractController
         }
 
         $this->addFlash('success', 'Service supprimé');
-        
+
         return $this->redirectToRoute('app_service_index', [], Response::HTTP_SEE_OTHER);
     }
 }

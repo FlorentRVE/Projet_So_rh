@@ -13,7 +13,6 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ChangementCompteController extends AbstractController
@@ -43,31 +42,28 @@ class ChangementCompteController extends AbstractController
                 $filesList = [];
 
                 foreach ($files as $file) {
-
                     if (null !== $file) {
                         $directory = 'fichier';
-                        $filename = uniqid() . '.' . $file['rib']->getClientOriginalExtension();
+                        $filename = uniqid().'.'.$file['rib']->getClientOriginalExtension();
                         $fileExtension = $file['rib']->getClientOriginalExtension();
 
                         if (!in_array($fileExtension, ['pdf', 'jpg', 'png'])) {
-
                             $this->addFlash('danger', ['Le fichier doit être au format PDF, JPG ou PNG']);
+
                             return $this->render('demandes/changement_compte/index.html.twig', [
                                 'form' => $form,
                             ]);
                         }
 
                         $file['rib']->move($directory, $filename);
-                        $filePath = $directory . '/' . $filename;
+                        $filePath = $directory.'/'.$filename;
                         $filesList[] = $filePath;
-
                     } else {
-
                         $this->addFlash('danger', ['Le fichier est obligatoire']);
+
                         return $this->render('demandes/changement_compte/index.html.twig', [
                             'form' => $form,
                         ]);
-
                     }
                 }
             }
@@ -154,14 +150,14 @@ class ChangementCompteController extends AbstractController
     public function show(ChangementCompte $changementCompte): Response
     {
         return $this->render('demandes/changement_compte/show.html.twig', [
-            'demande' => $changementCompte
+            'demande' => $changementCompte,
         ]);
     }
 
     #[Route('/changement_compte_list/{id}', name: 'app_changement_compte_delete', methods: ['POST'])]
     public function delete(Request $request, ChangementCompte $changementCompte, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $changementCompte->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$changementCompte->getId(), $request->request->get('_token'))) {
             $entityManager->remove($changementCompte);
             $entityManager->flush();
         }

@@ -13,7 +13,6 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ChangementAdresseController extends AbstractController
@@ -106,7 +105,7 @@ class ChangementAdresseController extends AbstractController
     public function show(ChangementAdresse $changementAdresse): Response
     {
         return $this->render('demandes/changement_adresse/show.html.twig', [
-            'demande' => $changementAdresse
+            'demande' => $changementAdresse,
         ]);
     }
 

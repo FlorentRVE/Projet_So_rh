@@ -13,7 +13,6 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class QuestionrhController extends AbstractController
@@ -80,7 +79,7 @@ class QuestionrhController extends AbstractController
 
     // ========================================= PARTIE ADMIN ===========================================
     // ======================= Afficher tous les formulaires question RH ===========================
-   
+
     #[Route('/questionrh_list', name: 'app_questionrh_index', methods: ['GET'])]
     public function list(Request $request, QuestionRHRepository $qr, PaginatorInterface $paginator): Response
     {
@@ -109,7 +108,7 @@ class QuestionrhController extends AbstractController
     public function show(QuestionRH $questionRH): Response
     {
         return $this->render('demandes/question_rh/show.html.twig', [
-            'demande' => $questionRH
+            'demande' => $questionRH,
         ]);
     }
 

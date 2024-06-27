@@ -37,8 +37,8 @@ class AttestationEmployeurRepository extends ServiceEntityRepository
                 d.motif LIKE :searchTerm OR
                 d.recuperation LIKE :searchTerm OR
                 d.faitLe LIKE :searchTerm')
-            ->setParameter('searchTerm', '%' . $searchTerm . '%')
-            ->orderBy('d.faitLe', 'DESC')            
+            ->setParameter('searchTerm', '%'.$searchTerm.'%')
+            ->orderBy('d.faitLe', 'DESC')
             ->getQuery()
             ->getResult();
     }

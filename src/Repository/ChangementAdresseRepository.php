@@ -52,7 +52,6 @@ class ChangementAdresseRepository extends ServiceEntityRepository
         ;
     }
 
-
     //    /**
     //     * @return ChangementAdresse[] Returns an array of ChangementAdresse objects
     //     */

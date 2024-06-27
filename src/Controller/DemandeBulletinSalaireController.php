@@ -13,7 +13,6 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DemandeBulletinSalaireController extends AbstractController
@@ -107,7 +106,7 @@ class DemandeBulletinSalaireController extends AbstractController
     public function show(DemandeBulletinSalaire $demandeBulletinSalaire): Response
     {
         return $this->render('demandes/bulletin_salaire/show.html.twig', [
-            'demande' => $demandeBulletinSalaire
+            'demande' => $demandeBulletinSalaire,
         ]);
     }
 

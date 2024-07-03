@@ -29,7 +29,7 @@ Les objectifs du projet :
 
 ### Screenshot
 
-![screenshot](/Animation_4.gif)
+![screenshot](/so_rh.png)
 
 
 ## Méthode

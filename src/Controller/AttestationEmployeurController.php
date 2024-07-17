@@ -45,7 +45,7 @@ class AttestationEmployeurController extends AbstractController
             $email_from = $_ENV['EMAIL_FROM'];
             $email_to = $_ENV['EMAIL_TO'];
 
-            $email = ( new TemplatedEmail() )
+            $email = (new TemplatedEmail())
             ->from($email_from)
             ->to($email_to)
             ->cc($attestationEmployeur->getService()->getEmailSecretariat(), $attestationEmployeur->getService()->getEmailResponsable())

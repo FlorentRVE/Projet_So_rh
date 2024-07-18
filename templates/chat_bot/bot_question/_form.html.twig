@@ -1,0 +1,31 @@
+{# ========== Formulaire principal ============ #}
+
+    <div class="bg-slate-800 p-7 mx-auto my-6 rounded-xl w-4/5 shadow-xl">
+
+        <div class="w-11/12 mx-auto flex flex-col">
+            
+            {{ form_start(form) }}
+                <div class="mb-8 flex flex-col">
+                    {{ form_label(form.question, 'Question', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                    {{ form_widget(form.question, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                </div>
+
+                <div class="mb-8 flex flex-col">
+                    {{ form_label(form.reponse, 'Réponse', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                    {{ form_widget(form.reponse, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                </div>
+
+                <div class="mb-8 flex flex-col">
+                    {{ form_label(form.categorie, 'Catégorie', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                    {{ form_widget(form.categorie, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                </div>
+
+                {{ form_errors(form, {'class': 'text-red-600 uppercase font-semibold mb-2'}) }}
+                
+                <div class="flex flex-col">
+                    <input type="hidden" name="_token" value="{{ csrf_token('modify') }}">
+                    <button type="submit" class="w-full btn bg-green-500 rounded-2xl text-center hover:brightness-125 shadow-lg font-bold px-7 py-3 text-lg md:w-1/3 md:self-end">{{ button_label }}</button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>

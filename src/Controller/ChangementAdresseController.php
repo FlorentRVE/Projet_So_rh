@@ -46,7 +46,7 @@ class ChangementAdresseController extends AbstractController
             $email = (new TemplatedEmail())
             ->from($email_from)
             ->to($email_to)
-            ->cc($changementAdresse->getService()->getEmailSecretariat(), $changementAdresse->getService()->getEmailResponsable())
+            ->cc($changementAdresse->getService()->getEmailSecretariat(), $changementAdresse->getService()->getEmailSecretariat2() ?? 'null@test.fr', $changementAdresse->getService()->getEmailResponsable())
             ->subject($formTitle)
             ->htmlTemplate('email/changementAdresse.html.twig')
             ->context([

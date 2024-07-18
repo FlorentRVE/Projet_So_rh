@@ -18,6 +18,11 @@
                 </div>
 
                 <div class="mb-8 flex flex-col">
+                    {{ form_label(form.emailSecretariat2, 'Email Secretariat 2 (Facultatif)', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
+                    {{ form_widget(form.emailSecretariat2, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+                </div>
+
+                <div class="mb-8 flex flex-col">
                     {{ form_label(form.emailResponsable, 'Email Responsable', {'label_attr': {'class': 'text-slate-100 uppercase font-semibold mb-2'}}) }}
                     {{ form_widget(form.emailResponsable, {'attr': {'class': 'p-2 rounded-lg'}}) }}
                 </div>

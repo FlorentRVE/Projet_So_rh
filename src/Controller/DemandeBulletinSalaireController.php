@@ -47,7 +47,7 @@ class DemandeBulletinSalaireController extends AbstractController
             $email = (new TemplatedEmail())
             ->from($email_from)
             ->to($email_to)
-            ->cc($demandeBulletinSalaire->getService()->getEmailSecretariat(), $demandeBulletinSalaire->getService()->getEmailResponsable())
+            ->cc($demandeBulletinSalaire->getService()->getEmailSecretariat(), $demandeBulletinSalaire->getService()->getEmailSecretariat2() ?? 'null@test.fr', $demandeBulletinSalaire->getService()->getEmailResponsable())
             ->subject($formTitle)
             ->htmlTemplate('email/demandeBulletinSalaire.html.twig')
             ->context([

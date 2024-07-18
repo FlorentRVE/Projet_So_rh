@@ -4,8 +4,11 @@ namespace App\Form;
 
 use App\Entity\Service;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 class ServiceType extends AbstractType
 {
@@ -13,8 +16,28 @@ class ServiceType extends AbstractType
     {
         $builder
             ->add('label')
-            ->add('emailSecretariat')
-            ->add('emailResponsable')
+            ->add('emailSecretariat', EmailType::class, [
+                'constraints' => [
+                    new Assert\Email([
+                        'message' => 'L\'adresse email doit être au format valide.',
+                    ]),
+                ],
+            ])
+            ->add('emailSecretariat2', EmailType::class, [
+                'required' => false,
+                'constraints' => [
+                    new Assert\Email([
+                        'message' => 'L\'adresse email doit être au format valide.',
+                    ])
+                ]
+            ])
+            ->add('emailResponsable', EmailType::class, [
+                'constraints' => [
+                    new Assert\Email([
+                        'message' => 'L\'adresse email doit être au format valide.',
+                    ]),
+                ],
+            ])
         ;
     }
 

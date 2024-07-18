@@ -46,7 +46,7 @@ class DemandeAccompteController extends AbstractController
             $email = (new TemplatedEmail())
             ->from($email_from)
             ->to($email_to)
-            ->cc($demandeAccompte->getService()->getEmailSecretariat(), $demandeAccompte->getService()->getEmailResponsable())
+            ->cc($demandeAccompte->getService()->getEmailSecretariat(), $demandeAccompte->getService()->getEmailSecretariat2() ?? 'null@test.fr', $demandeAccompte->getService()->getEmailResponsable())
             ->subject($formTitle)
             ->htmlTemplate('email/demandeAccompte.html.twig')
             ->context([

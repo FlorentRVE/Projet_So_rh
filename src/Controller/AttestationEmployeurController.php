@@ -48,7 +48,7 @@ class AttestationEmployeurController extends AbstractController
             $email = (new TemplatedEmail())
             ->from($email_from)
             ->to($email_to)
-            ->cc($attestationEmployeur->getService()->getEmailSecretariat(), $attestationEmployeur->getService()->getEmailResponsable())
+            ->cc($attestationEmployeur->getService()->getEmailSecretariat(), $attestationEmployeur->getService()->getEmailSecretariat2() ?? 'null@test.fr', $attestationEmployeur->getService()->getEmailResponsable())
             ->subject($formTitle)
             ->htmlTemplate('email/attestationEmployeur.html.twig')
             ->context([

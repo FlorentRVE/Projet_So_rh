@@ -79,7 +79,7 @@ class ChangementCompteController extends AbstractController
             $email = (new TemplatedEmail())
             ->from($email_from)
             ->to($email_to)
-            ->cc($changementCompte->getService()->getEmailSecretariat(), $changementCompte->getService()->getEmailResponsable())
+            ->cc($changementCompte->getService()->getEmailSecretariat(), $changementCompte->getService()->getEmailSecretariat2() ?? 'null@test.fr', $changementCompte->getService()->getEmailResponsable())
             ->subject($formTitle)
             ->htmlTemplate('email/changementCompte.html.twig')
             ->context([

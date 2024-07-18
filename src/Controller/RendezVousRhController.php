@@ -49,7 +49,7 @@ class RendezVousRhController extends AbstractController
             $email = (new TemplatedEmail())
             ->from($email_from)
             ->to($email_to)
-            ->cc($rendezVousRh->getService()->getEmailSecretariat(), $rendezVousRh->getService()->getEmailResponsable())
+            ->cc($rendezVousRh->getService()->getEmailSecretariat(),$rendezVousRh->getService()->getEmailSecretariat2() ?? 'null@test.fr', $rendezVousRh->getService()->getEmailResponsable())
             ->subject($formTitle)
             ->htmlTemplate('email/rendezVousRh.html.twig')
             ->context([

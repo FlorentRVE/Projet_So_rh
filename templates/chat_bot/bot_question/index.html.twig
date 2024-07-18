@@ -33,14 +33,17 @@
 
             <div class="flex flex-col p-4 mt-4 justify-center items-center">
 
-                <a href="{{ path('app_bot_question_new') }}" class="text-slate-50 text-xl text-center bg-sky-800 mb-5 px-4 py-3 font-bold rounded-lg w-[90%]">Nouvelle question</a>
+                <a href="{{ path('app_bot_question_new') }}" class="text-slate-50 text-xl text-center bg-sky-800 mb-5 px-4 py-3 font-bold rounded-lg w-[90%] lg:w-[50%]">Nouvelle question</a>
 
                 <table class="w-full">
                     <tbody>
                     {% for bot_question in bot_questions %}
                         <tr class="border-2 border-slate-900">
+                            <td class="border-2 border-slate-900 bg-slate-950 text-center font-semibold p-2 lg:text-xl w-[10%]">
+                                <p class="text-slate-100">{{ bot_question.categorie.label }}</p>
+                            </td>
                             <td class="border-2 border-slate-900 bg-slate-50 text-center font-semibold p-2 lg:text-xl w-[65%]">
-                                <p>{{ bot_question.question }}</p>
+                                <p class="text-green-700 mb-2">{{ bot_question.question }}</p>
                                 <p>{{ bot_question.reponse }}</p>
                             </td>                      
 

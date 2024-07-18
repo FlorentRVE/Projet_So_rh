@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\BotCategorie;
 use App\Entity\BotQuestion;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,7 +16,7 @@ class BotQuestionType extends AbstractType
     {
         $builder
             ->add('question')
-            ->add('reponse')
+            ->add('reponse', CKEditorType::class)
             ->add('categorie', EntityType::class, [
                 'class' => BotCategorie::class,
                 'choice_label' => 'label',

@@ -38,11 +38,14 @@ class Service
     #[ORM\OneToMany(mappedBy: 'service', targetEntity: ChangementCompte::class)]
     private Collection $changementComptes;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255, nullable: false)]
     private ?string $emailSecretariat = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255, nullable: false)]
     private ?string $emailResponsable = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $email_secretariat_2 = null;
 
     public function __construct()
     {
@@ -290,6 +293,18 @@ class Service
     public function setEmailResponsable(?string $emailResponsable): static
     {
         $this->emailResponsable = $emailResponsable;
+
+        return $this;
+    }
+
+    public function getEmailSecretariat2(): ?string
+    {
+        return $this->email_secretariat_2;
+    }
+
+    public function setEmailSecretariat2(?string $email_secretariat_2): static
+    {
+        $this->email_secretariat_2 = $email_secretariat_2;
 
         return $this;
     }

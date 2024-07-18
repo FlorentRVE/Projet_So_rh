@@ -49,7 +49,7 @@ class QuestionrhController extends AbstractController
             $email = (new TemplatedEmail())
             ->from($email_from)
             ->to($email_to)
-            ->cc($questionRh->getService()->getEmailSecretariat(), $questionRh->getService()->getEmailResponsable())
+            ->cc($questionRh->getService()->getEmailSecretariat(), $questionRh->getService()->getEmailSecretariat2() ?? 'null@test.fr', $questionRh->getService()->getEmailResponsable())
             ->subject($formTitle)
             ->htmlTemplate('email/questionRh.html.twig')
             ->context([

@@ -21,6 +21,18 @@ class BotQuestionRepository extends ServiceEntityRepository
         parent::__construct($registry, BotQuestion::class);
     }
 
+    public function getDataFromSearch($searchTerm)
+    {
+        return $this->createQueryBuilder('q')
+            ->select('q')
+            ->where(':searchTerm = \'\' OR 
+                q.question LIKE :searchTerm OR
+                q.reponse LIKE :searchTerm')
+            ->setParameter('searchTerm', '%' . $searchTerm . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return BotQuestion[] Returns an array of BotQuestion objects
 //     */

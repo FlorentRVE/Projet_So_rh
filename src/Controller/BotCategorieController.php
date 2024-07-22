@@ -33,6 +33,8 @@ class BotCategorieController extends AbstractController
             $entityManager->persist($botCategorie);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Catégorie crée avec succès');
+
             return $this->redirectToRoute('app_bot_categorie_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -58,6 +60,7 @@ class BotCategorieController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+            $this->addFlash('success', 'Catégorie mis à jour avec succès');
 
             return $this->redirectToRoute('app_bot_categorie_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -75,6 +78,8 @@ class BotCategorieController extends AbstractController
             $entityManager->remove($botCategorie);
             $entityManager->flush();
         }
+
+        $this->addFlash('success', 'Catégorie supprimée avec succès');
 
         return $this->redirectToRoute('app_bot_categorie_index', [], Response::HTTP_SEE_OTHER);
     }

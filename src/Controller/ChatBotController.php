@@ -49,7 +49,7 @@ class ChatBotController extends AbstractController
 
                 $botman->hears($question->getQuestion(), function (BotMan $bot) use ($question) {
 
-                    $bot->reply($question->getReponse());
+                    $bot->reply($question->getReponse() . "<br> <br> <a href=\"#\" id=\"reponse\" onclick=\"reponse(this)\">Retour</a>");
                 });
             }
         }

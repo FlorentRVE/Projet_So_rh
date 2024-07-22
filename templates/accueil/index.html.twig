@@ -4,7 +4,8 @@
 
 {% block javascripts %}
 {# ==== ChatBot === #}
-<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+{# <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script> #}
+<script id="botmanWidget" src="{{ asset('/web-widget/build/js/widget.js') }}"></script>
 <script>
 	var botmanWidget = {
 		chatServer: "{{ path('app_chatbot_index') }}",
@@ -18,7 +19,7 @@
 		aboutText: "",
 		bubbleAvatarUrl: "https://media.licdn.com/dms/image/C4D0BAQEJu8tjhvD0pg/company-logo_200_200/0/1641880440715/sodiparc_logo?e=2147483647&v=beta&t=MJDfFE8PRmHeauQ0bU92nNT6TRwBc8roaRY1pmNZb_0"
 		};
-	defer
+	{# defer #}
 </script>
 {% endblock %}
 

@@ -15,10 +15,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class BotQuestionController extends AbstractController
 {
     #[Route('/', name: 'app_bot_question_index', methods: ['GET'])]
-    public function index(BotQuestionRepository $botQuestionRepository): Response
+    public function index(Request $request, BotQuestionRepository $botQuestionRepository): Response
     {
+        $searchTerm = $request->query->get('search');
+
+        $data = $botQuestionRepository->getDataFromSearch($searchTerm);
+
         return $this->render('chat_bot/bot_question/index.html.twig', [
-            'bot_questions' => $botQuestionRepository->findAll(),
+            'bot_questions' => $data,
+            'searchTerm' => $searchTerm,
         ]);
     }
 
@@ -33,6 +38,7 @@ class BotQuestionController extends AbstractController
             $entityManager->persist($botQuestion);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Question crée avec succès');
             return $this->redirectToRoute('app_bot_question_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -59,6 +65,7 @@ class BotQuestionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash('success', 'Question mis à jour avec succès');
             return $this->redirectToRoute('app_bot_question_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -76,6 +83,7 @@ class BotQuestionController extends AbstractController
             $entityManager->flush();
         }
 
+        $this->addFlash('success', 'Question supprimée avec succès');
         return $this->redirectToRoute('app_bot_question_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -24,6 +24,7 @@ class RendezVousRhController extends AbstractController
         $this->security = $security;
     }
 
+    // ================================= Formulaire ==================================
     #[Route('/rendez_vous', name: 'app_rendez_vous_rh')]
     public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {
@@ -78,7 +79,7 @@ class RendezVousRhController extends AbstractController
     }
 
     // ========================================= PARTIE ADMIN ===========================================
-    // ======================= Afficher tous les formulaires rendez-vous RH ===========================
+    // ======================= Affichage de tous les formulaires rendez-vous RH selon la recherche===========================
 
     #[Route('/rendez_vous_rh_list', name: 'app_rendez_vous_rh_index', methods: ['GET'])]
     public function list(Request $request, RendezVousRHRepository $rdvr, PaginatorInterface $paginator): Response
@@ -102,7 +103,7 @@ class RendezVousRhController extends AbstractController
         ]);
     }
 
-    // ======================= Afficher un formulaire rendez-vous RH ===========================
+    // ======================= Affichage/suppression d'un formulaire rendez-vous RH selon son ID ===========================
 
     #[Route('/rendez_vous_rh_list/{id}', name: 'app_rendez_vous_rh_show', methods: ['GET'])]
     public function show(RendezVousRH $rendezVousRH): Response

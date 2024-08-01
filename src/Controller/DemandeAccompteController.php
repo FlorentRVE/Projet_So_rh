@@ -23,7 +23,7 @@ class DemandeAccompteController extends AbstractController
     {
         $this->security = $security;
     }
-
+    // ================================= Formulaire ==================================
     #[Route('/demande_accompte', name: 'app_demande_accompte')]
     public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {
@@ -75,7 +75,7 @@ class DemandeAccompteController extends AbstractController
     }
 
     // ========================================= PARTIE ADMIN ===========================================
-    // ======================= Afficher tous les formulaires de demande d'accompte ===========================
+    // ======================= Affichage de tous les formulaires de demande d'accompte selon la recherche ============================
 
     #[Route('/demande_accompte_list', name: 'app_demande_accompte_index', methods: ['GET'])]
     public function list(Request $request, DemandeAccompteRepository $dar, PaginatorInterface $paginator): Response
@@ -99,7 +99,7 @@ class DemandeAccompteController extends AbstractController
         ]);
     }
 
-    // ======================= Afficher un formulaire de demande d'accompte ===========================
+    // ======================= Affichage/suppression d'un formulaire de demande d'accompte selon son id ===========================
 
     #[Route('/demande_accompte_list/{id}', name: 'app_demande_accompte_show', methods: ['GET'])]
     public function show(DemandeAccompte $demandeAccompte): Response

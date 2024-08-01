@@ -24,6 +24,7 @@ class QuestionrhController extends AbstractController
         $this->security = $security;
     }
 
+    // ================================= Formulaire ==================================
     #[Route('/question', name: 'app_questionrh')]
     public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {
@@ -78,7 +79,7 @@ class QuestionrhController extends AbstractController
     }
 
     // ========================================= PARTIE ADMIN ===========================================
-    // ======================= Afficher tous les formulaires question RH ===========================
+    // ======================= Affichage de tous les formulaires question RH selon recherche ===========================
 
     #[Route('/questionrh_list', name: 'app_questionrh_index', methods: ['GET'])]
     public function list(Request $request, QuestionRHRepository $qr, PaginatorInterface $paginator): Response
@@ -102,7 +103,7 @@ class QuestionrhController extends AbstractController
         ]);
     }
 
-    // ======================= Afficher un formulaire question RH ===========================
+    // ======================= Affichage/suppression d'un formulaire question RH selon son ID ===========================
 
     #[Route('/questionrh_list/{id}', name: 'app_questionrh_show', methods: ['GET'])]
     public function show(QuestionRH $questionRH): Response

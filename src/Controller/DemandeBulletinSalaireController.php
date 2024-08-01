@@ -24,6 +24,7 @@ class DemandeBulletinSalaireController extends AbstractController
         $this->security = $security;
     }
 
+    // ================================= Formulaire ==================================
     #[Route('/demande_bulletin_salaire', name: 'app_demande_bulletin_salaire')]
     public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {
@@ -76,7 +77,7 @@ class DemandeBulletinSalaireController extends AbstractController
     }
 
     // ========================================= PARTIE ADMIN ===========================================
-    // ======================= Afficher tous les formulaires de demande de bulletin de salaire ===========================
+    // ======================= Affichage de tous les formulaires de demande de bulletin de salaire selon recherche ===========================
 
     #[Route('/demande_bulletin_salaire_list', name: 'app_demande_bulletin_salaire_index', methods: ['GET'])]
     public function list(Request $request, DemandeBulletinSalaireRepository $dbsr, PaginatorInterface $paginator): Response
@@ -100,7 +101,7 @@ class DemandeBulletinSalaireController extends AbstractController
         ]);
     }
 
-    // ======================= Afficher un formulaire de demande de bulletin de salaire ===========================
+    // ======================= Affichage/suppression d'un formulaire de demande de bulletin de salaire selon son ID===========================
 
     #[Route('/demande_bulletin_salaire_list/{id}', name: 'app_demande_bulletin_salaire_show', methods: ['GET'])]
     public function show(DemandeBulletinSalaire $demandeBulletinSalaire): Response

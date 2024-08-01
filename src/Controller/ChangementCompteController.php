@@ -24,6 +24,7 @@ class ChangementCompteController extends AbstractController
         $this->security = $security;
     }
 
+    // ================================= Formulaire ==================================
     #[Route('/changement_compte', name: 'app_changement_compte')]
     public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {
@@ -120,7 +121,7 @@ class ChangementCompteController extends AbstractController
     }
 
     // ========================================= PARTIE ADMIN ===========================================
-    // ======================= Afficher tous les formulaires changement compte ===========================
+    // ======================= Affichage de tous les formulaires changement compte selon la recherche===========================
 
     #[Route('/changement_compte_list', name: 'app_changement_compte_index', methods: ['GET'])]
     public function list(Request $request, ChangementCompteRepository $ccr, PaginatorInterface $paginator): Response
@@ -144,7 +145,7 @@ class ChangementCompteController extends AbstractController
         ]);
     }
 
-    // ======================= Afficher un formulaire changement compte ===========================
+    // ======================= Affichage/Suppression d'un formulaire changement compte selon son id ===========================
 
     #[Route('/changement_compte_list/{id}', name: 'app_changement_compte_show', methods: ['GET'])]
     public function show(ChangementCompte $changementCompte): Response

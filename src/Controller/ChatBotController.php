@@ -29,7 +29,7 @@ class ChatBotController extends AbstractController
 
         // Give the bot something to listen for.
 
-        // ===============================
+        // =================== Récupération des questions par catégorie, le ChatBot répond en fonction de la question donnée ============
         
         foreach ($botCategorie as $categorie) {
 
@@ -54,7 +54,7 @@ class ChatBotController extends AbstractController
             }
         }
 
-        // =======================================
+        // =================== Réponse par défaut : affichage des catégories ====================
 
         $botman->fallback(function ($bot) use ($botCategorie) {
             $bot->reply('Choisissez une catégorie :');

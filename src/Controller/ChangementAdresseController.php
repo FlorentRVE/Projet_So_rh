@@ -24,6 +24,7 @@ class ChangementAdresseController extends AbstractController
         $this->security = $security;
     }
 
+    // ================================= Formulaire ==================================
     #[Route('/changement_adresse', name: 'app_changement_adresse')]
     public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {
@@ -75,7 +76,7 @@ class ChangementAdresseController extends AbstractController
     }
 
     // ========================================= PARTIE ADMIN ===========================================
-    // ======================= Afficher tous les formulaires changement adresse ===========================
+    // ======================= Affichage de tous les formulaires changement adresse selon la recherche ===========================
 
     #[Route('/changement_adresse_list', name: 'app_changement_adresse_index', methods: ['GET'])]
     public function list(Request $request, ChangementAdresseRepository $car, PaginatorInterface $paginator): Response
@@ -99,7 +100,7 @@ class ChangementAdresseController extends AbstractController
         ]);
     }
 
-    // ======================= Afficher un formulaire changement adresse ===========================
+    // ======================= Affichage/suppression d'un formulaire changement adresse selon son ID ===========================
 
     #[Route('/changement_adresse_list/{id}', name: 'app_changement_adresse_show', methods: ['GET'])]
     public function show(ChangementAdresse $changementAdresse): Response

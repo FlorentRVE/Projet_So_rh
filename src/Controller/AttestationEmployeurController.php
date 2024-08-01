@@ -24,6 +24,7 @@ class AttestationEmployeurController extends AbstractController
         $this->security = $security;
     }
 
+    // ================================= Formulaire ==================================
     #[Route('/attestation_employeur', name: 'app_attestation_employeur')]
     public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $em): Response
     {
@@ -77,7 +78,7 @@ class AttestationEmployeurController extends AbstractController
     }
 
     // ========================================= PARTIE ADMIN ===========================================
-    // ======================= Afficher tous les formulaires attestation employeur ===========================
+    // ======================= Affichage de tous les formulaires attestation employeur selon la recherche ===========================
 
     #[Route('/attestation_employeur_list', name: 'app_attestation_employeur_index', methods: ['GET'])]
     public function list(Request $request, AttestationEmployeurRepository $ar, PaginatorInterface $paginator): Response
@@ -101,7 +102,7 @@ class AttestationEmployeurController extends AbstractController
         ]);
     }
 
-    // ======================= Afficher un formulaire attestation employeur ===========================
+    // ======================= Affichage/suppression d'un formulaire attestation employeur selon son ID ===========================
 
     #[Route('/attestation_employeur_list/{id}', name: 'app_attestation_employeur_show', methods: ['GET'])]
     public function show(AttestationEmployeur $attestationEmployeur): Response
